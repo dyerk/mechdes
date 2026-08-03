@@ -1,0 +1,107 @@
+/* Navbar container */
+nav {
+  overflow: hidden;
+  background-color: black;
+  font-family: Arial;
+}
+
+/* Links inside the navbar */
+nav a {
+  float: left;
+	display: block;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+	vertical-align: middle;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px; 
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+}
+
+/* Add a red background color to navbar links on hover */
+nav a:hover, .dropdown:hover .dropbtn {
+  background-color: #FF9400;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hide the link that should open and close the navbar on small screens */
+nav .hamburger {
+	display: none;
+}
+	
+/* Media queries: When screen is less than 600 pixels, hide all links except for
+"home". Show the hamburger menu to access rest of links */
+@media screen and (max-width: 575px) {
+	nav a:not(:first-child) {display: none;}
+	nav .dropdown {display: none;}
+	nav a.hamburger {
+		float: right;
+		display: block;
+	}
+}	
+
+/* responsive added to menu to stack vertically rather than horizontally */	
+@media screen and (max-width: 575px) {
+	nav.responsive {position: relative;}
+	nav.responsive a.hamburger {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	nav.responsive .dropdown{
+		display: table-row;
+		float: none;
+	}
+	nav.responsive{
+		overflow: visible;
+	}
+	nav.responsive a{
+		float: none;
+		display: block;
+		text-align: left;
+	}
+}

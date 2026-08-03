@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang='en-us'>
+	<head>
+		<title>Planetary Gearsets</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="../css/navbar.css">
+		<link rel="stylesheet" href="../css/textbook.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+		
+		<!-- Common javascript links -->
+		<script type="text/javascript" src="../js_common/Linkage.js"></script>
+		<script type="text/javascript" src="../js_common/Plot.js"></script>
+		<script type="text/javascript" src="../js_common/Select_Animation.js"></script>
+		<script type="text/javascript" src="../js_common/navbar_Functions.js"></script>
+		<script src="https://use.fontawesome.com/ae4cc48b3e.js"></script>
+		<script type="text/javascript" src="../js_common/Common_Shapes.js"></script>
+		
+		<!-- Page specific javascript links -->
+		<script type="text/javascript" src="../js_common/Common_Shapes_Planetary.js"></script>
+		<script type="text/javascript" src="../js_common/Class_PlanS2P2.js"></script>
+		<script type="text/javascript" src="../js_common/Class_PlanS2P3.js"></script>
+		<script type="text/javascript" src="../js_common/Class_PlanS2P4.js"></script>
+		<script type="text/javascript" src="../ch09/js/sunPlanet.js"></script>	
+	</head>
+	
+	<body class="bkgnd_black">
+		<header class="bkgnd_black">
+			<nav id="topNav">
+				<script type="text/javascript" src="../js_common/navbar.js"></script>
+			</nav>
+		</header>
+	
+		<div class="bkgnd_sides">
+		<main class="bkgnd_white">
+
+			<h1>Chapter 9</h1>
+			<h2>Sun & Planet Planetary Gearsets</h2>
+			
+			<div id="sliderLinks" class="plotControl bkgnd_gray">
+				<ul>
+					<li class="itemLinks" data-pos="0">2 Suns & 2 Planets</li>
+					<li class="itemLinks" data-pos="1">2 Suns & 3 Planets</li>
+					<li class="itemLinks" data-pos="2">2 Suns & 4 Planets</li>
+				</ul>
+			</div> 
+		
+			<!-- ITEM 7 -->
+			<div id="item07" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="07canTr"></canvas>
+					<canvas class="canDraw z_2" id="07canM1"></canvas>
+					<canvas class="canDraw z_3" id="07canM2"></canvas>
+					<canvas class="canDraw z_4" id="07canM3"></canvas>
+					<canvas class="canDraw z_5" id="07canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="07butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="07butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray div-hide">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="07selPin">
+								<option value="B">Point B</option>
+								<option value="P">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="07butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="07butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="07butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="07conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="07sizeAcc"></i> 
+					<canvas class="plot-short" id="07canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="07conVel">
+					<i class="fa fa-toggle-down plotSizer" id="07sizeVel"></i> 
+					<canvas class="plot-short" id="07canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="07conDis">
+					<i class="fa fa-toggle-down plotSizer" id="07sizeDis"></i> 
+					<canvas class="plot-short" id="07canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="07cap">
+					Two suns and two planets.  
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 8 -->
+			<div id="item08" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="08canTr"></canvas>
+					<canvas class="canDraw z_2" id="08canM1"></canvas>
+					<canvas class="canDraw z_3" id="08canM2"></canvas>
+					<canvas class="canDraw z_4" id="08canM3"></canvas>
+					<canvas class="canDraw z_5" id="08canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="08butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="08butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray div-hide">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="08selPin">
+								<option value="B">Point B</option>
+								<option value="P">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="08butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="08butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="08butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="08conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="08sizeAcc"></i> 
+					<canvas class="plot-short" id="08canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="08conVel">
+					<i class="fa fa-toggle-down plotSizer" id="08sizeVel"></i> 
+					<canvas class="plot-short" id="08canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="08conDis">
+					<i class="fa fa-toggle-down plotSizer" id="08sizeDis"></i> 
+					<canvas class="plot-short" id="08canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="08cap">
+					Two suns and three planets.  
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 9 -->
+			<div id="item09" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="09canTr"></canvas>
+					<canvas class="canDraw z_2" id="09canM1"></canvas>
+					<canvas class="canDraw z_3" id="09canM2"></canvas>
+					<canvas class="canDraw z_4" id="09canM3"></canvas>
+					<canvas class="canDraw z_5" id="09canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="09butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="09butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray div-hide">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="09selPin">
+								<option value="B">Point B</option>
+								<option value="P">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="09butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="09butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="09butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="09conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="09sizeAcc"></i> 
+					<canvas class="plot-short" id="09canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="09conVel">
+					<i class="fa fa-toggle-down plotSizer" id="09sizeVel"></i> 
+					<canvas class="plot-short" id="09canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="09conDis">
+					<i class="fa fa-toggle-down plotSizer" id="09sizeDis"></i> 
+					<canvas class="plot-short" id="09canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="09cap">
+					Two suns and four planets.
+				</figcaption>
+			</div>
+		</main>
+		</div> 
+		
+		<footer class="bkgnd_black">
+			<div class="foot">
+				<p>© 2018 Taylor and Francis</p>
+				<p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
+			</div>
+		</footer>
+	</body>
+</html>

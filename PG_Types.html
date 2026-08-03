@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Types of Planetary Gearsets</title>
+  <link href='http://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet' type='text/css'>
+  <link href="Styles.css" rel="stylesheet">
+  <script src="JS/shapes.js"></script>
+  <script src="JS/PG/PG_Types.js"></script>
+</head>
+
+<body>
+  <nav class="top">
+    <script src="JS/Nav_Bar.js"></script>
+  </nav>
+  
+  <img src="images/Planetary_Banner.png" width="960">
+
+  <article>
+    <br>
+    <h1>Types of Planetary Gearsets</h1>
+    <p>Zoltan Levai<span class="super">[1]</span> described a total of 34 different types of planetary gearsets that
+    can be constructed; of these only a few are used in practice.  A few of the more common ones are shown in the
+    section below.  The twelve illustrated by Norton<span class="super">[2]</span> are shown in the
+    <a href="PG_Oddities.html">Planetary Oddities</a> page.  For clarity, only one planet gear
+    is shown for each type; more planets can be added for balancing and to increase the torque capacity of the
+    gearset.</p>
+
+    <br>
+    <hr>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Sun_Ring_Planet.jpg" width = "350"></td>
+        <td class="wht"><img src="images/PG/Sun_Ring_Planet_CS.jpg" width = "260"></td>
+      </tr>
+      <tr>
+        <td>Sun-Ring-Planet gearset</td>
+        <td>Cross-sectional view</td>
+      </tr>
+    </table>
+    <br>
+
+    <h2>Sun, Ring and Planet</h2>
+    <p>The most basic type of planetary gearset is shown in the figures above.  The figure at left shows a
+    three-dimensional view while the figure at right provides a cross-section.  In this geartrain, inputs and output
+    can be taken from the carrier, ring and sun gears, and only the planet experiences epicyclic motion.  This is the
+    most common type of planetary gearset (with the exception of the differential) and it finds application in speed
+    reducers and automatic transmissions.  If you take apart a cordless drill, you'll probably find this type of
+    planetary gearset right behind the drill chuck.</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Two_Suns_Two_Planets.jpg" width = "310"></td>
+        <td class="wht"><img src="images/PG/Two_Suns_Two_Planets_CS.jpg" width = "310"></td>
+      </tr>
+      <tr>
+        <td>Two Suns - Two Planets gearset</td>
+        <td>Cross-sectional view</td>
+      </tr>
+    </table>
+    <br>
+    <h2>Two Suns, Two Planets</h2>
+    <p>The gearset shown above has two sun gears, and the two planet gears (the yellow gears) rotate as a single unit.
+    The sun gears (green and brown) can rotate independently of one another.  The inputs and output can be selected
+    from either sun gear and/or the carrier.  Very high speed reductions can be achieved with this unit, but it can
+    suffer from low efficiency if not designed correctly.  </p>
+
+    <table>
+      <tr>
+        <td><canvas class="noBorder" id="canvas1" width="300" height="250"></canvas></td>
+        <td><canvas class="noBorder" id="canvas2" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play1" value="Play"></td>
+        <td><input type="button" id="play2" value="Play"></td>
+      </tr>
+      <tr>
+        <td>Red sun input - purple sun fixed</td>
+        <td>Purple sun input - red sun fixed</td>
+      </tr>
+    </table>
+    <br>
+    <p>The animations above show the 'two suns - two planets' gearset with one sun as input and the other sun fixed.
+    Note that the carrier rotates clockwise in the animation at left and counterclockwise in the animation at right -
+    despite the fact that the sun rotates counterclockwise in both cases.</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <figure class="pic">
+      <img src="images/PG/Differential.jpg" width = "500">
+      <figcaption>The Differential Gearset</figcaption>
+    </figure>
+
+    <h2>The Differential</h2>
+    <p>The gearset shown above is different from the preceding gearsets in that it is composed of miter gears rather
+    than spur (or helical) gears.  The 'sun' gears are those that do not undergo the epicyclic motion experienced by
+    the planets.  As we will see on the <a href="PG_Analysis_Adv.html">Analysis - advanced</a> page,
+    the differential can be used to measure the difference in speed between two shafts for the purpose of
+    synchronization.  In addition, the differential is often used in automotive drivetrains to overcome the difference
+    in wheel speed when a car goes around a corner.</p>
+    <p>The sun/ring/planet and differential are the two most commonly-encountered planetary gearsets in practice.  To
+    see some more unusual types, click on <a href="PG_Oddities.html">planetary oddities</a></p>
+    <br>
+    <hr>
+    <br>
+    <p class="ref">[1] Levai, Z. (1968). 'Structure and Analysis of Planetary Gear Trains.' <i>Journal of
+    Mechanisms</i>,<b>3</b>, pp. 131-148.</p>
+    <p class="ref">[2] Norton, Robert L. (2008). 'Design of Machinery, 4th Ed.' <i>McGraw-Hill</i>, p. 505.</p>
+    <br>
+  </article>
+  
+  <img src="images/Planetary_Banner_Bottom.png" width="960">
+  
+  <nav class="bottom">
+    <script src="JS/Nav_Bar.js"></script>
+  </nav>
+  
+
+  <footer>
+    <p>Copyright 2013, Eric Constans and Rowan University</p>
+    <p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
+  </footer>
+</body>
+</html>

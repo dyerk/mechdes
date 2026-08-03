@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html lang='en-us'>
+	<head>
+		<title>Interactive Linkages</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="../css/navbar.css">
+		<link rel="stylesheet" href="../css/textbook.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+		
+		<!-- Common javascript links -->
+		<script type="text/javascript" src="../js_common/Interactive_Linkage.js"></script>
+		<script type="text/javascript" src="../js_common/Plot.js"></script>
+		<script type="text/javascript" src="../js_common/Select_Animation.js"></script>
+		<script type="text/javascript" src="../js_common/navbar_Functions.js"></script>
+		<script src="https://use.fontawesome.com/ae4cc48b3e.js"></script>
+		<script type="text/javascript" src="../js_common/Common_Shapes.js"></script>
+		
+		<!-- Page specific javascript links -->
+		<script type="text/javascript" src="../js_common/Class_Threebar.js"></script>
+		<script type="text/javascript" src="../js_common/Class_Fourbar.js"></script>
+		<script type="text/javascript" src="../js_common/Class_Slider_Crank.js"></script>
+		<script type="text/javascript" src="../js_common/Class_Inv_Slider_Crank.js"></script>
+		<script type="text/javascript" src="../js_common/ic_utilities.js"></script>
+		<script type="text/javascript" src="../interactive/js/interactiveLinkages.js"></script>
+		<script type="text/javascript" src="../interactive/js/Fourbar_Classify.js"></script>
+		<script type="text/javascript" src="../interactive/js/Slider_Classify.js"></script>
+		<script type="text/javascript" src="../interactive/js/InvSlider_Classify.js"></script>
+	</head>
+	
+	<body class="bkgnd_black">
+		<header class="bkgnd_black">
+			<nav id="topNav">
+				<script type="text/javascript" src="../js_common/navbar.js"></script>
+			</nav>
+		</header>
+	
+		<div class="bkgnd_sides">
+		<main class="bkgnd_white">
+
+			<h1>Chapter 4</h1>
+			<h2>Interactive Animations</h2>
+			
+			<div id="sliderLinks" class="plotControl bkgnd_gray">
+				<ul>
+					<li class="itemLinks" data-pos="0">Threebar</li>
+					<li class="itemLinks" data-pos="1">Fourbar</li>     
+					<li class="itemLinks" data-pos="2">Slider-Crank</li>
+					<li class="itemLinks" data-pos="3">Inverted<br>Slider</li>
+				</ul>
+			</div> 
+		
+			<!-- ITEM 1 -->
+			<div id="item01" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="01canTr"></canvas>
+					<canvas class="canDraw z_2" id="01canM1"></canvas>
+					<canvas class="canDraw z_3" id="01canM2"></canvas>
+					<canvas class="canDraw z_4" id="01canM3"></canvas>
+					<canvas class="canDraw z_5" id="01canGr"></canvas>
+				</div>
+
+				<div class="interactControl bkgnd_gray">
+					<ul class="plotControl">
+						<li class="" id="01butPlay">Play<br>
+							<i class="fa fa-play"></i>
+						</li>
+						<li class="" id="01butTrace">Trace<br>
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="" id="01butIC">ICs<br>
+							<i class="fa fa-dot-circle-o"></i>
+						</li>
+						<li class="" id="01butReset">Defaults<br>
+							<i class="fa fa-refresh"></i>
+						</li>
+					</ul>
+					<ul>
+						<li>a:&nbsp;<input class="numberBox" id="01A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>d:&nbsp;<input class="numberBox" id="01D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>p:&nbsp;<input class="numberBox" id="01P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+					</ul>
+					<ul class="div-hide">
+						<li>
+							<div class="dropdownMenu" id="selConfig">
+								<select name="selConfig" id="01selConfig">
+									<option value="O">Open</option>
+									<option value="C">Crossed</option>
+								</select>
+							</div>
+						</li>
+						<li>b:&nbsp;<input class="numberBox" id="01B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>c:&nbsp;<input class="numberBox" id="01C" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>β:&nbsp;<input class="numberBox" id="01Beta" type="number" min="-90" max="90" step="1"><br><h3>(-90-90 deg)</h3></li>
+					</ul>
+				</div>	
+
+				<figcaption id="01cap" class="div-hide">
+				  This threebar is Grashof.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 2 -->
+			<div id="item02" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="02canTr"></canvas>
+					<canvas class="canDraw z_2" id="02canM1"></canvas>
+					<canvas class="canDraw z_3" id="02canM2"></canvas>
+					<canvas class="canDraw z_4" id="02canM3"></canvas>
+					<canvas class="canDraw z_5" id="02canGr"></canvas>
+				</div>
+
+				<div class="interactControl bkgnd_gray">
+					<ul class="plotControl">
+						<li class="" id="02butPlay">Play<br>
+							<i class="fa fa-play"></i>
+						</li>
+						<li class="" id="02butTrace">Trace<br>
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="" id="02butIC">ICs<br>
+							<i class="fa fa-dot-circle-o"></i>
+						</li>
+						<li class="" id="02butReset">Defaults<br>
+							<i class="fa fa-refresh"></i>
+						</li>
+					</ul>
+					<ul>
+						<li>a:&nbsp;<input class="numberBox" id="02A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>b:&nbsp;<input class="numberBox" id="02B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>c:&nbsp;<input class="numberBox" id="02C" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>d:&nbsp;<input class="numberBox" id="02D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+					</ul>
+					<ul>
+						<li>
+							<div class="dropdownMenu" id="selConfig">
+								<select name="selConfig" id="02selConfig">
+									<option value="O">Open</option>
+									<option value="C">Crossed</option>
+								</select>
+							</div>
+						</li>
+						<li>p:&nbsp;<input class="numberBox" id="02P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>β:&nbsp;<input class="numberBox" id="02Beta" type="number" min="-90" max="90" step="1"><br><h3>(-90-90 deg)</h3></li>
+					</ul>
+				</div>	
+
+				<figcaption id="02cap">
+				  This threebar is Grashof.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 3 -->
+			<div id="item03" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="03canTr"></canvas>
+					<canvas class="canDraw z_2" id="03canM1"></canvas>
+					<canvas class="canDraw z_3" id="03canM2"></canvas>
+					<canvas class="canDraw z_4" id="03canM3"></canvas>
+					<canvas class="canDraw z_5" id="03canGr"></canvas>
+				</div>
+
+				<div class="interactControl bkgnd_gray">
+					<ul class="plotControl">
+						<li class="" id="03butPlay">Play<br>
+							<i class="fa fa-play"></i>
+						</li>
+						<li class="" id="03butTrace">Trace<br>
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="" id="03butIC">ICs<br>
+							<i class="fa fa-dot-circle-o"></i>
+						</li>
+						<li class="" id="03butReset">Defaults<br>
+							<i class="fa fa-refresh"></i>
+						</li>
+					</ul>
+					<ul>
+						<li>a:&nbsp;<input class="numberBox" id="03A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>b:&nbsp;<input class="numberBox" id="03B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>c:&nbsp;<input class="numberBox" id="03C" type="number" min="0" max="1000" step="10"><br><h3>Offset (0+ mm)</h3></li>
+					</ul>
+					<ul class="div-hide">
+						<li>d:&nbsp;<input class="numberBox" id="03D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>
+							<div class="dropdownMenu" id="selConfig">
+								<select name="selConfig" id="03selConfig">
+									<option value="O">Open</option>
+									<option value="C">Crossed</option>
+								</select>
+							</div>
+						</li>
+						<li>p:&nbsp;<input class="numberBox" id="03P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>β:&nbsp;<input class="numberBox" id="03Beta" type="number" min="-90" max="90" step="1"><br><h3>(-90-90 deg)</h3></li>
+					</ul>
+				</div>	
+
+				<figcaption id="03cap">
+				  This slider-crank is non-binding.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 4 -->
+			<div id="item04" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="04canTr"></canvas>
+					<canvas class="canDraw z_2" id="04canM1"></canvas>
+					<canvas class="canDraw z_3" id="04canM2"></canvas>
+					<canvas class="canDraw z_4" id="04canM3"></canvas>
+					<canvas class="canDraw z_5" id="04canGr"></canvas>
+				</div>
+
+				<div class="interactControl bkgnd_gray">
+					<ul class="plotControl">
+						<li class="" id="04butPlay">Play<br>
+							<i class="fa fa-play"></i>
+						</li>
+						<li class="" id="04butTrace">Trace<br>
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="" id="04butIC">ICs<br>
+							<i class="fa fa-dot-circle-o"></i>
+						</li>
+						<li class="" id="04butReset">Defaults<br>
+							<i class="fa fa-refresh"></i>
+						</li>
+					</ul>
+					<ul>
+						<li>a:&nbsp;<input class="numberBox" id="04A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>c:&nbsp;<input class="numberBox" id="04C" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>d:&nbsp;<input class="numberBox" id="04D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+					</ul>
+					<ul>
+						<li>
+							<div class="dropdownMenu" id="selConfig">
+								<select name="selConfig" id="04selConfig">
+									<option value="O">Open</option>
+									<option value="C">Crossed</option>
+								</select>
+							</div>
+						</li>
+						<li>p:&nbsp;<input class="numberBox" id="04P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+						<li>β:&nbsp;<input class="numberBox" id="04Beta" type="number" min="20" max="160" step="1"><br><h3>(20-130 deg)</h3></li>
+					</ul>
+					<ul class="div-hide">
+						<li>b:&nbsp;<input class="numberBox" id="04B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
+					</ul>
+				</div>	
+
+				<figcaption id="04cap">
+				  This configuration of the inverted slider-crank is grashof.
+				</figcaption>
+			</div>
+		</main>
+		</div>
+		
+		<footer class="bkgnd_black">
+			<div class="foot">
+				<p>Copyright 2017 - Eric Constans, Karl Dyer and Rowan University</p>
+				<p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
+			</div>
+		</footer>
+	</body>
+</html>

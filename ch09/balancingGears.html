@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html lang='en-us'>
+	<head>
+		<title>Planetary Gearsets with Multiple Planets</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="../css/navbar.css">
+		<link rel="stylesheet" href="../css/textbook.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+		
+		<!-- Common javascript links -->
+		<script type="text/javascript" src="../js_common/Linkage.js"></script>
+		<script type="text/javascript" src="../js_common/Select_Animation.js"></script>
+		<script type="text/javascript" src="../js_common/navbar_Functions.js"></script>
+		<script src="https://use.fontawesome.com/ae4cc48b3e.js"></script>
+		<script type="text/javascript" src="../js_common/Common_Shapes.js"></script>
+		
+		<!-- Page specific javascript links -->
+		<script type="text/javascript" src="../js_common/Common_Shapes_Planetary.js"></script>
+		<script type="text/javascript" src="../js_common/Class_PlanSRP.js"></script>
+		<script type="text/javascript" src="../js_common/Class_PlanS2P2.js"></script>
+		<script type="text/javascript" src="../ch09/js/balancingGears.js"></script>	
+	</head>
+	
+	<body class="bkgnd_black">
+		<header class="bkgnd_black">
+			<nav id="topNav">
+				<script type="text/javascript" src="../js_common/navbar.js"></script>
+			</nav>
+		</header>
+	
+		<div class="bkgnd_sides">
+		<main class="bkgnd_white">
+
+			<h1>Chapter 9</h1>
+			<h2>Planetary Gearsets with Multiple Planets</h2>
+			
+			<div id="sliderLinks" class="plotControl bkgnd_gray">
+				<ul>
+					<li class="itemLinks" data-pos="0">Traditional Planetary<br>(3 Lobe Balance)</li>
+					<li class="itemLinks" data-pos="1">2 Suns & 2 Planets<br>(3 Lobe Balance)</li>     
+				</ul>
+			</div> 
+		
+			<!-- ITEM 1 -->
+			<div id="item01" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="01canTr"></canvas>
+					<canvas class="canDraw z_2" id="01canM1"></canvas>
+					<canvas class="canDraw z_3" id="01canM2"></canvas>
+					<canvas class="canDraw z_4" id="01canM3"></canvas>
+					<canvas class="canDraw z_5" id="01canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="01butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="01butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray div-hide">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="01selPin">
+								<option value="B">Point B</option>
+								<option value="P">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="01butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="01butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="01butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="01conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="01sizeAcc"></i> 
+					<canvas class="plot-short" id="01canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="01conVel">
+					<i class="fa fa-toggle-down plotSizer" id="01sizeVel"></i> 
+					<canvas class="plot-short" id="01canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="01conDis">
+					<i class="fa fa-toggle-down plotSizer" id="01sizeDis"></i> 
+					<canvas class="plot-short" id="01canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="01cap">
+					The traditional sun-ring-planet gearset with three balancing lobes. 
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 2 -->
+			<div id="item02" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="02canTr"></canvas>
+					<canvas class="canDraw z_2" id="02canM1"></canvas>
+					<canvas class="canDraw z_3" id="02canM2"></canvas>
+					<canvas class="canDraw z_4" id="02canM3"></canvas>
+					<canvas class="canDraw z_5" id="02canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="02butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="02butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray div-hide">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="02selPin">
+								<option value="B">Point B</option>
+								<option value="P">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="02butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="02butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="02butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="02conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="02sizeAcc"></i> 
+					<canvas class="plot-short" id="02canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="02conVel">
+					<i class="fa fa-toggle-down plotSizer" id="02sizeVel"></i> 
+					<canvas class="plot-short" id="02canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="02conDis">
+					<i class="fa fa-toggle-down plotSizer" id="02sizeDis"></i> 
+					<canvas class="plot-short" id="02canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="02cap">
+					 The two-suns, two-planets gearset with three balancing lobes.
+				</figcaption>
+			</div>
+		</main>
+		</div> 
+		
+		<footer class="bkgnd_black">
+			<div class="foot">
+				<p>© 2018 Taylor and Francis</p>
+				<p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
+			</div>
+		</footer>
+	</body>
+</html>

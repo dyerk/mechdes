@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html lang='en-us'>
+	<head>
+		<title>Extreme Case Grashof Linkages</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="../css/navbar.css">
+		<link rel="stylesheet" href="../css/textbook.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+		
+		<!-- Common javascript links -->
+		<script type="text/javascript" src="../js_common/Linkage.js"></script>
+		<script type="text/javascript" src="../js_common/Plot.js"></script>
+		<script type="text/javascript" src="../js_common/Select_Animation.js"></script>
+		<script type="text/javascript" src="../js_common/navbar_Functions.js"></script>
+		<script src="https://use.fontawesome.com/ae4cc48b3e.js"></script>
+		<script type="text/javascript" src="../js_common/Common_Shapes.js"></script>
+		
+		<!-- Page specific javascript links -->
+		<script type="text/javascript" src="../js_common/Class_Fourbar.js"></script>
+		<script type="text/javascript" src="../ch01/js/extremeGrashof.js"></script>
+	</head>
+	
+	<body class="bkgnd_black">
+		<header class="bkgnd_black">
+			<nav id="topNav">
+				<script type="text/javascript" src="../js_common/navbar.js"></script>
+			</nav>
+		</header>
+	
+		<div class="bkgnd_sides">
+		<main class="bkgnd_white">
+
+			<h1>Chapter 4</h1>
+			<h2>Extreme Case Grashof Linkages</h2>
+			
+			<div id="sliderLinks" class="plotControl bkgnd_gray">
+				<ul>
+					<li class="itemLinks" data-pos="0">Class 15</li>
+					<li class="itemLinks" data-pos="1">Class 16</li>     
+					<li class="itemLinks" data-pos="2">Class 17</li>
+					<li class="itemLinks" data-pos="3">Class 18</li>
+					<li class="itemLinks" data-pos="4">Class 19<br>(Crossed)</li>   		
+					<li class="itemLinks" data-pos="5">Class 19<br>(Open)</li> 
+				</ul>
+			</div> 
+		
+			<!-- ITEM 1 -->
+			<div id="item01" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="01canTr"></canvas>
+					<canvas class="canDraw z_2" id="01canM1"></canvas>
+					<canvas class="canDraw z_3" id="01canM2"></canvas>
+					<canvas class="canDraw z_4" id="01canM3"></canvas>
+					<canvas class="canDraw z_5" id="01canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="01butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="01butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="01selPin">
+								<option value="B">Point B</option>
+								<option value="P" class="div-hide">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="01butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="01butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="01butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="01conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="01sizeAcc"></i> 
+					<canvas class="plot-short" id="01canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="01conVel">
+					<i class="fa fa-toggle-down plotSizer" id="01sizeVel"></i> 
+					<canvas class="plot-short" id="01canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="01conDis">
+					<i class="fa fa-toggle-down plotSizer" id="01sizeDis"></i> 
+					<canvas class="plot-short" id="01canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="01cap">
+					<b>Class 15:</b> There are two pairs of identical links, each of which is adjacent to each other.  The short links are the ground and the crank, and all links make a complete revolution.  Note that the coupler and rocker make a single revolution for two revolutions of the crank.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 2 -->
+			<div id="item02" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="02canTr"></canvas>
+					<canvas class="canDraw z_2" id="02canM1"></canvas>
+					<canvas class="canDraw z_3" id="02canM2"></canvas>
+					<canvas class="canDraw z_4" id="02canM3"></canvas>
+					<canvas class="canDraw z_5" id="02canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="02butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="02butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="02selPin">
+								<option value="B">Point B</option>
+								<option value="P" class="div-hide">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="02butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="02butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="02butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="02conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="02sizeAcc"></i> 
+					<canvas class="plot-short" id="02canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="02conVel">
+					<i class="fa fa-toggle-down plotSizer" id="02sizeVel"></i> 
+					<canvas class="plot-short" id="02canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="02conDis">
+					<i class="fa fa-toggle-down plotSizer" id="02sizeDis"></i> 
+					<canvas class="plot-short" id="02canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="02cap">
+					 <b>Class 16:</b> There are two pairs of identical links, each of which is adjacent to each other.  The short links are the crank and coupler, and the crank and coupler both make a full revolution.
+				</figcaption>
+			</div>
+
+			<!-- ITEM 3 -->
+			<div id="item03" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="03canTr"></canvas>
+					<canvas class="canDraw z_2" id="03canM1"></canvas>
+					<canvas class="canDraw z_3" id="03canM2"></canvas>
+					<canvas class="canDraw z_4" id="03canM3"></canvas>
+					<canvas class="canDraw z_5" id="03canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="03butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="03butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="03selPin">
+								<option value="B">Point B</option>
+								<option value="P" class="div-hide">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="03butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="03butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="03butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="03conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="03sizeAcc"></i> 
+					<canvas class="plot-short" id="03canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="03conVel">
+					<i class="fa fa-toggle-down plotSizer" id="03sizeVel"></i> 
+					<canvas class="plot-short" id="03canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="03conDis">
+					<i class="fa fa-toggle-down plotSizer" id="03sizeDis"></i> 
+					<canvas class="plot-short" id="03canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="03cap">
+					<b>Class 17:</b> There are two pairs of identical links, each of which is adjacent to each other.  The short links are the coupler and rocker, and the coupler and rocker both make a full revolution.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 4 -->
+			<div id="item04" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="04canTr"></canvas>
+					<canvas class="canDraw z_2" id="04canM1"></canvas>
+					<canvas class="canDraw z_3" id="04canM2"></canvas>
+					<canvas class="canDraw z_4" id="04canM3"></canvas>
+					<canvas class="canDraw z_5" id="04canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="04butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="04butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="04selPin">
+								<option value="B">Point B</option>
+								<option value="P" class="div-hide">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="04butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="04butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="04butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="04conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="04sizeAcc"></i> 
+					<canvas class="plot-short" id="04canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="04conVel">
+					<i class="fa fa-toggle-down plotSizer" id="04sizeVel"></i> 
+					<canvas class="plot-short" id="04canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="04conDis">
+					<i class="fa fa-toggle-down plotSizer" id="04sizeDis"></i> 
+					<canvas class="plot-short" id="04canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="04cap">
+					<b>Class 18:</b> There are two pairs of identical links, each of which is adjacent to each other.  The short links are the rocker and ground, and all links make a complete revolution.  Note that the crank and coupler make a single revolution for two revolutions of the rocker.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 5 -->
+			<div id="item05" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="05canTr"></canvas>
+					<canvas class="canDraw z_2" id="05canM1"></canvas>
+					<canvas class="canDraw z_3" id="05canM2"></canvas>
+					<canvas class="canDraw z_4" id="05canM3"></canvas>
+					<canvas class="canDraw z_5" id="05canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="05butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="05butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="05selPin">
+								<option value="B">Point B</option>
+								<option value="P" class="div-hide">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="05butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="05butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="05butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="05conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="05sizeAcc"></i> 
+					<canvas class="plot-short" id="05canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="05conVel">
+					<i class="fa fa-toggle-down plotSizer" id="05sizeVel"></i> 
+					<canvas class="plot-short" id="05canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="05conDis">
+					<i class="fa fa-toggle-down plotSizer" id="05sizeDis"></i> 
+					<canvas class="plot-short" id="05canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="05cap">
+					<b>Class 19:</b> There are two pairs of identical links, each of which is opposite each other.  This is the crossed version of the parallelogram linkage.
+				</figcaption>
+			</div>
+			
+			<!-- ITEM 6 -->
+			<div id="item06" class="animationContainer div-hide">  				
+				<div class="animationCanvas">
+										
+					<canvas class="canTrace"   id="06canTr"></canvas>
+					<canvas class="canDraw z_2" id="06canM1"></canvas>
+					<canvas class="canDraw z_3" id="06canM2"></canvas>
+					<canvas class="canDraw z_4" id="06canM3"></canvas>
+					<canvas class="canDraw z_5" id="06canGr"></canvas>
+					
+					<ul class="animationControl">
+						<li><i class="fa fa-play-circle button-enabled" id="06butPlay"></i></li>
+						<li><i class="fa fa-refresh button-disabled" id="06butReset"></i></li>
+					</ul> 
+				</div>
+
+				<div class="plotControl bkgnd_gray">
+					<ul>
+						<div class="dropdownMenu" id="pointSelect">
+							<select name="pointList" id="06selPin">
+								<option value="B">Point B</option>
+								<option value="P" class="div-hide">Point P</option>
+								<option value="C">Point C</option>
+							</select>
+						</div>
+						<li class="plotButton" id="06butAcc">Accel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="06butVel">Vel
+							<i class="fa fa-line-chart"></i>
+						</li>
+						<li class="plotButton" id="06butDis">Disp
+							<i class="fa fa-line-chart"></i>
+						</li>
+					</ul>
+				</div>	
+				
+				<div class="plotCanvas div-hide" id="06conAcc">
+					<i class="fa fa-toggle-down plotSizer" id="06sizeAcc"></i> 
+					<canvas class="plot-short" id="06canAcc" width="500" height="125">Acceleration Plot shown in browser supporting animations</canvas>
+				</div>	
+				<div class="plotCanvas div-hide" id="06conVel">
+					<i class="fa fa-toggle-down plotSizer" id="06sizeVel"></i> 
+					<canvas class="plot-short" id="06canVel" width="500" height="125">Velocity Plot shown in browser supporting animations</canvas>
+				</div>
+				<div class="plotCanvas div-hide" id="06conDis">
+					<i class="fa fa-toggle-down plotSizer" id="06sizeDis"></i> 
+					<canvas class="plot-short" id="06canDis" width="500" height="125">Displacement Plot shown in browser supporting animations</canvas>
+				</div>
+
+				<figcaption id="06cap">
+					<b>Class 19:</b> There are two pairs of identical links, each of which is opposite each other.  This is the open version of the parallelogram linkage.
+				</figcaption>
+			</div>
+		</main>
+		</div>
+		
+		<footer class="bkgnd_black">
+			<div class="foot">
+				<p>© 2018 Taylor and Francis</p>
+				<p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
+			</div>
+		</footer>
+	</body>
+</html>

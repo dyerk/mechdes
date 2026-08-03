@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Planetary Oddities</title>
+  <link href='http://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet' type='text/css'>
+  <link href="Styles.css" rel="stylesheet">
+  <script src="JS/shapes.js"></script>
+  <script src="JS/PG/PG_Oddities_Init.js"></script>
+  <script src="JS/PG/PG_Oddities_Draw.js"></script>
+  <script src="JS/PG/PG_Oddities_Handle.js"></script>
+  <script src="JS/PG/PG_Oddities_Main.js"></script>
+</head>
+
+<body>
+  <nav class="top">
+    <script src="JS/Nav_Bar.js"></script>
+  </nav>
+
+  <img src="images/Planetary_Banner.png" width="960">
+
+  <article>
+    <br>
+    <h1>Planetary Oddities</h1>
+    <p>The most commonly-seen planetary gearsets are shown on the <a href="PG_Types.html">Types of
+    planetary gearsets</a> page.  Zoltan Levai showed that only 34 distinct types of planetary gearsets are possible,
+    and developed a method for generating each type<sup>[1]</sup>.  Norton's <i>Design of Machinery</i>
+    <sup>[2]</sup> shows 12 of these in a 'skeletal' format - these are the 'planetary oddities' shown
+    on this page.  Note that types 'sun/ring/planet' and 'two suns, two planets' were shown on the
+    <a href="PG_Types.html">Types of planetary gearsets</a> page.</p>
+    <p>The planetary gearsets shown below do not find much use in practice, but they are interesting to consider,
+    nonetheless.  Most of these gearsets are difficult to design with reasonable efficiency, and the 'traditional'
+    gearsets shown earlier are more practical.</p>
+    <br>
+    <hr>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Sun_Ring_Two_Planets_Type_1.jpg" width = "300"></td>
+        <td class="wht"><img src="images/PG/Sun_Ring_Two_Planets_Type_2.jpg" width = "300"></td>
+      </tr>
+      <tr>
+        <td>Sun, ring and two planets - 1</td>
+        <td>Sun, ring and two planets - 2</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas1" width="300" height="250"></canvas></td>
+        <td><canvas class="noBorder" id="canvas2" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play1" value="Play"></td>
+        <td><input type="button" id="play2" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>The topologies above are extensions of the 'sun, ring, planet' gearset shown on the
+    <a href="PG_Intro.html">Introduction</a> page.  By attaching an additional gear to the planet
+    we can achieve even higher speed reductions in a small space, as shown in the figure above left.  Inputs and
+    output are taken from the arm (carrier), sun and ring gears.  Note that the planet gears are attached to each
+    other, and move as a unit.</p>
+    <p>In the figure at right, the two planets are separate.  Note that the carrier moves clockwise in the
+    animation, in contrast with the counterclockwise motion of the carrier at left.</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Sun_Ring_Three_Planets_Type_1.jpg" width = "300"></td>
+        <td class="wht"><img src="images/PG/Sun_Ring_Three_Planets_Type_2.jpg" width = "300"></td>
+      <tr>
+        <td>Sun, ring and three planets - 1</td>
+        <td>Sun, ring and three planets - 2</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas3" width="300" height="250"></canvas></td>
+        <td><canvas class="noBorder" id="canvas4" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play3" value="Play"></td>
+        <td><input type="button" id="play4" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>The two topologies above are very similar, differing only in where the dual planet is located.  In the figure at
+    left, the dual planet meshes with the sun and an outer planet, while in the figure at right the dual planet
+    meshes with the ring.  Note how much faster the gearset at right rotates, despite the fact that the input (the
+    sun gear) moves at the same rate in both cases.</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Sun_Ring_Four_Planets.jpg" width = "300"></td>
+      </tr>
+      <tr>
+        <td>Sun, ring and four planets - 1</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas5" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play5" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>This is quite a complicated topology, and requires a large number of gears.  Note the complex construction
+    required for the arm.</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+   <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Two_Rings_Two_Planets.jpg" width = "300"></td>
+        <td class="wht"><img src="images/PG/Two_Rings_Three_Planets.jpg" width = "300"></td>
+      </tr>
+      <tr>
+        <td>Two rings, two planets</td>
+        <td>Two rings, three planets</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas6" width="300" height="250"></canvas></td>
+        <td><canvas class="noBorder" id="canvas7" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play6" value="Play"></td>
+        <td><input type="button" id="play7" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>There is no reason that the two input shafts cannot be internal gears, as these gearsets demonstrate.
+    The figure at left is the simplest topology with two rings, and the figure at right is only slightly more
+    complicated, having three planets.  It is relatively simple to attach an external gear or chain sprocket to the
+    outside of the two rings in order to couple these gears with the outside world.</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Two_Rings_Four_Planets.jpg" width = "220"></td>
+      </tr>
+      <tr>
+        <td>Two rings, four planets</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas8" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play8" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>This gearset has two rings and four planets.  It is, of course, possible to keep adding gears to the gearset,
+    either singly or in pairs.  The resulting gearsets are not necessarily more interesting, however!</p>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Two_Suns_Three_Planets.jpg" width = "300"></td>
+        <td class="wht"><img src="images/PG/Two_Suns_Four_Planets.jpg" width = "300"></td>
+      <tr>
+        <td>Two suns, three planets</td>
+        <td>Two suns, four planets</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas9" width="300" height="250"></canvas></td>
+        <td><canvas class="noBorder" id="canvas10" width="300" height="250"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play9" value="Play"></td>
+        <td><input type="button" id="play10" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>These topologies are an extension of the 'two suns - two planets' gearset.  Play the animation at left and
+    watch the green planet gear.  Its lack of rotation might seem to be a mistake in the animation, but is in fact
+    accurate!  Yet another example of the counterintuitive behavior of planetary gearsets.</p>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <table>
+      <tr>
+        <td class="wht"><img src="images/PG/Two_Rings_Two_Suns.jpg" width = "300"></td>
+      <tr>
+        <td>Two rings, two suns</td>
+      </tr>
+      <tr>
+        <td><canvas class="noBorder" id="canvas11" width="300" height="300"></canvas></td>
+      </tr>
+      <tr>
+        <td><input type="button" id="play11" value="Play"></td>
+      </tr>
+    </table>
+    <br>
+    <p>This last animation shows that ring gears are not necessarily fixed, but can act as planets in some
+    configurations.  Careful, this animation may produce seasickness!</p>
+    <br>
+    <hr>
+    <br>
+    <p class="ref">[1] Levai, Z. (1968). 'Structure and Analysis of Planetary Gear Trains.' <i>Journal of
+    Mechanisms</i>,<b>3</b>, pp. 131-148.</p>
+    <p class="ref">[2] Norton, Robert L. (2008). 'Design of Machinery, 4th Ed.' <i>McGraw-Hill</i>, p. 505.</p>
+    <br>
+  </article>
+  
+  <img src="images/Planetary_Banner_Bottom.png" width="960">
+  
+  <nav class="bottom">
+    <script src="JS/Nav_Bar.js"></script>
+  </nav>
+
+  <footer>
+    <p>Copyright 2013, Eric Constans and Rowan University</p>
+    <p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
+  </footer>
+</body>
+</html>
