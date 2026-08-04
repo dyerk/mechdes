@@ -40,7 +40,6 @@ function init() {
   gras_crossed.draw(0);
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 

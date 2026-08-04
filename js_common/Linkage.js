@@ -121,7 +121,10 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 	
 	// Generate plot functionality if turned on in instance of linkage
 	if (this.showPlots) {
-		document.getElementById("item"+pageID).children[1].classList.remove('div-hide')
+		const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
+		if (plotControl) {
+			plotControl.classList.remove('d-none');
+		}
 		
 		// Get variables from page
 		var selPin   = pageID + 'selPin';
@@ -221,8 +224,9 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 			this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
 		}
 	} else {
-		if (document.getElementById("item"+pageID).children[1].classList["plotControl"]){
-			document.getElementById("item"+pageID).children[1].classList.add('div-hide')
+		const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
+		if (plotControl) {
+			plotControl.classList.add('d-none');
 		}
 	}
 }
@@ -320,60 +324,56 @@ Linkage.prototype.eventReset = function(linkage) {
 }
 
 // ****************************************************************************************
-// Linkage.eventPlotToggle - toggles visibility of plot
+// Linkage.eventPlotToggle - toggles visibility of plot using Bootstrap 5 classes
 // ****************************************************************************************
-Linkage.prototype.eventPlotToggle = function(linkage,plotSelection) {
-	var conName = document.getElementById(plotSelection.replace('but','con'));
-	var butName = document.getElementById(plotSelection);
+Linkage.prototype.eventPlotToggle = function(linkage, plotSelection) {
+	const conName = document.getElementById(plotSelection.replace('but', 'con'));
+	const butName = document.getElementById(plotSelection);
 	
-	if (conName.classList.contains("div-hide")) {      //If plot is showing
-		conName.classList.remove("div-hide");				     // remove hide class
-		conName.classList.add("div-show");					     // add show class
-		//butName.classList.remove("button-deselected"); // to make selected
-		butName.classList.add("button-selected");        // toggle button selection
+	// Toggle visibility using Bootstrap's d-none
+	const isHidden = conName.classList.contains("d-none");
+	
+	if (isHidden) {
+		conName.classList.remove("d-none");
+		butName.classList.remove("btn-outline-secondary");
+		butName.classList.add("btn-secondary", "active");
+		butName.setAttribute("aria-pressed", "true");
 	} else {
-		conName.classList.remove("div-show");						 // remove show class
-		conName.classList.add("div-hide");							 // add hide class
-		butName.classList.remove("button-selected");     // it deslected
-		//butName.classList.add("button-deselected");    // toggle button to make
+		conName.classList.add("d-none");
+		butName.classList.remove("btn-secondary", "active");
+		butName.classList.add("btn-outline-secondary");
+		butName.setAttribute("aria-pressed", "false");
 	}
 	
 	if (this.showPlots) {
-		for (i in this.butMon){
-			if (this.butMon[i].classList.contains("button-selected")){
-				this.cap.innerHTML = this.capLengths;
-				break;
-			} else {
-				this.cap.innerHTML = this.capDescrip;
-			}
-		}	
+		const anyActive = this.butMon.some(btn => btn.classList.contains("active"));
+		this.cap.innerHTML = anyActive ? this.capLengths : this.capDescrip;
 	}
-}
+};
 
 // **************************************************************************************
-// Linkage.eventPlotResize - toggles height of plot
+// Linkage.eventPlotResize - toggles height of plot using FontAwesome 6 icons
 // **************************************************************************************
-Linkage.prototype.eventPlotResize= function(linkage,plotSelection) {
-	var sizeName = document.getElementById(plotSelection); 							// size id
-	var canName = document.getElementById(plotSelection.replace('size','can'));	// canvas id
-	var plotName = "plot".concat(plotSelection.substr(plotSelection.length-3));
+Linkage.prototype.eventPlotResize = function(linkage, plotSelection) {
+	const sizeName = document.getElementById(plotSelection);
+	const canName = document.getElementById(plotSelection.replace('size', 'can'));
+	const plotName = "plot".concat(plotSelection.substr(plotSelection.length - 3));
 	
-	if (canName.classList.contains("plot-short")) { // If plot is short
-		canName.classList.remove("plot-short");				// remove short class
-		canName.classList.add("plot-tall");						// add tall class
-		sizeName.classList.remove("fa-toggle-down"); 		// and change from expand icon
-		sizeName.classList.add("fa-toggle-up"); 			// to compress icon
+	if (canName.classList.contains("plot-short")) {
+		canName.classList.remove("plot-short");
+		canName.classList.add("plot-tall");
+		sizeName.classList.remove("fa-toggle-off"); 
+		sizeName.classList.add("fa-toggle-on"); 
 		canName.height = 250;
-		this[plotName].drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
 	} else {
-		canName.classList.remove("plot-tall");				// remove tall class
-		canName.classList.add("plot-short");					// add short class
-		sizeName.classList.remove("fa-toggle-up"); 	// and change from compress icon
-		sizeName.classList.add("fa-toggle-down"); 			  // to expand icon
+		canName.classList.remove("plot-tall");
+		canName.classList.add("plot-short");
+		sizeName.classList.remove("fa-toggle-on"); 	
+		sizeName.classList.add("fa-toggle-off"); 
 		canName.height = 125;
-		this[plotName].drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
 	}
-}
+	this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
+};
 
 // ***************************************************************************************
 // Linkage.drawIC - draws instant centers

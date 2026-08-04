@@ -53,7 +53,7 @@ function Plot(can,ctx){
 	
 	this.xLabel = "Crank Angle [deg]";			// label on x-axis
 	this.yLabel = "Disp [mm]";							// label on y-axis
-	this.title = "DISPLACEMENT PLOT";				// title
+	//this.title = "DISPLACEMENT PLOT";				// title
 }
 
 // ****************************************************************************
@@ -207,11 +207,11 @@ Plot.prototype.drawTrace = function(trace,index){
 // drawLabels - draws title, x-axis, and y-axis labels
 // ****************************************************************
 Plot.prototype.drawLabels = function(){
-	// Plot Title
-	this.ctx.strokeStyle = this.lineColor;
-	this.ctx.textAlign = "center";
-	this.ctx.textBaseline = "bottom";
-	this.ctx.fillText(this.title,this.l+this.w/2,this.t-2);
+	// // Plot Title
+	// this.ctx.strokeStyle = this.lineColor;
+	// this.ctx.textAlign = "center";
+	// this.ctx.textBaseline = "bottom";
+	// this.ctx.fillText(this.title,this.l+this.w/2,this.t-2);
 	
 	// x-label
 	this.ctx.textAlign = "center";
