@@ -135,7 +135,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		var sizeAcc  = pageID + 'sizeAcc';
 		var sizeVel  = pageID + 'sizeVel';
 		var sizeDis  = pageID + 'sizeDis';
-		var caption   = pageID + 'cap';
+		var caption  = pageID + 'cap';
 		
 		// capture html id tags into script
 		this.selPin   = document.getElementById(selPin);			// pin selection for T,A,V,D plots
@@ -180,8 +180,8 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 
 	// Create caption strings from linkage dimensions
 	this.cap = document.getElementById(caption);
-	this.capDescrip = this.cap.innerHTML;
-	this.capLengths = "Link Lengths [mm]: ";
+	this.capDescrip = this.cap?.innerHTML ?? "No description available";
+	this.capLengths = " Link Lengths [mm]: ";
 	
 	// iterate through all bars and display lengths
 	for (i in this.bar) { 
@@ -215,17 +215,21 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		this.capLengths = this.capLengths+"D = "+this.pivot[1].x; //get ground from 2nd pivot
 	}
 	
+	//TODO: Fix P and innerHTML
+	
 	// Check for P 
-	if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
-		if (isNaN(this.bar[1].beta)) {
-			var angle = "0";
-		} else {
-			var angle = this.bar[1].beta*180/Math.PI;
-		}
-		this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
-	}
+	// if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
+	// 	if (isNaN(this.bar[1].beta)) {
+	// 		var angle = "0";
+	// 	} else {
+	// 		var angle = this.bar[1].beta*180/Math.PI;
+	// 	}
+	// 	this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
+	// }
 
-	this.cap.innerHTML = this.capLengths;
+	//this.cap.innerHTML = this.capDescrip + this.capLengths;
+
+
 	// } else {
 	// 	const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
 	// 	if (plotControl) {

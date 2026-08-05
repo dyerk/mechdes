@@ -93,7 +93,6 @@ function init() {
   camrock.draw(0);
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 

@@ -38,7 +38,6 @@ function init() {
   driverdyad.draw(0);
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 
