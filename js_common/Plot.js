@@ -43,15 +43,15 @@ function Plot(can,ctx){
 	this.ctx.scale(this.dpr, this.dpr);
 
 	// Layout Offsets (calculated using CSS dimensions, NOT scaled pixel buffer)
-	this.l = 60; 														// left offest
-	this.r = 25;														// right margin
+	this.l = 40; 														// left offest
+	this.r = 15;														// right margin
 	this.xMin = 0;													// minimum x axis value
 	this.xMax = 360;												// maximum x axis value
 	this.nXGrid = 13;												// number of x axis gridlines
 	this.xZero = this.l;										// x pixel location of y axis (x=0)
 	
-	this.t = 20;														// top offset
-	this.b = 35;														// bottom margin
+	this.t = 10;														// top offset
+	this.b = 25;														// bottom margin
 	this.yMin = -100;												// minimum y axis value
 	this.yMax = 100;												// maximum y axis value
 	this.nYGrid = 5;												// number of y axis gridlines
@@ -77,8 +77,8 @@ Plot.prototype.drawPlot = function(traceList){
 	this.ctx.clearRect(0, 0, this.can.width, this.can.height);
 	this.checkSize();
 	this.drawGrid();	
-	this.drawLabels();
-	this.drawLegend(traceList);
+	//this.drawLabels();
+	//this.drawLegend(traceList);
 }
 	
 Plot.prototype.drawTraces = function(traceList, stopIndex) {

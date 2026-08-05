@@ -18,3 +18,25 @@
     width: 100% !important;
     height: auto !important;
 }
+/* Rotated Y-Axis Label */
+.y-axis-label {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: center;
+}
+
+/* Custom HTML Legend Indicators */
+.legend-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-trace-x {
+  background-color: #FFC000;
+}
+
+.legend-trace-y {
+  background-color: #006DC7;
+}

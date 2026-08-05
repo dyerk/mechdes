@@ -71,24 +71,25 @@ function Linkage() {
 // ****************************************************************************************
 Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 	
-  var linkage = this;                     // make an explicit linkage object so buttons will work
+ 	 var linkage = this;                     // make an explicit linkage object so buttons will work
 	
-	// define variables for all interactive html elements for each animation container
-	var butPlay  = pageID + 'butPlay';
-	var butReset = pageID + 'butReset';
-	
-	// capture button html id tags into script
-  this.butPlay  = document.getElementById(butPlay); 		    // play button for the linkage
-  this.butReset = document.getElementById(butReset);    		// reset button for the linkage
-	
-	// add event listeners buttons
-  this.butPlay.addEventListener('click',function (){linkage.eventPlay(linkage)},false);
+	// Target the parent <button> tags:
+	this.btnPlay  = document.getElementById(pageID + 'btnPlay');  // The <button> wrapper
+	this.btnReset = document.getElementById(pageID + 'btnReset'); // The <button> wrapper
+
+	// Target the inner <i> icons for class swapping:
+	this.iconPlay  = document.getElementById(pageID + 'butPlay');  // The <i> tag inside play button
+	this.iconReset = document.getElementById(pageID + 'butReset'); // The <i> tag inside reset button
+
+	// Attach click listeners to the BUTTONS, not the icons:
+	this.btnPlay.addEventListener('click', function () { linkage.eventPlay(linkage); }, false);
+	this.btnReset.addEventListener('click', function () {linkage.eventReset(linkage)},false);
 	
 	// capture canvas html id tags for animation into script
 	this.can = [];
 	this.ctx = [];
-  this.can[0] = document.getElementById(pageID + 'canTr');  // tracing canvas for the linkage
-  this.ctx[0] = this.can[0].getContext('2d');               // tracing context for the linkage
+  	this.can[0] = document.getElementById(pageID + 'canTr');  // tracing canvas for the linkage
+  	this.ctx[0] = this.can[0].getContext('2d');               // tracing context for the linkage
 	this.can[1] = document.getElementById(pageID + 'canM1');  // moving link 1 canvas for linkage
 	this.ctx[1] = this.can[1].getContext('2d');               // moving link 1 context for the linkage
 	this.can[2] = document.getElementById(pageID + 'canM2');	// moving link 2 canvas for linkage
@@ -96,7 +97,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 	this.can[3] = document.getElementById(pageID + 'canM3');	// moving link 3 canvas for linkage
 	this.ctx[3] = this.can[3].getContext('2d');               // moving link 3 context for the linkage
 	this.can[4] = document.getElementById(pageID + 'canGr');  // ground canvas for the linkage
-  this.ctx[4] = this.can[4].getContext('2d');               // ground context for the linkage
+  	this.ctx[4] = this.can[4].getContext('2d');               // ground context for the linkage
 
 	// capture canvas html id tags for plots into script
 	this.canAcc = document.getElementById(pageID+'canAcc');   // accel plot canvas
@@ -175,60 +176,62 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		this.setPlotAttr('plotAcc',this.color[10],this.color[15], // set plot parameters
 		"ACCELERATION PLOT","Accel [mm/s"+String.fromCharCode(0x22C5)+"s]",
 		-100,150);
-	
-	
-		// Create caption strings from linkage dimensions
-		this.cap = document.getElementById(caption);
-		this.capDescrip = this.cap.innerHTML;
-		this.capLengths = "<b>Link Lengths: </b>";
-		
-		// iterate through all bars and display lengths
-		for (i in this.bar) { 
-			switch (this.type) {
-			
-				case "threebar":
-				case "fourbar":
-					if (this.bar[i].L) {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-					}
-					break;
-					
-				case "slider":
-					if (this.bar[i].L) {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-					} else {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+-this.bar[i].y;
-					}
-					break;
-				
-				case "invSlider":
-					if ((this.bar[i].L) && (i!=1)) {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-					} 
-					break;
-			}
-		}			
-
-		// Get length between grounds
-		if (this.pivot[1]){
-		  this.capLengths = this.capLengths+"D = "+this.pivot[1].x; //get ground from 2nd pivot
-		}
-		
-		// Check for P 
-		if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
-			if (isNaN(this.bar[1].beta)) {
-				var angle = "0";
-			} else {
-				var angle = this.bar[1].beta*180/Math.PI;
-			}
-			this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
-		}
-	} else {
-		const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
-		if (plotControl) {
-			plotControl.classList.add('d-none');
-		}
 	}
+
+	// Create caption strings from linkage dimensions
+	this.cap = document.getElementById(caption);
+	this.capDescrip = this.cap.innerHTML;
+	this.capLengths = "Link Lengths [mm]: ";
+	
+	// iterate through all bars and display lengths
+	for (i in this.bar) { 
+		switch (this.type) {
+		
+			case "threebar":
+			case "fourbar":
+				if (this.bar[i].L) {
+					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
+				}
+				break;
+				
+			case "slider":
+				if (this.bar[i].L) {
+					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
+				} else {
+					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+-this.bar[i].y;
+				}
+				break;
+			
+			case "invSlider":
+				if ((this.bar[i].L) && (i!=1)) {
+					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
+				} 
+				break;
+		}
+	}			
+
+	// Get length between grounds
+	if (this.pivot[1]){
+		this.capLengths = this.capLengths+"D = "+this.pivot[1].x; //get ground from 2nd pivot
+	}
+	
+	// Check for P 
+	if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
+		if (isNaN(this.bar[1].beta)) {
+			var angle = "0";
+		} else {
+			var angle = this.bar[1].beta*180/Math.PI;
+		}
+		this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
+	}
+
+	this.cap.innerHTML = this.capLengths;
+	// } else {
+	// 	const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
+	// 	if (plotControl) {
+	// 		plotControl.classList.add('d-none');
+	// 	}
+	// }
 }
 
 // ************************************************************************************** 
@@ -237,17 +240,13 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 Linkage.prototype.eventPlay = function(linkage) {
   linkage.isPlaying = !linkage.isPlaying;            			// toggle play state
   if (linkage.isPlaying) {  // is the animation playing?  then enable the stop button
-    linkage.butPlay.classList.remove("fa-play-circle");    // remove "play" icon and change it by 
-	  linkage.butPlay.classList.add("fa-stop-circle");       // adding "stop" icon in its place
-	  linkage.butReset.classList.remove("button-enabled");   // change from enabled "reset" button
-	  linkage.butReset.classList.add("button-disabled");     // to disabled "reset" button
-    linkage.butReset.removeEventListener('click', function () {linkage.eventReset(linkage)},false);
-  } else {      // otherwise, animation is stopped re-enable the play button and reset button
-    linkage.butPlay.classList.remove("fa-stop-circle");    // change from "stop" button to 
-	  linkage.butPlay.classList.add("fa-play-circle");       // to "play" button
-	  linkage.butReset.classList.remove("button-disabled");  // change from disabled "reset" button
-	  linkage.butReset.classList.add("button-enabled");      // to enabled "reset" button
-	  linkage.butReset.addEventListener('click', function () {linkage.eventReset(linkage)},false);
+	// Switch play icon to stop/pause icon
+    linkage.iconPlay.classList.remove("fa-circle-play");    
+    linkage.iconPlay.classList.add("fa-circle-stop");       
+  } else {      
+    // Switch back to play icon
+    linkage.iconPlay.classList.remove("fa-circle-stop");    
+    linkage.iconPlay.classList.add("fa-circle-play");       
   }
 
 	// ******* drawFrame updates all plots and animations ********
@@ -295,9 +294,9 @@ Linkage.prototype.eventPlay = function(linkage) {
 // ****************************************************************************************
 Linkage.prototype.eventReset = function(linkage) {
   
-  linkage.butReset.classList.remove("button-enabled");  // change from enabled "reset" button
-  linkage.butReset.classList.add("button-disabled");    // to disabled "reset" button
-  linkage.butReset.removeEventListener('click', function () {linkage.eventReset(linkage)},false);
+  linkage.btnReset.classList.remove("button-enabled");  // change from enabled "reset" button
+  linkage.btnReset.classList.add("button-disabled");    // to disabled "reset" button
+  linkage.btnReset.removeEventListener('click', function () {linkage.eventReset(linkage)},false);
   
   for (var i = 0; i < 5; i++) {  
     this.ctx[i].clearRect(0, 0, this.can[i].width, this.can[i].height);  // clear the drawing canvas
@@ -345,10 +344,10 @@ Linkage.prototype.eventPlotToggle = function(linkage, plotSelection) {
 		butName.setAttribute("aria-pressed", "false");
 	}
 	
-	if (this.showPlots) {
-		const anyActive = this.butMon.some(btn => btn.classList.contains("active"));
-		this.cap.innerHTML = anyActive ? this.capLengths : this.capDescrip;
-	}
+	// if (this.showPlots) {
+	// 	const anyActive = this.butMon.some(btn => btn.classList.contains("active"));
+	// 	this.cap.innerHTML = anyActive ? this.capLengths : this.capDescrip;
+	// }
 };
 
 // **************************************************************************************
@@ -362,14 +361,14 @@ Linkage.prototype.eventPlotResize = function(linkage, plotSelection) {
 	if (canName.classList.contains("plot-short")) {
 		canName.classList.remove("plot-short");
 		canName.classList.add("plot-tall");
-		sizeName.classList.remove("fa-toggle-off"); 
-		sizeName.classList.add("fa-toggle-on"); 
+		sizeName.classList.remove("fa-expand"); 
+		sizeName.classList.add("fa-compress"); 
 		canName.height = 250;
 	} else {
 		canName.classList.remove("plot-tall");
 		canName.classList.add("plot-short");
-		sizeName.classList.remove("fa-toggle-on"); 	
-		sizeName.classList.add("fa-toggle-off"); 
+		sizeName.classList.remove("fa-compress"); 	
+		sizeName.classList.add("fa-expand"); 
 		canName.height = 125;
 	}
 	this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
