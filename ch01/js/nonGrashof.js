@@ -102,7 +102,6 @@ function init() {
   nongras10.draw((nongras10.crankMax + nongras10.crankMin)/2);
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 
