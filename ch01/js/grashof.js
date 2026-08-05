@@ -68,7 +68,6 @@ function init() {
   grashof4.draw(0); 
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 

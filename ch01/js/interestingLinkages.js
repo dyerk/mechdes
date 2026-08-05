@@ -50,7 +50,6 @@ function init() {
   chebyshevr.draw(0);                // calculate the Chebyshev geometry and draw
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 

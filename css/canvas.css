@@ -17,6 +17,7 @@
 .plotCanvas canvas {
     width: 100% !important;
     height: auto !important;
+    display: block;
 }
 /* Rotated Y-Axis Label */
 .y-axis-label {
