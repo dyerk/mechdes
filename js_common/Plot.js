@@ -24,11 +24,25 @@ function Plot(can,ctx){
 	this.can = can;
 	this.ctx = ctx;
 
-	// Establish 5:1 aspect ratio
-	//this.can.width = can.width;
-	this.can.width = this.can.width;
-	this.can.height = this.can.height;
-	
+	// 1. Get Device Pixel Ratio (defaults to 1 if undefined)
+	this.dpr = window.devicePixelRatio || 1;
+
+	// 2. Read current display bounds or default attributes
+	const cssWidth = can.clientWidth || 500;
+	const cssHeight = can.clientHeight || 125;
+
+	// 3. Upscale canvas internal buffer resolution for high-DPI
+	this.can.width = cssWidth * this.dpr;
+	this.can.height = cssHeight * this.dpr;
+
+	// 4. Ensure CSS display size matches original target dimensions
+	this.can.style.width = cssWidth + "px";
+	this.can.style.height = cssHeight + "px";
+
+	// 5. Scale context so drawing coordinates (e.g., x=60, y=20) stay identical
+	this.ctx.scale(this.dpr, this.dpr);
+
+	// Layout Offsets (calculated using CSS dimensions, NOT scaled pixel buffer)
 	this.l = 60; 														// left offest
 	this.r = 25;														// right margin
 	this.xMin = 0;													// minimum x axis value
@@ -42,18 +56,18 @@ function Plot(can,ctx){
 	this.yMax = 100;												// maximum y axis value
 	this.nYGrid = 5;												// number of y axis gridlines
 	this.yBounds = "manual";	  						// "auto" or "manual" bounding of y axis
-	this.yZero = this.t+this.h; 						// y pixel location of x axis (y=0)
+	//this.yZero = this.t+this.h; 						// y pixel location of x axis (y=0)
 	
-	this.plotColor = "#999";								// plot background color
-	this.lineColor = "#000";								// border and text color
-	this.gridColor = "#444";								// gridline color
+	this.plotColor = "#999";							// plot background color
+	this.lineColor = "#000";							// border and text color
+	this.gridColor = "#444";							// gridline color
 	
 	this.traces = new Array();							// array to hold traces
-	this.stopIndex = 0;										  // index number to stop when plotting traces
+	this.stopIndex = 0;									// index number to stop when plotting traces
 	
-	this.xLabel = "Crank Angle [deg]";			// label on x-axis
+	this.xLabel = "Crank Angle [deg]";					// label on x-axis
 	this.yLabel = "Disp [mm]";							// label on y-axis
-	//this.title = "DISPLACEMENT PLOT";				// title
+	this.title = "Displacement vs. Crank Angle";		// title
 }
 
 // ****************************************************************************
@@ -108,8 +122,8 @@ Plot.prototype.drawGrid = function(){
 	// draw grid lines and label them
 	for (var i = 0; i < this.nYGrid; i++){
 		//y-axis numbering
-		var yPos = this.lerp(this.t+this.h,this.t,i/(this.nYGrid-1));
-		this.ctx.font = "12px Garamond";
+		const yPos = Math.floor(this.lerp(this.t + this.h, this.t, i / (this.nYGrid - 1))) + 0.5;
+		this.ctx.font = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 		this.ctx.fillStyle = this.lineColor;
 		this.ctx.textAlign = "right";
 		this.ctx.textBaseline = 'middle';
@@ -128,8 +142,8 @@ Plot.prototype.drawGrid = function(){
 	
 	for (var i = 0; i < this.nXGrid; i++){
 		//x-axis numbering
-		var xPos = this.lerp(this.l,this.l+this.w,i/(this.nXGrid-1));
-		this.ctx.font = "12px Garamond";
+		const xPos = Math.floor(this.lerp(this.l, this.l + this.w, i / (this.nXGrid - 1))) + 0.5;
+		this.ctx.font = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 		this.ctx.fillStyle = this.lineColor;
 		this.ctx.textAlign = "center";
 		this.ctx.textBaseline = 'top';
@@ -207,11 +221,11 @@ Plot.prototype.drawTrace = function(trace,index){
 // drawLabels - draws title, x-axis, and y-axis labels
 // ****************************************************************
 Plot.prototype.drawLabels = function(){
-	// // Plot Title
-	// this.ctx.strokeStyle = this.lineColor;
-	// this.ctx.textAlign = "center";
-	// this.ctx.textBaseline = "bottom";
-	// this.ctx.fillText(this.title,this.l+this.w/2,this.t-2);
+	// Plot Title
+	this.ctx.strokeStyle = this.lineColor;
+	this.ctx.textAlign = "center";
+	this.ctx.textBaseline = "bottom";
+	this.ctx.fillText(this.title,this.l+this.w/2,this.t-2);
 	
 	// x-label
 	this.ctx.textAlign = "center";
@@ -261,8 +275,12 @@ Plot.prototype.lerp = function(min, max, percent){
 // checkSize - checks canvas size to accomodate change in window sizes
 // *************************************************************************************
 Plot.prototype.checkSize = function(){
-	this.w = this.can.width-this.l-this.r;  // plot width
-	this.h = this.can.height-this.t-this.b;	// plot height
+	// Calculate width/height using CSS logical pixels, not internal DPR-scaled buffer width
+	const logicalWidth = this.can.width / this.dpr;
+	const logicalHeight = this.can.height / this.dpr;
+
+	this.w = logicalWidth - this.l - this.r;  // plot width
+	this.h = logicalHeight - this.t - this.b; // plot height
 }
 
 // ************************************************************************************
@@ -282,3 +300,28 @@ Plot.prototype.scaleToPlot = function(axis,val){
 	}
 	return pxVal;
 }
+
+// ************************************************************************************
+// attachResizeObserver - watch for window resize events and handle rescaling
+// ************************************************************************************
+Plot.prototype.attachResizeObserver = function(traceList) {
+	if (typeof ResizeObserver === 'undefined') return;
+
+	const observer = new ResizeObserver(() => {
+		const cssWidth = this.can.parentElement.clientWidth || 500;
+		const cssHeight = this.can.classList.contains("plot-tall") ? 250 : 125;
+
+		this.can.width = cssWidth * this.dpr;
+		this.can.height = cssHeight * this.dpr;
+		this.can.style.width = cssWidth + "px";
+		this.can.style.height = cssHeight + "px";
+
+		// Re-apply DPR scale after buffer size reset
+		this.ctx.scale(this.dpr, this.dpr);
+
+		// Redraw plot with newly calculated resolution
+		this.drawPlot(traceList);
+	});
+
+	observer.observe(this.can.parentElement);
+};
