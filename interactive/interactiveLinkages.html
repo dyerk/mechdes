@@ -1,269 +1,433 @@
 <!DOCTYPE HTML>
-<html lang='en-us'>
-	<head>
-		<title>Interactive Linkages</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<link rel="stylesheet" href="../css/navbar.css">
-		<link rel="stylesheet" href="../css/textbook.css">
-		<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
-		
-		<!-- Common javascript links -->
-		<script type="text/javascript" src="../js_common/Interactive_Linkage.js"></script>
-		<script type="text/javascript" src="../js_common/Plot.js"></script>
-		<script type="text/javascript" src="../js_common/Select_Animation.js"></script>
-		<script type="text/javascript" src="../js_common/navbar_Functions.js"></script>
-		<script src="https://use.fontawesome.com/ae4cc48b3e.js"></script>
-		<script type="text/javascript" src="../js_common/Common_Shapes.js"></script>
-		
-		<!-- Page specific javascript links -->
-		<script type="text/javascript" src="../js_common/Class_Threebar.js"></script>
-		<script type="text/javascript" src="../js_common/Class_Fourbar.js"></script>
-		<script type="text/javascript" src="../js_common/Class_Slider_Crank.js"></script>
-		<script type="text/javascript" src="../js_common/Class_Inv_Slider_Crank.js"></script>
-		<script type="text/javascript" src="../js_common/ic_utilities.js"></script>
-		<script type="text/javascript" src="../interactive/js/interactiveLinkages.js"></script>
-		<script type="text/javascript" src="../interactive/js/Fourbar_Classify.js"></script>
-		<script type="text/javascript" src="../interactive/js/Slider_Classify.js"></script>
-		<script type="text/javascript" src="../interactive/js/InvSlider_Classify.js"></script>
-	</head>
-	
-	<body class="bkgnd_black">
-		<header class="bkgnd_black">
-			<nav id="topNav">
-				<script type="text/javascript" src="../js_common/navbar.js"></script>
-			</nav>
-		</header>
-	
-		<div class="bkgnd_sides">
-		<main class="bkgnd_white">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Interactive Linkages</title>
 
-			<h1>Chapter 4</h1>
-			<h2>Interactive Animations</h2>
-			
-			<div id="sliderLinks" class="plotControl bkgnd_gray">
-				<ul>
-					<li class="itemLinks" data-pos="0">Threebar</li>
-					<li class="itemLinks" data-pos="1">Fourbar</li>     
-					<li class="itemLinks" data-pos="2">Slider-Crank</li>
-					<li class="itemLinks" data-pos="3">Inverted<br>Slider</li>
-				</ul>
-			</div> 
-		
-			<!-- ITEM 1 -->
-			<div id="item01" class="animationContainer div-hide">  				
-				<div class="animationCanvas">
-										
-					<canvas class="canTrace"   id="01canTr"></canvas>
-					<canvas class="canDraw z_2" id="01canM1"></canvas>
-					<canvas class="canDraw z_3" id="01canM2"></canvas>
-					<canvas class="canDraw z_4" id="01canM3"></canvas>
-					<canvas class="canDraw z_5" id="01canGr"></canvas>
-				</div>
+        <!-- Bootstrap 5 CSS & FontAwesome 6 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-				<div class="interactControl bkgnd_gray">
-					<ul class="plotControl">
-						<li class="" id="01butPlay">Play<br>
-							<i class="fa fa-play"></i>
-						</li>
-						<li class="" id="01butTrace">Trace<br>
-							<i class="fa fa-line-chart"></i>
-						</li>
-						<li class="" id="01butIC">ICs<br>
-							<i class="fa fa-dot-circle-o"></i>
-						</li>
-						<li class="" id="01butReset">Defaults<br>
-							<i class="fa fa-refresh"></i>
-						</li>
-					</ul>
-					<ul>
-						<li>a:&nbsp;<input class="numberBox" id="01A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>d:&nbsp;<input class="numberBox" id="01D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>p:&nbsp;<input class="numberBox" id="01P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-					</ul>
-					<ul class="div-hide">
-						<li>
-							<div class="dropdownMenu" id="selConfig">
-								<select name="selConfig" id="01selConfig">
-									<option value="O">Open</option>
-									<option value="C">Crossed</option>
-								</select>
-							</div>
-						</li>
-						<li>b:&nbsp;<input class="numberBox" id="01B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>c:&nbsp;<input class="numberBox" id="01C" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>β:&nbsp;<input class="numberBox" id="01Beta" type="number" min="-90" max="90" step="1"><br><h3>(-90-90 deg)</h3></li>
-					</ul>
-				</div>	
+        <!-- Shared Components Loader Script -->
+        <script src="../js_common/load_components.js" defer></script>
 
-				<figcaption id="01cap" class="div-hide">
-				  This threebar is Grashof.
-				</figcaption>
-			</div>
-			
-			<!-- ITEM 2 -->
-			<div id="item02" class="animationContainer div-hide">  				
-				<div class="animationCanvas">
-										
-					<canvas class="canTrace"   id="02canTr"></canvas>
-					<canvas class="canDraw z_2" id="02canM1"></canvas>
-					<canvas class="canDraw z_3" id="02canM2"></canvas>
-					<canvas class="canDraw z_4" id="02canM3"></canvas>
-					<canvas class="canDraw z_5" id="02canGr"></canvas>
-				</div>
+        <!-- Custom Stylesheet & Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+        <link rel="stylesheet" href="../css/canvas.css">
 
-				<div class="interactControl bkgnd_gray">
-					<ul class="plotControl">
-						<li class="" id="02butPlay">Play<br>
-							<i class="fa fa-play"></i>
-						</li>
-						<li class="" id="02butTrace">Trace<br>
-							<i class="fa fa-line-chart"></i>
-						</li>
-						<li class="" id="02butIC">ICs<br>
-							<i class="fa fa-dot-circle-o"></i>
-						</li>
-						<li class="" id="02butReset">Defaults<br>
-							<i class="fa fa-refresh"></i>
-						</li>
-					</ul>
-					<ul>
-						<li>a:&nbsp;<input class="numberBox" id="02A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>b:&nbsp;<input class="numberBox" id="02B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>c:&nbsp;<input class="numberBox" id="02C" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>d:&nbsp;<input class="numberBox" id="02D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-					</ul>
-					<ul>
-						<li>
-							<div class="dropdownMenu" id="selConfig">
-								<select name="selConfig" id="02selConfig">
-									<option value="O">Open</option>
-									<option value="C">Crossed</option>
-								</select>
-							</div>
-						</li>
-						<li>p:&nbsp;<input class="numberBox" id="02P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>β:&nbsp;<input class="numberBox" id="02Beta" type="number" min="-90" max="90" step="1"><br><h3>(-90-90 deg)</h3></li>
-					</ul>
-				</div>	
+        <!-- Common JavaScript links -->
+        <script src="../js_common/Interactive_Linkage.js" defer></script>
+        <script src="../js_common/Plot.js" defer></script>
+        <script src="../js_common/Select_Animation.js" defer></script>
+        <script src="../js_common/Common_Shapes.js" defer></script>
 
-				<figcaption id="02cap">
-				  This threebar is Grashof.
-				</figcaption>
-			</div>
-			
-			<!-- ITEM 3 -->
-			<div id="item03" class="animationContainer div-hide">  				
-				<div class="animationCanvas">
-										
-					<canvas class="canTrace"   id="03canTr"></canvas>
-					<canvas class="canDraw z_2" id="03canM1"></canvas>
-					<canvas class="canDraw z_3" id="03canM2"></canvas>
-					<canvas class="canDraw z_4" id="03canM3"></canvas>
-					<canvas class="canDraw z_5" id="03canGr"></canvas>
-				</div>
+        <!-- Page-Specific JavaScript links -->
+        <script src="../js_common/Class_Threebar.js" defer></script>
+        <script src="../js_common/Class_Fourbar.js" defer></script>
+        <script src="../js_common/Class_Slider_Crank.js" defer></script>
+        <script src="../js_common/Class_Inv_Slider_Crank.js" defer></script>
+        <script src="../js_common/ic_utilities.js" defer></script>
+        <script src="../interactive/js/interactiveLinkages.js" defer></script>
+        <script src="../interactive/js/Fourbar_Classify.js" defer></script>
+        <script src="../interactive/js/Slider_Classify.js" defer></script>
+        <script src="../interactive/js/InvSlider_Classify.js" defer></script>
+    </head>
 
-				<div class="interactControl bkgnd_gray">
-					<ul class="plotControl">
-						<li class="" id="03butPlay">Play<br>
-							<i class="fa fa-play"></i>
-						</li>
-						<li class="" id="03butTrace">Trace<br>
-							<i class="fa fa-line-chart"></i>
-						</li>
-						<li class="" id="03butIC">ICs<br>
-							<i class="fa fa-dot-circle-o"></i>
-						</li>
-						<li class="" id="03butReset">Defaults<br>
-							<i class="fa fa-refresh"></i>
-						</li>
-					</ul>
-					<ul>
-						<li>a:&nbsp;<input class="numberBox" id="03A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>b:&nbsp;<input class="numberBox" id="03B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>c:&nbsp;<input class="numberBox" id="03C" type="number" min="0" max="1000" step="10"><br><h3>Offset (0+ mm)</h3></li>
-					</ul>
-					<ul class="div-hide">
-						<li>d:&nbsp;<input class="numberBox" id="03D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>
-							<div class="dropdownMenu" id="selConfig">
-								<select name="selConfig" id="03selConfig">
-									<option value="O">Open</option>
-									<option value="C">Crossed</option>
-								</select>
-							</div>
-						</li>
-						<li>p:&nbsp;<input class="numberBox" id="03P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>β:&nbsp;<input class="numberBox" id="03Beta" type="number" min="-90" max="90" step="1"><br><h3>(-90-90 deg)</h3></li>
-					</ul>
-				</div>	
+    <body class="bg-dark text-light d-flex flex-column min-vh-100">
+        <!-- NAVIGATION CONTAINER -->
+        <header id="navbar-placeholder" data-nav-path="../includes/navbar.html"></header>
 
-				<figcaption id="03cap">
-				  This slider-crank is non-binding.
-				</figcaption>
-			</div>
-			
-			<!-- ITEM 4 -->
-			<div id="item04" class="animationContainer div-hide">  				
-				<div class="animationCanvas">
-										
-					<canvas class="canTrace"   id="04canTr"></canvas>
-					<canvas class="canDraw z_2" id="04canM1"></canvas>
-					<canvas class="canDraw z_3" id="04canM2"></canvas>
-					<canvas class="canDraw z_4" id="04canM3"></canvas>
-					<canvas class="canDraw z_5" id="04canGr"></canvas>
-				</div>
+        <!-- PAGE CONTENT -->
+        <main class="container my-4 flex-grow-1 bg-white text-dark p-4 rounded-3">
+            <header class="mb-4">
+                <h1 class="h2">Chapter 4</h1>
+                <h2 class="h4 text-muted">Interactive Animations</h2>
+            </header>
 
-				<div class="interactControl bkgnd_gray">
-					<ul class="plotControl">
-						<li class="" id="04butPlay">Play<br>
-							<i class="fa fa-play"></i>
-						</li>
-						<li class="" id="04butTrace">Trace<br>
-							<i class="fa fa-line-chart"></i>
-						</li>
-						<li class="" id="04butIC">ICs<br>
-							<i class="fa fa-dot-circle-o"></i>
-						</li>
-						<li class="" id="04butReset">Defaults<br>
-							<i class="fa fa-refresh"></i>
-						</li>
-					</ul>
-					<ul>
-						<li>a:&nbsp;<input class="numberBox" id="04A" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>c:&nbsp;<input class="numberBox" id="04C" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>d:&nbsp;<input class="numberBox" id="04D" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-					</ul>
-					<ul>
-						<li>
-							<div class="dropdownMenu" id="selConfig">
-								<select name="selConfig" id="04selConfig">
-									<option value="O">Open</option>
-									<option value="C">Crossed</option>
-								</select>
-							</div>
-						</li>
-						<li>p:&nbsp;<input class="numberBox" id="04P" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-						<li>β:&nbsp;<input class="numberBox" id="04Beta" type="number" min="20" max="160" step="1"><br><h3>(20-130 deg)</h3></li>
-					</ul>
-					<ul class="div-hide">
-						<li>b:&nbsp;<input class="numberBox" id="04B" type="number" min="10" max="1000" step="10"><br><h3>(10-1000 mm)</h3></li>
-					</ul>
-				</div>	
+            <!-- Animation Selection Navigation (Nav Pills) -->
+            <nav aria-label="Animation Selection" class="my-3">
+                <ul id="sliderLinks" class="nav nav-pills justify-content-center bg-light p-2 rounded border gap-1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks active" data-pos="0" id="pill-threebar-tab" type="button" role="tab" aria-selected="true">
+                            Threebar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="1" id="pill-fourbar-tab" type="button" role="tab" aria-selected="false">
+                            Fourbar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="2" id="pill-slider-tab" type="button" role="tab" aria-selected="false">
+                            Slider-Crank
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="3" id="pill-invslider-tab" type="button" role="tab" aria-selected="false">
+                            Inverted Slider
+                        </button>
+                    </li>
+                </ul>
+            </nav>
 
-				<figcaption id="04cap">
-				  This configuration of the inverted slider-crank is grashof.
-				</figcaption>
-			</div>
-		</main>
-		</div>
-		
-		<footer class="bkgnd_black">
-			<div class="foot">
-				<p>Copyright 2017 - Eric Constans, Karl Dyer and Rowan University</p>
-				<p>Contact: <a href="mailto:constans@rose-hulman.edu">constans@rose-hulman.edu</a></p>
-			</div>
-		</footer>
-	</body>
+            <!-- ITEM 01: Threebar -->
+            <section id="item01" class="animationContainer my-4">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation -->
+                    <div class="col-12 col-lg-7">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2 d-none">
+                                <p id="01cap" class="h6 mb-0 fw-semibold text-dark">This threebar is Grashof.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Right Column: Interactive Controls -->
+                    <div class="col-12 col-lg-5">
+                        <div class="interactControl bg-light p-3 rounded border">
+                            <h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-3 pb-1 border-bottom">
+                                Controls & Parameters
+                            </h3>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button" class="btn btn-outline-primary flex-fill" id="01butPlay">
+                                    <i class="fa-solid fa-play me-1" aria-hidden="true"></i> Play
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="01butTrace">
+                                    <i class="fa-solid fa-chart-line me-1" aria-hidden="true"></i> Trace
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="01butIC">
+                                    <i class="fa-solid fa-circle-dot me-1" aria-hidden="true"></i> ICs
+                                </button>
+                                <button type="button" class="btn btn-outline-danger flex-fill" id="01butReset">
+                                    <i class="fa-solid fa-rotate-right me-1" aria-hidden="true"></i> Defaults
+                                </button>
+                            </div>
+
+                            <!-- Form Controls -->
+                            <div class="row g-3">
+                                <div class="col-6 col-sm-4">
+                                    <label for="01A" class="form-label small fw-bold mb-1">a (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="01A" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label for="01D" class="form-label small fw-bold mb-1">d (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="01D" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label for="01P" class="form-label small fw-bold mb-1">p (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="01P" type="number" min="10" max="1000" step="10">
+                                </div>
+                            </div>
+
+                            <!-- Hidden Parameter Fields -->
+                            <div class="row g-3 mt-1 d-none">
+                                <div class="col-12 col-sm-6" id="selConfig">
+                                    <label for="01selConfig" class="form-label small fw-bold mb-1">Config</label>
+                                    <select name="selConfig" id="01selConfig" class="form-select form-select-sm">
+                                        <option value="O">Open</option>
+                                        <option value="C">Crossed</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="01B" class="form-label small fw-bold mb-1">b (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="01B" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="01C" class="form-label small fw-bold mb-1">c (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="01C" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="01Beta" class="form-label small fw-bold mb-1">β (-90 to 90 deg)</label>
+                                    <input class="form-control form-control-sm numberBox" id="01Beta" type="number" min="-90" max="90" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ITEM 02: Fourbar -->
+            <section id="item02" class="animationContainer my-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation -->
+                    <div class="col-12 col-lg-7">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <p id="02cap" class="h6 mb-0 fw-semibold text-dark">This threebar is Grashof.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Right Column: Interactive Controls -->
+                    <div class="col-12 col-lg-5">
+                        <div class="interactControl bg-light p-3 rounded border">
+                            <h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-3 pb-1 border-bottom">
+                                Controls & Parameters
+                            </h3>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button" class="btn btn-outline-primary flex-fill" id="02butPlay">
+                                    <i class="fa-solid fa-play me-1" aria-hidden="true"></i> Play
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="02butTrace">
+                                    <i class="fa-solid fa-chart-line me-1" aria-hidden="true"></i> Trace
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="02butIC">
+                                    <i class="fa-solid fa-circle-dot me-1" aria-hidden="true"></i> ICs
+                                </button>
+                                <button type="button" class="btn btn-outline-danger flex-fill" id="02butReset">
+                                    <i class="fa-solid fa-rotate-right me-1" aria-hidden="true"></i> Defaults
+                                </button>
+                            </div>
+
+                            <!-- Form Controls -->
+                            <div class="row g-3">
+                                <div class="col-6 col-sm-6">
+                                    <label for="02A" class="form-label small fw-bold mb-1">a (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="02A" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="02B" class="form-label small fw-bold mb-1">b (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="02B" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="02C" class="form-label small fw-bold mb-1">c (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="02C" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="02D" class="form-label small fw-bold mb-1">d (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="02D" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-12 col-sm-4" id="selConfig">
+                                    <label for="02selConfig" class="form-label small fw-bold mb-1">Config</label>
+                                    <select name="selConfig" id="02selConfig" class="form-select form-select-sm">
+                                        <option value="O">Open</option>
+                                        <option value="C">Crossed</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label for="02P" class="form-label small fw-bold mb-1">p (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="02P" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label for="02Beta" class="form-label small fw-bold mb-1">β (-90 to 90 deg)</label>
+                                    <input class="form-control form-control-sm numberBox" id="02Beta" type="number" min="-90" max="90" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ITEM 03: Slider-Crank -->
+            <section id="item03" class="animationContainer my-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation -->
+                    <div class="col-12 col-lg-7">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="03canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="03canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="03canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="03canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="03canGr" width="500" height="400"></canvas>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <p id="03cap" class="h6 mb-0 fw-semibold text-dark">This slider-crank is non-binding.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Right Column: Interactive Controls -->
+                    <div class="col-12 col-lg-5">
+                        <div class="interactControl bg-light p-3 rounded border">
+                            <h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-3 pb-1 border-bottom">
+                                Controls & Parameters
+                            </h3>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button" class="btn btn-outline-primary flex-fill" id="03butPlay">
+                                    <i class="fa-solid fa-play me-1" aria-hidden="true"></i> Play
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="03butTrace">
+                                    <i class="fa-solid fa-chart-line me-1" aria-hidden="true"></i> Trace
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="03butIC">
+                                    <i class="fa-solid fa-circle-dot me-1" aria-hidden="true"></i> ICs
+                                </button>
+                                <button type="button" class="btn btn-outline-danger flex-fill" id="03butReset">
+                                    <i class="fa-solid fa-rotate-right me-1" aria-hidden="true"></i> Defaults
+                                </button>
+                            </div>
+
+                            <!-- Form Controls -->
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <label for="03A" class="form-label small fw-bold mb-1">a (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="03A" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-4">
+                                    <label for="03B" class="form-label small fw-bold mb-1">b (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="03B" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-4">
+                                    <label for="03C" class="form-label small fw-bold mb-1">Offset (0+ mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="03C" type="number" min="0" max="1000" step="10">
+                                </div>
+                            </div>
+
+                            <!-- Hidden Parameter Fields -->
+                            <div class="row g-3 mt-1 d-none">
+                                <div class="col-6 col-sm-6">
+                                    <label for="03D" class="form-label small fw-bold mb-1">d (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="03D" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6" id="selConfig">
+                                    <label for="03selConfig" class="form-label small fw-bold mb-1">Config</label>
+                                    <select name="selConfig" id="03selConfig" class="form-select form-select-sm">
+                                        <option value="O">Open</option>
+                                        <option value="C">Crossed</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="03P" class="form-label small fw-bold mb-1">p (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="03P" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-6">
+                                    <label for="03Beta" class="form-label small fw-bold mb-1">β (-90 to 90 deg)</label>
+                                    <input class="form-control form-control-sm numberBox" id="03Beta" type="number" min="-90" max="90" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ITEM 04: Inverted Slider-Crank -->
+            <section id="item04" class="animationContainer my-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation -->
+                    <div class="col-12 col-lg-7">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="04canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="04canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="04canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="04canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="04canGr" width="500" height="400"></canvas>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <p id="04cap" class="h6 mb-0 fw-semibold text-dark">This configuration of the inverted slider-crank is grashof.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Right Column: Interactive Controls -->
+                    <div class="col-12 col-lg-5">
+                        <div class="interactControl bg-light p-3 rounded border">
+                            <h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-3 pb-1 border-bottom">
+                                Controls & Parameters
+                            </h3>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button" class="btn btn-outline-primary flex-fill" id="04butPlay">
+                                    <i class="fa-solid fa-play me-1" aria-hidden="true"></i> Play
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="04butTrace">
+                                    <i class="fa-solid fa-chart-line me-1" aria-hidden="true"></i> Trace
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary flex-fill" id="04butIC">
+                                    <i class="fa-solid fa-circle-dot me-1" aria-hidden="true"></i> ICs
+                                </button>
+                                <button type="button" class="btn btn-outline-danger flex-fill" id="04butReset">
+                                    <i class="fa-solid fa-rotate-right me-1" aria-hidden="true"></i> Defaults
+                                </button>
+                            </div>
+
+                            <!-- Form Controls -->
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <label for="04A" class="form-label small fw-bold mb-1">a (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="04A" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-4">
+                                    <label for="04C" class="form-label small fw-bold mb-1">c (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="04C" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-4">
+                                    <label for="04D" class="form-label small fw-bold mb-1">d (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="04D" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-12 col-sm-4" id="selConfig">
+                                    <label for="04selConfig" class="form-label small fw-bold mb-1">Config</label>
+                                    <select name="selConfig" id="04selConfig" class="form-select form-select-sm">
+                                        <option value="O">Open</option>
+                                        <option value="C">Crossed</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label for="04P" class="form-label small fw-bold mb-1">p (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="04P" type="number" min="10" max="1000" step="10">
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <label for="04Beta" class="form-label small fw-bold mb-1">β (20-130 deg)</label>
+                                    <input class="form-control form-control-sm numberBox" id="04Beta" type="number" min="20" max="160" step="1">
+                                </div>
+                            </div>
+
+                            <!-- Hidden Parameter Fields -->
+                            <div class="row g-3 mt-1 d-none">
+                                <div class="col-6">
+                                    <label for="04B" class="form-label small fw-bold mb-1">b (10-1000 mm)</label>
+                                    <input class="form-control form-control-sm numberBox" id="04B" type="number" min="10" max="1000" step="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER CONTAINER -->
+        <footer id="footer-placeholder" data-footer-path="../includes/footer.html"></footer>
+
+        <!-- Bootstrap JS Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

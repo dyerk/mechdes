@@ -6,7 +6,6 @@ window.onload = init;
 // *******************************************************************************
 function init() {
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 	
 	// ***** dimensions of threebar linkage *****

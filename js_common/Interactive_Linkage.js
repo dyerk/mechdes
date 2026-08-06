@@ -186,9 +186,9 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 Linkage.prototype.eventPlay = function(linkage) {
   linkage.isPlaying = !linkage.isPlaying;            			// toggle play state
   if (linkage.isPlaying) {  // is the animation playing?  then enable the stop button
-    linkage.butPlay.innerHTML = "Stop<br><i class='fa fa-stop'></i>";
+    linkage.butPlay.innerHTML = "<i class='fa-solid fa-stop'></i> Stop";
   } else {      // otherwise, animation is stopped re-enable the play button and reset button
-		linkage.butPlay.innerHTML = "Play<br><i class='fa fa-play'></i>";
+		linkage.butPlay.innerHTML = "<i class='fa-solid fa-play'></i> Play";
   }
 
 	// ******* drawFrame updates all plots and animations ********
@@ -263,6 +263,15 @@ Linkage.prototype.eventReset = function(linkage) {
   		this.boxB.value = 130; // set coupler
 			this.boxC.value = 60; // set ground
 			break;
+
+		case "invSlider":
+			var boxlist = ["boxA", "boxB", "boxC", "boxD", "boxP", "boxBeta"];
+			this.boxA.value = 60;
+			this.boxC.value = 70;
+			this.boxD.value = 160;
+			this.boxP.value = 220;
+			this.boxBeta.value = 70;
+			break;
 	}
 	
 	for (box in boxlist) {					 //iterate through all box resets above and execute 
@@ -291,14 +300,14 @@ Linkage.prototype.eventToggleButton = function(button) {
 	this[buttonFlag] = !this[buttonFlag];
 	
 	if (this[buttonFlag]) {     													 //If button is "on"
-		this[button].classList.add("button-selected");        // toggle button selection
+		this[button].classList.add("active");        // toggle button selection
 		if (button=="butIC"){
 			this.draw(this.crankAngle);
 			this.drawIC();
 		}
 		
 	} else {
-		this[button].classList.remove("button-selected");     // it deslected
+		this[button].classList.remove("active");     // it deslected
 		if (button=="butTrace") {
 			this.ctx[0].clearRect(0, 0, this.can[0].width, this.can[0].height);
 			this.draw(this.crankAngle)
