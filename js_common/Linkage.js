@@ -4,11 +4,12 @@
 function Linkage() {
   this.isPlaying = false; // is the animation playing?
   this.isGrashof = true;  // does the crank make a full revolution?
-	this.showPlots = true;	// show Disp, Vel, Acc plots
-	this.showIC = false;		// show instant centers?
-	this.showTrace = true;  // show traces?
+  this.showPlots = true;	// show Disp, Vel, Acc plots
+  this.showIC = false;		// show instant centers?
+  this.showTrace = true;  // show traces?
+  this.calcLengths = true; // calculate link lentghs - turn off for geared canvases
 	
-	this.crankMin = 0;    // starting value for crank (only for non-Grashof linkages)
+  this.crankMin = 0;    // starting value for crank (only for non-Grashof linkages)
   this.crankMax = 0;    // ending value for crank (only for non-Grashof linkages)
   this.deltaT = 1.5;    // timestep in animation
   this.timeStep = 0;    // current value of time in animation
@@ -178,64 +179,66 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		-100,150);
 	}
 
-	// Create caption strings from linkage dimensions
-	this.cap = document.getElementById(caption);
-	this.capDescrip = this.cap?.innerHTML ?? "No description available";
-	this.capLengths = " Link Lengths [mm]: ";
-	
-	// iterate through all bars and display lengths
-	for (i in this.bar) { 
-		switch (this.type) {
+	if (this.calcLengths) {
+		// Create caption strings from linkage dimensions
+		this.cap = document.getElementById(caption);
+		this.capDescrip = this.cap?.innerHTML ?? "No description available";
+		this.capLengths = " Link Lengths [mm]: ";
 		
-			case "threebar":
-			case "fourbar":
-				if (this.bar[i].L) {
-					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-				}
-				break;
-				
-			case "slider":
-				if (this.bar[i].L) {
-					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-				} else {
-					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+-this.bar[i].y;
-				}
-				break;
+		// iterate through all bars and display lengths
+		for (i in this.bar) { 
+			switch (this.type) {
 			
-			case "invSlider":
-				if ((this.bar[i].L) && (i!=1)) {
-					this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-				} 
-				break;
+				case "threebar":
+				case "fourbar":
+					if (this.bar[i].L) {
+						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
+					}
+					break;
+					
+				case "slider":
+					if (this.bar[i].L) {
+						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
+					} else {
+						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+-this.bar[i].y;
+					}
+					break;
+				
+				case "invSlider":
+					if ((this.bar[i].L) && (i!=1)) {
+						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
+					} 
+					break;
+			}
+		}			
+
+		// Get length between grounds
+		if (this.pivot[1]){
+			this.capLengths = this.capLengths+"D = "+this.pivot[1].x; //get ground from 2nd pivot
 		}
-	}			
+		
+		//TODO: Fix P and innerHTML
+		
+		// Check for P 
+		// if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
+		// 	if (isNaN(this.bar[1].beta)) {
+		// 		var angle = "0";
+		// 	} else {
+		// 		var angle = this.bar[1].beta*180/Math.PI;
+		// 	}
+		// 	this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
+		// }
 
-	// Get length between grounds
-	if (this.pivot[1]){
-		this.capLengths = this.capLengths+"D = "+this.pivot[1].x; //get ground from 2nd pivot
+		//this.cap.innerHTML = this.capDescrip + this.capLengths;
+
+
+		// } else {
+		// 	const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
+		// 	if (plotControl) {
+		// 		plotControl.classList.add('d-none');
+		// 	}
+		// }
 	}
-	
-	//TODO: Fix P and innerHTML
-	
-	// Check for P 
-	// if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
-	// 	if (isNaN(this.bar[1].beta)) {
-	// 		var angle = "0";
-	// 	} else {
-	// 		var angle = this.bar[1].beta*180/Math.PI;
-	// 	}
-	// 	this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
-	// }
-
-	//this.cap.innerHTML = this.capDescrip + this.capLengths;
-
-
-	// } else {
-	// 	const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
-	// 	if (plotControl) {
-	// 		plotControl.classList.add('d-none');
-	// 	}
-	// }
 }
 
 // ************************************************************************************** 

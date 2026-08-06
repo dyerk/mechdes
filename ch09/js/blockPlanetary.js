@@ -6,7 +6,6 @@ window.onload = init;
 // *******************************************************************************
 function init() {
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 	
 	// ***** numbers of teeth on gears *****

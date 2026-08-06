@@ -45,7 +45,6 @@ function init() {
   planR2P4.draw(0);
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 
