@@ -43,23 +43,21 @@ function handle_2S2P1(canvas,context,S) {
   return function () {
 
     playing1 = !playing1;
-    if (!playing1) {
-      document.getElementById("play1").value = "Play";
-    } else {
-      document.getElementById("play1").value = "Pause";
-      if (firstTime1) {
-        firstTime1 = false;
-        var i = 0;
-        function drawFrame () {
-          if (playing1 == false) { 
-            return;
-          } else {
-            i += 1;
-            draw_2S2P1(canvas,context,S,i)
-          }
+    togglePlayButtonUI("play1", playing1, "Large Sun Fixed Small Sun Input Animation");
+
+    if (firstTime1) {
+      firstTime1 = false;
+      var i = 0;
+      function drawFrame () {
+        if (playing1 == false) { 
+          return;
+        } else {
+          i += 1;
+          draw_2S2P1(canvas,context,S,i)
         }
-        var handle = window.setInterval(drawFrame, 1000/60);
-}}}}
+      }
+      var handle = window.setInterval(drawFrame, 1000/60);
+}}}
 /**********************************************************************************************************************/
 /* function handle_2S2P2 - toggles between play and pause, and initiates the animation upon first play
 /**********************************************************************************************************************/
@@ -67,23 +65,21 @@ function handle_2S2P2(canvas,context,S) {
   return function () {
 
     playing2 = !playing2;
-    if (!playing2) {
-      document.getElementById("play2").value = "Play";
-    } else {
-      document.getElementById("play2").value = "Pause";
-      if (firstTime2) {
-        firstTime2 = false;
-        var i = 0;
-        function drawFrame () {
-          if (playing2 == false) { 
-            return;
-          } else {
-            i += 1;
-            draw_2S2P2(canvas,context,S,i)
-          }
+    togglePlayButtonUI("play2", playing2, "Small Sun Fixed Large Sun Input Animation");
+
+    if (firstTime2) {
+      firstTime2 = false;
+      var i = 0;
+      function drawFrame () {
+        if (playing2 == false) { 
+          return;
+        } else {
+          i += 1;
+          draw_2S2P2(canvas,context,S,i)
         }
-        var handle = window.setInterval(drawFrame, 1000/60);
-}}}}
+      }
+      var handle = window.setInterval(drawFrame, 1000/60);
+}}}
 /**********************************************************************************************************************/
 /* function init_2S2P1 - initializes gears for sun, ring, planet, carrier
 /**********************************************************************************************************************/
