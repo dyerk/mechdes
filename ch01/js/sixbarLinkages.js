@@ -19,6 +19,7 @@ function init() {
 
   var sixbarS1 = new SixbarS1(a,b,c,d,p,q,u,v,gamma2,gamma4);  // create sixbar
 	sixbarS1.showPlots = false;
+  sixbarS1.calcLengths = false;
   sixbarS1.buttonCanvas("01", 200, 250);
   sixbarS1.drawGround();
   sixbarS1.draw(0);             // calculate the sixbar geometry and draw
@@ -37,6 +38,7 @@ function init() {
 
   var sixbarS2 = new SixbarS2(a,b,c,d,p,q,u,v,gamma3,gamma4);  // create sixbar
   sixbarS2.showPlots = false;
+  sixbarS2.calcLengths = false;
 	sixbarS2.buttonCanvas("02", 100, 280);
   sixbarS2.drawGround();
   sixbarS2.draw(0);   
@@ -55,6 +57,7 @@ function init() {
 
   var sixbarS3 = new SixbarS3(a,b,c,d,p,q,u,v,gamma1,gamma3);  // create sixbar
   sixbarS3.showPlots = false;
+  sixbarS3.calcLengths = false;
 	sixbarS3.buttonCanvas("03", 140, 280);
   sixbarS3.drawGround();
   sixbarS3.draw(0);                // calculate the sixbar geometry and draw
@@ -73,6 +76,7 @@ function init() {
 
   var sixbarW1 = new SixbarW1(a,b,c,d,p,q,u,v,gamma3,gamma4);  // create sixbar
   sixbarW1.showPlots = false;
+  sixbarW1.calcLengths = false;
 	sixbarW1.buttonCanvas("04", 120, 300);
   sixbarW1.drawGround();
   sixbarW1.draw(0);    
@@ -91,12 +95,12 @@ function init() {
 
   var sixbarW2 = new SixbarW2(a,b,c,d,p,q,u,v,gamma1,gamma4);  // create sixbar
   sixbarW2.showPlots = false;
+  sixbarW2.calcLengths = false;
 	sixbarW2.buttonCanvas("05", 120, 250);
   sixbarW2.drawGround();
   sixbarW2.draw(0);                // calculate the sixbar geometry and draw 
 	
 	// Start other page scripts
-	navbar();
 	Select_Animation();
 }
 

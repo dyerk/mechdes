@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>The 5DOF Floating Arm Trebuchet with Cart</title>
+  <link href='http://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet' type='text/css'>
+  <link href="Styles_Treb.css" rel="stylesheet">
+  <script src="JS/TB/TB_Common_Shapes.js"></script>
+  <script src="JS/TB/TB_Arm_Base_Shapes.js"></script>
+  <script src="JS/TB/TB_5DOF_Floating_Cart_Shapes.js"></script>
+  <script src="JS/TB/TB_5DOF_Floating_Cart_Main.js"></script>
+  <script src="JS/TB/TB_Validate.js"></script>
+  <script src="JS/TB/TB_Button_Functions.js"></script>
+  <script src="JS/TB/matrix_utilities.js"></script>
+  <script src="JS/TB/TB_Plot_Projectile.js"></script>
+  <script src="JS/TB/plot_utilities.js"></script>
+</head>
+
+<body>
+  <nav class="top">
+    <script src="JS/TB_Nav_Bar.js"></script>
+  </nav>
+
+  <img src="images/Trebuchet_Banner.png" width="960">
+
+  <article>
+    <br>
+    <img class="center" src="images/TB/TB_5DOF_Floating_Cart.png" width = "900">
+    
+    <h2>The 5DOF Floating Arm Trebuchet with Moving Cart</h2>
+    <p>This is the floating arm trebuchet with a sling.  The 5 degrees of freedom are the x and y coordinates
+    of the projectile, the height of the counterweight, and the sling and arm angles.  To include the sling, 
+    a much more constraint-intensive (5DOF) approach is required.</p> 
+
+    <script src="JS/TB/TB_Canvas_Buttons.js"></script>
+     
+    <form>     
+    <table>
+      <tr>
+        <td>
+          <fieldset>
+            <legend>Lengths</legend>
+            <p><input class="numberBox" id="L2" type="number"><label for="L2" id="L2Label"></label></p> 
+            <p><input class="numberBox" id="D"  type="number"><label for="D"  id="DLabel"></label></p> 
+            <p><input class="numberBox" id="H"  type="number"><label for="H"  id="HLabel"></label></p>
+            <p><input class="numberBox" id="W"  type="number"><label for="W"  id="WLabel"></label></p>          
+          </fieldset>
+        </td>
+        <td>
+          <fieldset>
+            <legend>Lengths</legend>
+            <p><input class="numberBox" id="w"  type="number"><label for="w"  id="wLabel"></label></p>
+            <p><input class="numberBox" id="t"  type="number"><label for="t"  id="tLabel"></label></p>
+            <p><input class="numberBox" id="h0" type="number"><label for="h0" id="h0Label"></label></p>
+          </fieldset>
+          <fieldset>
+             <legend>Angles</legend>
+             <p><input class="numberBox" id="lambda" type="number"><label for="lambda" id="lambdaLabel"></label></p>
+             <p><input class="numberBox" id="beta"   type="number"><label for="beta"   id="betaLabel"></label></p>
+           </fieldset>
+        </td>
+        <td>
+          <fieldset>
+            <legend>Masses</legend>
+            <p><input class="numberBox" id="m1" type="number"><label for="m1" id="m1Label"></label></p>
+            <p><input class="numberBox" id="m2" type="number"><label for="m2" id="m2Label"></label></p>
+            <p><input class="numberBox" id="mc" type="number"><label for="mc" id="mcLabel"></label></p>
+          </fieldset>
+          <fieldset>
+            <legend>Density</legend>
+            <p><input class="numberBox" id="rho" type="number"><label for="rho" id="rhoLabel"></label></p>
+          </fieldset>
+        </td>
+      </tr>
+    </table>
+    </form>
+    <br><br>
+  </article>
+  <img src="images/Trebuchet_Banner_Bottom.png" width="960">
+  <footer>
+    <p>Copyright 2013, Eric Constans and Rowan University</p>
+    <p>Contact: <a href="mailto:constans@rowan.edu">constans@rowan.edu</a></p>
+  </footer>
+</body>
+</html>
