@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Planetary Gearsets</title>
+
+        <!-- Bootstrap 5 CSS & FontAwesome 6 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+        <!-- Shared Components Loader Script -->
+        <script src="/js_common/load_components.js" defer></script>
+
+        <!-- Custom Stylesheet & Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+        <link rel="stylesheet" href="/css/canvas.css">
+
+        <!-- Common JavaScript links -->
+        <script src="/js_common/Linkage.js" defer></script>
+        <script src="/js_common/Plot.js" defer></script>
+        <script src="/js_common/Select_Animation.js" defer></script>
+        <script src="/js_common/Common_Shapes.js" defer></script>
+
+        <!-- Page-Specific JavaScript links -->
+        <script src="/js_common/Common_Shapes_Planetary.js" defer></script>
+        <script src="/js_common/Class_PlanSRP.js" defer></script>
+        <script src="/js_common/Class_PlanSRP2_1.js" defer></script>
+        <script src="/js_common/Class_PlanSRP2_2.js" defer></script>
+        <script src="/js_common/Class_PlanSRP3_1.js" defer></script>
+        <script src="/js_common/Class_PlanSRP3_2.js" defer></script>
+        <script src="/js_common/Class_PlanSRP4.js" defer></script>
+        <script src="/pages/gears/js/sunRingPlanet.js" defer></script>
+    </head>
+
+    <body class="bg-dark text-light d-flex flex-column min-vh-100">
+        <!-- NAVIGATION CONTAINER -->
+        <header id="navbar-placeholder" data-nav-path="/includes/navbar.html"></header>
+
+        <!-- PAGE CONTENT -->
+        <main class="container my-4 flex-grow-1 bg-white text-dark p-4 rounded-3">
+            <header class="mb-2 pb-2">
+                <h1 class="h2">Planetary Gearsets</h1>
+            </header>
+
+            <h2 class="h4 text-muted border-bottom pb-2 mb-2">Sun, Ring, Planet Planetary Gearsets</h2>
+            <!-- Animation Selection Navigation (Nav Pills) -->
+            <nav aria-label="Animation Selection" class="mt-3 border-bottom border-3">
+                <ul id="sliderLinks" class="nav nav-pills justify-content-center bg-light p-2 rounded-top border gap-1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks active" data-pos="0" id="pill-srp1-tab" type="button" role="tab" aria-selected="true">
+                            Traditional Planetary
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="1" id="pill-srp2-tab" type="button" role="tab" aria-selected="false">
+                            2 Planets
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="2" id="pill-srp2-idler-tab" type="button" role="tab" aria-selected="false">
+                            2 Planets (Idler)
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="3" id="pill-srp3-cfg1-tab" type="button" role="tab" aria-selected="false">
+                            3 Planets (Config 1)
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="4" id="pill-srp3-cfg2-tab" type="button" role="tab" aria-selected="false">
+                            3 Planets (Config 2)
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link itemLinks" data-pos="5" id="pill-srp4-tab" type="button" role="tab" aria-selected="false">
+                            4 Planets
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- ITEM 01: Traditional Planetary -->
+            <section id="item01" class="animationContainer mb-4">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation & Controls -->
+                    <div class="col-12">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded-bottom p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
+                                </div>
+
+                                <!-- Animation Controls -->
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
+                                        <i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
+                                        <i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <h3 id="01cap" class="h6 mb-0 fw-semibold">The traditional planetary gearset has a sun, ring and one planet.</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ITEM 02: 2 Planets -->
+            <section id="item02" class="animationContainer mb-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation & Controls -->
+                    <div class="col-12">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded-bottom p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
+                                </div>
+
+                                <!-- Animation Controls -->
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
+                                        <i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
+                                        <i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <h3 id="02cap" class="h6 mb-0 fw-semibold">Sun, ring and two planets.</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ITEM 03: 2 Planets (Idler) -->
+            <section id="item03" class="animationContainer mb-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation & Controls -->
+                    <div class="col-12">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded-bottom p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="03canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="03canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="03canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="03canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="03canGr" width="500" height="400"></canvas>
+                                </div>
+
+                                <!-- Animation Controls -->
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <button type="button" class="btn btn-outline-primary" id="03btnPlay" aria-label="Play animation">
+                                        <i class="fa-solid fa-circle-play fa-2xl" id="03butPlay" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="03btnReset" aria-label="Reset animation">
+                                        <i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="03butReset" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <h3 id="03cap" class="h6 mb-0 fw-semibold">Sun, ring and two planets. One planet is an idler gear intended to change direction of output.</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ITEM 04: 3 Planets (Config 1) -->
+            <section id="item04" class="animationContainer mb-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation & Controls -->
+                    <div class="col-12">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded-bottom p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="04canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="04canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="04canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="04canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="04canGr" width="500" height="400"></canvas>
+                                </div>
+
+                                <!-- Animation Controls -->
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <button type="button" class="btn btn-outline-primary" id="04btnPlay" aria-label="Play animation">
+                                        <i class="fa-solid fa-circle-play fa-2xl" id="04butPlay" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="04btnReset" aria-label="Reset animation">
+                                        <i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="04butReset" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <h3 id="04cap" class="h6 mb-0 fw-semibold">Sun, ring and three planets.</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ITEM 05: 3 Planets (Config 2) -->
+            <section id="item05" class="animationContainer mb-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation & Controls -->
+                    <div class="col-12">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded-bottom p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="05canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="05canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="05canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="05canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="05canGr" width="500" height="400"></canvas>
+                                </div>
+
+                                <!-- Animation Controls -->
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <button type="button" class="btn btn-outline-primary" id="05btnPlay" aria-label="Play animation">
+                                        <i class="fa-solid fa-circle-play fa-2xl" id="05butPlay" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="05btnReset" aria-label="Reset animation">
+                                        <i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="05butReset" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <h3 id="05cap" class="h6 mb-0 fw-semibold">Sun, ring and three planets.</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ITEM 06: 4 Planets -->
+            <section id="item06" class="animationContainer mb-4 d-none">
+                <div class="row g-4 align-items-start">
+                    
+                    <!-- Left Column: Canvas Animation & Controls -->
+                    <div class="col-12">
+                        <figure class="figure w-100 m-0">
+                            <div class="animationCanvas border rounded-bottom p-2 bg-light">
+                                <div class="canvas-wrapper position-relative">
+                                    <canvas class="canTrace" id="06canTr" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_2" id="06canM1" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_3" id="06canM2" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_4" id="06canM3" width="500" height="400"></canvas>
+                                    <canvas class="canDraw z_5" id="06canGr" width="500" height="400"></canvas>
+                                </div>
+
+                                <!-- Animation Controls -->
+                                <div class="d-flex justify-content-center gap-3 mt-3">
+                                    <button type="button" class="btn btn-outline-primary" id="06btnPlay" aria-label="Play animation">
+                                        <i class="fa-solid fa-circle-play fa-2xl" id="06butPlay" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="06btnReset" aria-label="Reset animation">
+                                        <i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="06butReset" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <figcaption class="figure-caption text-center mt-2">
+                                <h3 id="06cap" class="h6 mb-0 fw-semibold">Sun, ring and four planets.</h3>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER CONTAINER -->
+        <footer id="footer-placeholder" data-footer-path="/includes/footer.html"></footer>
+
+        <!-- Bootstrap JS Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

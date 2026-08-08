@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Load Navbar Component
     const navPlaceholder = document.getElementById('navbar-placeholder');
     if (navPlaceholder) {
-        const navbarPath = navPlaceholder.getAttribute('data-nav-path') || '../includes/navbar.html';
+        const navbarPath = navPlaceholder.getAttribute('data-nav-path') || '/includes/navbar.html';
         fetchComponent(navbarPath, navPlaceholder, highlightActiveLinks);
     }
 
     // 2. Load Footer Component
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
-        const footerPath = footerPlaceholder.getAttribute('data-footer-path') || '../includes/footer.html';
+        const footerPath = footerPlaceholder.getAttribute('data-footer-path') || '/includes/footer.html';
         fetchComponent(footerPath, footerPlaceholder);
     }
 });
@@ -40,7 +40,7 @@ function highlightActiveLinks() {
 
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (href && currentPath.endsWith(href.replace('../', ''))) {
+        if (href && currentPath.endsWith(href.replace('/', ''))) {
             link.classList.add('active');
             link.setAttribute('aria-current', 'page');
 

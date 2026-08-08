@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Introduction to Planetary Gearsets</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Bootstrap 5 CSS & FontAwesome 6 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+		<!-- Shared Components Loader Script -->
+		<script src="/js_common/load_components.js" defer></script>
+
+		<!-- Custom Stylesheet & Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="stylesheet" href="/css/canvas.css">
+
+		<!-- Page Specific JavaScript Links -->
+		<script src="/JS/shapes.js"></script>
+		<script src="/JS/utilities.js"></script>
+		<script src="/JS/PG/PG_Intro_Init.js"></script>
+		<script src="/JS/PG/PG_Intro_Draw.js"></script>
+		<script src="/JS/PG/PG_Intro_Handle.js"></script>
+		<script src="/JS/PG/PG_Intro_Main.js"></script>
+	</head>
+
+	<body class="bg-dark text-light d-flex flex-column min-vh-100">
+		<!-- Skip to Main Content (WCAG 2.4.1) -->
+		<a class="visually-hidden-focusable p-3 bg-primary text-white position-absolute top-0 start-0 z-3" href="#main-content">
+			Skip to main content
+		</a>
+
+		<!-- NAVIGATION CONTAINER -->
+		<header id="navbar-placeholder" data-nav-path="/includes/navbar.html"></header>
+
+		<!-- PAGE CONTENT -->
+		<main id="main-content" class="container my-4 flex-grow-1 bg-white text-dark p-4 rounded-3 shadow-sm" tabindex="-1">
+			<header class="mb-2 pb-2">
+				<h1 class="h2">Planetary Gearsets</h1>
+			</header>
+
+			<article>
+				<h2 class="h4 text-muted border-bottom pb-2 mb-2">Introduction to Planetary Gearsets</h2>
+				<!-- Callout Figure & Intro -->
+				<div class="mb-4 clearfix">
+				<!-- Desktop Wrapped Image (Floated right on large screens, hidden on mobile) -->
+				<figure class="figure border p-2 rounded bg-light shadow-sm float-md-end ms-lg-4 mb-lg-3 d-none d-md-block text-center" style="max-width: 320px;">
+					<img src="/images/PG/Sun_Ring_Planet_Callout.jpg" class="figure-img img-fluid rounded mb-2" alt="Sun, Ring, Planet Callout">
+					<figcaption class="figure-caption text-center fw-semibold">
+					Sun, Ring, Planet, and Carrier Assembly
+					</figcaption>
+				</figure>
+
+				<!-- Text Content -->
+				<p>
+					Most commonly-encountered geartrains are relatively simple, having only one input and one output, and thus only one overall ratio. The planetary gearset is much more versatile, since it has <i>two</i> inputs and one output. As we will see, this versatility comes at a price: planetary gearsets are much more complicated to design and analyze than ordinary gearsets. They often behave in very counterintuitive ways, which makes their use all the more difficult (but interesting!). As with ordinary gearsets, however, a few simple rules can be used to determine the performance and efficiency of any planetary gearset.
+				</p>
+
+				<!-- Mobile Image (Shown below text on smaller screens, hidden on large screens) -->
+				<figure class="figure border p-2 rounded bg-light shadow-sm d-md-none text-center mx-auto d-block my-3" style="max-width: 320px;">
+					<img src="/images/PG/Sun_Ring_Planet_Callout.jpg" class="figure-img img-fluid rounded mb-2" alt="Sun, Ring, Planet Callout">
+					<figcaption class="figure-caption text-center fw-semibold">
+					Sun, Ring, Planet, and Carrier Assembly
+					</figcaption>
+				</figure>
+				
+				<p>
+					Althought there are several <a href="PG_Types.html" class="text-decoration-none fw-semibold">Types of Planetary Gearsets</a>, the most common type is shown in the figure, consisting of four major components: the sun, one or more planets, a ring gear, and a carrier (often called the arm or the spider). The major difference between planetary gearsets and ordinary gearsets is that the planets 'orbit' the sun; that is, their shafts are not fixed in space. It is this epicyclic motion that permits such interesting behavior.
+				</p>
+
+				<p>
+					Like all planetary gearsets, the gearset above has two inputs and one output. We may freely choose which shafts are the inputs and which is the output, as shown in the table below. In many cases, one of the inputs is fixed, so that there is a single gear ratio for the set. In other cases, such as in a hybrid powertrain, neither input is fixed, and the output depends upon both input speeds.
+				</p>
+				</div>
+						<!-- Table 1 -->
+						<div class="table-responsive my-4">
+							<table class="table table-striped table-bordered align-middle text-center">
+								<caption class="caption-top fw-bold text-dark">Table 1: Possible inputs and outputs for the planetary gearset above</caption>
+								<thead class="table-dark">
+									<tr>
+										<th scope="col" style="width: 20%;">Option</th>
+										<th scope="col">Inputs</th>
+										<th scope="col">Output</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Sun and Carrier</td>
+										<td>Ring</td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td>Ring and Sun</td>
+										<td>Carrier</td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td>Ring and Carrier</td>
+										<td>Sun</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+				<!-- Animations Section-->
+				<h2 class="h4 text-muted border-bottom pb-2 mb-2">Planetary Animations</h2>
+						<p>
+							The animations shown below are designed to help you gain some insight into the behavior of planetary gearsets. In each case, one of the two inputs is fixed, and the other input makes one full rotation. The sun gear is twice the diameter of the planet gear, and the ring gear is twice the diameter of the sun gear. Even though the size ratios are pretty boring (1:2 and 1:4), the speed ratios will prove to be interesting, as you will see. Press the 'Play' button beneath each animation to observe the resulting motion.
+						</p>
+						<!-- SECTION 1 (Carrier Fixed) -->
+						<section class="my-2" aria-labelledby="carrier-fixed-heading">
+							<h3 id="carrier-fixed-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Carrier Fixed Animations</h3>
+							<div class="row g-4">
+								<div class="col-12 col-md-6">
+									<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
+										<figcaption class="h6 fw-bold text-dark mb-3">Carrier Fixed - Sun Input</figcaption>
+										<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
+											<canvas class="noBorder" id="canvas1" width="300" height="240" role="img" aria-label="Animation showing a planetary gearset with a fixed carrier and sun input motion."></canvas>
+										</div>
+										<div>
+											<button type="button" class="btn btn-outline-primary" id="play1" aria-label="Play Carrier Fixed Sun Input animation">
+												<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+											</button>
+										</div>
+									</figure>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
+										<figcaption class="h6 fw-bold text-dark mb-3">Carrier Fixed - Ring Input</figcaption>
+										<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
+											<canvas class="noBorder" id="canvas2" width="300" height="240" role="img" aria-label="Animation showing a planetary gearset with a fixed carrier and ring input motion."></canvas>
+										</div>
+										<div>
+											<button type="button" class="btn btn-outline-primary" id="play2" aria-label="Play Carrier Fixed Ring Input animation">
+												<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+											</button>
+										</div>
+									</figure>
+								</div>
+							</div>
+
+							<p class="mt-3">
+								In the two animations above the carrier is fixed, and no epicyclic motion results. Both gearsets behave like ordinary gearsets - they are not really planetary at all! In the animation on the left, the planet makes two rotations and the ring makes half a rotation, as would be expected in an ordinary gearset.
+							</p>
+						</section>
+
+						<!-- SECTION 2 (Sun Fixed) -->
+						<section class="my-2" aria-labelledby="sun-fixed-heading">
+							<h3 id="sun-fixed-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Sun Fixed Animations</h3>
+							<div class="row g-4">
+								<div class="col-12 col-md-6">
+									<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
+										<figcaption class="h6 fw-bold text-dark mb-3">Sun Fixed - Carrier Input</figcaption>
+										<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
+											<canvas class="noBorder" id="canvas3" width="300" height="240" role="img" aria-label="Animation showing a planetary gearset with a fixed sun gear and carrier input motion."></canvas>
+										</div>
+										<div>
+											<button type="button" class="btn btn-outline-primary" id="play3" aria-label="Play Sun Fixed Carrier Input animation">
+												<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+											</button>
+										</div>
+									</figure>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
+										<figcaption class="h6 fw-bold text-dark mb-3">Sun Fixed - Ring Input</figcaption>
+										<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
+											<canvas class="noBorder" id="canvas4" width="300" height="240" role="img" aria-label="Animation showing a planetary gearset with a fixed sun gear and ring input motion."></canvas>
+										</div>
+										<div>
+											<button type="button" class="btn btn-outline-primary" id="play4" aria-label="Play Sun Fixed Ring Input animation">
+												<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+											</button>
+										</div>
+									</figure>
+								</div>
+							</div>
+
+							<p class="mt-3">
+								The sun gear is fixed in the two animations above, while the carrier is free to move. The resulting motion is epicyclic, since the planet makes orbits around the sun. Now count the number of rotations made by each gear in the left-hand animation. You should observe that the planet makes three rotations and the ring makes 1.5 for every rotation of the carrier. Intuitively, you might have expected the speed ratios to be multiples of 2, following the size ratios, but here we have multiples of 3! Epicyclic motion makes for counterintuitive behavior.
+							</p>
+						</section>
+
+						<!-- SECTION 3 (Ring Fixed) -->
+						<section class="my-2" aria-labelledby="ring-fixed-heading">
+							<h3 id="ring-fixed-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Ring Fixed Animations</h3>
+							<div class="row g-4">
+								<div class="col-12 col-md-6">
+									<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
+										<figcaption class="h6 fw-bold text-dark mb-3">Ring Fixed - Sun Input</figcaption>
+										<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
+											<canvas class="noBorder" id="canvas5" width="300" height="240" role="img" aria-label="Animation showing a planetary gearset with a fixed ring gear and sun input motion."></canvas>
+										</div>
+										<div>
+											<button type="button" class="btn btn-outline-primary" id="play5" aria-label="Play Ring Fixed Sun Input animation">
+												<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+											</button>
+										</div>
+									</figure>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
+										<figcaption class="h6 fw-bold text-dark mb-3">Ring Fixed - Carrier Input</figcaption>
+										<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
+											<canvas class="noBorder" id="canvas6" width="300" height="240" role="img" aria-label="Animation showing a planetary gearset with a fixed ring gear and carrier input motion."></canvas>
+										</div>
+										<div>
+											<button type="button" class="btn btn-outline-primary" id="play6" aria-label="Play Ring Fixed Carrier Input animation">
+												<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+											</button>
+										</div>
+									</figure>
+								</div>
+							</div>
+
+							<p class="mt-3">
+								In this set of animations we hold the ring fixed. In the left-hand animation observe that the carrier makes 1/3 rotation and the planet makes a full rotation for each rotation of the sun.
+							</p>
+						</section>
+
+						<!-- INTERACTIVE DEMO (Canvas 7) -->
+						<section class="my-2" aria-labelledby="interactive-demo-heading">
+							<h3 id="interactive-demo-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Interactive Hybrid Powertrain Simulation</h3>
+							<figure class="card bg-light border p-3 text-center shadow-sm mb-3">
+								<figcaption class="visually-hidden">Interactive Planetary Gearset Simulation</figcaption>
+								<div class="canvas-wrapper bg-white border rounded p-2 mb-3 d-inline-block">
+									<canvas class="noBorder img-fluid" id="canvas7" width="600" height="480" role="img" aria-label="Interactive simulation of a hybrid powertrain planetary gearset."></canvas>
+								</div>
+								<div>
+									<button type="button" class="btn btn-outline-primary" id="play7" aria-label="Play Interactive Hybrid Powertrain simulation">
+										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
+									</button>
+								</div>
+							</figure>
+
+							<p>
+								In each of the previous animations one of the inputs was held fixed, while the other was free to move. You might be curious to see what happens when two inputs are free to move, as is the case in a hybrid powertrain. The animation above provides a demonstration. Click "Play" to start the animation, and use the slider bars to control the speeds of the two inputs. Use the pushbuttons at the lower left to control which gear is the output. Note that the speed of the two inputs determines the output speed - you can't change the output speed with the slider! Play around with this animation until you feel comfortable with the behavior of the gearset.
+							</p>
+						</section>
+			</article>
+
+			<div class="d-flex justify-content-end">
+				<a href="PG_Types.html" class="text-decoration-none fw-semibold">Explore Different Types of Planetary Gearsets >></a>
+			</div>
+		</main>
+
+		<!-- FOOTER CONTAINER -->
+		<footer id="footer-placeholder" data-footer-path="/includes/footer.html"></footer>
+
+		<!-- Bootstrap JS Bundle -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>

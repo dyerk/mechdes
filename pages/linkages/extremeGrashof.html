@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Extreme Case Grashof Linkages</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Bootstrap 5 CSS & FontAwesome 6 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+		<!-- Shared Components Loader Script -->
+		<script src="/js_common/load_components.js" defer></script>
+
+		<!-- Custom Stylesheet & Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+		<link rel="stylesheet" href="/css/canvas.css">
+		
+		<!-- Common javascript links -->
+		<script src="/js_common/Linkage.js"></script>
+		<script src="/js_common/Plot.js"></script>
+		<script src="/js_common/Select_Animation.js"></script>
+		<script src="/js_common/Common_Shapes.js"></script>
+		
+		<!-- Page specific javascript links -->
+		<script src="/js_common/Class_Fourbar.js"></script>
+		<script src="/pages/linkages/js/extremeGrashof.js"></script>
+	</head>
+	
+	<body class="bg-dark text-light d-flex flex-column min-vh-100">
+		<!-- NAVIGATION CONTAINER -->
+		<header id="navbar-placeholder" data-nav-path="/includes/navbar.html"></header>
+
+		<!-- PAGE CONTENT -->
+		<main class="container my-4 flex-grow-1 bg-white text-dark p-4 rounded-3">
+			<h1 class="h2">Grashof Condition</h1>
+			<h2 class="h4 text-muted">Extreme Case Grashof Linkages</h2>
+			
+			<!-- Animation Selection Navigation (Nav Pills) -->
+			<nav aria-label="Animation Selection" class="mt-3 border-bottom border-3">
+				<ul id="sliderLinks" class="nav nav-pills justify-content-center bg-light p-2 rounded-top border">
+					<li class="nav-item">
+						<button type="button" class="nav-link itemLinks active" data-pos="0" id="pill-class15-tab">
+							Class 15
+						</button>
+					</li>   		
+					<li class="nav-item">
+						<button type="button" class="nav-link itemLinks" data-pos="1" id="pill-class16-tab">
+							Class 16
+						</button>
+					</li> 
+					<li class="nav-item">
+						<button type="button" class="nav-link itemLinks" data-pos="2" id="pill-class17-tab">
+							Class 17
+						</button>
+					</li>
+					<li class="nav-item">
+						<button type="button" class="nav-link itemLinks" data-pos="3" id="pill-class18-tab">
+							Class 18
+						</button>
+					</li>
+					<li class="nav-item">
+						<button type="button" class="nav-link itemLinks" data-pos="4" id="pill-class19-crossed-tab">
+							Class 19 (Crossed)
+						</button>
+					</li>
+					<li class="nav-item">
+						<button type="button" class="nav-link itemLinks" data-pos="5" id="pill-class19-open-tab">
+							Class 19 (Open)
+						</button>
+					</li>
+				</ul>
+			</nav>
+
+			<!-- ITEM 1: Class 15 -->
+			<section id="item01" class="animationContainer mb-4">
+				<div class="row g-4 align-items-start">
+					
+					<!-- Left Column: Canvas Animation & Controls -->
+					<div class="col-12 col-lg-6">
+						<figure class="figure w-100 m-0">
+							<div class="animationCanvas border rounded-bottom p-2 bg-light">
+								<div class="canvas-wrapper">
+									<canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
+									<canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
+									<canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
+									<canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
+									<canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
+								</div>
+								
+								<!-- Animation Controls -->
+								<div class="d-flex justify-content-center gap-3 mt-2">
+									<button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
+										<i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
+										<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+							
+							<figcaption class="figure-caption text-center mt-2">
+								<h3 id="01cap" class="h6 mb-0 fw-semibold"><b>Class 15:</b> There are two pairs of identical links, each of which is adjacent to each other. The short links are the ground and the crank, and all links make a complete revolution. Note that the coupler and rocker make a single revolution for two revolutions of the crank.</h3>
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Right Column: Plot Controls & Display Graphs -->
+					<div class="col-12 col-lg-6">
+						<div class="plotControl bg-light p-3 rounded-bottom border mb-3 d-none">
+							<h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
+								Plotting Controls
+							</h3>
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-sm-4" id="pointSelect">
+									<label for="01selPin" class="visually-hidden">Select Point</label>
+									<select name="pointList" id="01selPin" class="form-select">
+										<option value="B">Point B</option>
+										<option value="P" class="d-none">Point P</option>
+										<option value="C">Point C</option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
+									<button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" id="01butDis">
+										Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="01butVel">
+										Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="01butAcc">
+										Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- DISPLACEMENT PLOT CONTAINER (Visible by default) -->
+						<div class="plotCanvas mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="01conDis">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Displacement Plot</h3>
+								
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+						
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" aria-label="Resize Displacement Plot">
+										<i class="fa-solid fa-expand plotSizer" id="01sizeDis" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Disp [mm]
+								</div>
+
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="01canDis" width="500" height="125">
+										Displacement Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- VELOCITY PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="01conVel">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Velocity Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Velocity Plot">
+										<i class="fa-solid fa-expand plotSizer" id="01sizeVel" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Velocity [mm/s]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="01canVel" width="500" height="125">
+										Velocity Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- ACCELERATION PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="01conAcc">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Acceleration Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Acceleration Plot">
+										<i class="fa-solid fa-expand plotSizer" id="01sizeAcc" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Accel [mm/s²]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="01canAcc" width="500" height="125">
+										Acceleration Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ITEM 2: Class 16 -->
+			<section id="item02" class="animationContainer mb-4 d-none">  				
+				<div class="row g-4 align-items-start">
+					
+					<!-- Left Column: Canvas Animation & Controls -->
+					<div class="col-12 col-lg-6">
+						<figure class="figure w-100 m-0">
+							<div class="animationCanvas border rounded-bottom p-2 bg-light">
+								<div class="canvas-wrapper">
+									<canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
+									<canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
+									<canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
+									<canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
+									<canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
+								</div>
+
+								<!-- Animation Controls -->
+								<div class="d-flex justify-content-center gap-3 mt-2">
+									<button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
+										<i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
+										<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<figcaption class="figure-caption text-center mt-2">
+								<h3 id="02cap" class="h6 mb-0 fw-semibold"><b>Class 16:</b> There are two pairs of identical links, each of which is adjacent to each other. The short links are the crank and coupler, and the crank and coupler both make a full revolution.</h3>
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Right Column: Plot Controls & Display Graphs -->
+					<div class="col-12 col-lg-6">
+						<div class="plotControl bg-light p-3 rounded-bottom border mb-3 d-none">
+							<h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
+								Plotting Controls
+							</h3>
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-sm-4" id="pointSelect">
+									<label for="02selPin" class="visually-hidden">Select Point</label>
+									<select name="pointList" id="02selPin" class="form-select">
+										<option value="B">Point B</option>
+										<option value="P" class="d-none">Point P</option>
+										<option value="C">Point C</option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
+									<button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" id="02butDis">
+										Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="02butVel">
+										Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="02butAcc">
+										Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
+						
+						<!-- DISPLACEMENT PLOT CONTAINER (Visible by default) -->
+						<div class="plotCanvas mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="02conDis">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Displacement Plot</h3>
+								
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+						
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" aria-label="Resize Displacement Plot">
+										<i class="fa-solid fa-expand plotSizer" id="02sizeDis" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Disp [mm]
+								</div>
+
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="02canDis" width="500" height="125">
+										Displacement Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- VELOCITY PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="02conVel">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Velocity Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Velocity Plot">
+										<i class="fa-solid fa-expand plotSizer" id="02sizeVel" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Velocity [mm/s]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="02canVel" width="500" height="125">
+										Velocity Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- ACCELERATION PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="02conAcc">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Acceleration Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Acceleration Plot">
+										<i class="fa-solid fa-expand plotSizer" id="02sizeAcc" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Accel [mm/s²]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="02canAcc" width="500" height="125">
+										Acceleration Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ITEM 3: Class 17 -->
+			<section id="item03" class="animationContainer mb-4 d-none">  				
+				<div class="row g-4 align-items-start">
+					
+					<!-- Left Column: Canvas Animation & Controls -->
+					<div class="col-12 col-lg-6">
+						<figure class="figure w-100 m-0">
+							<div class="animationCanvas border rounded-bottom p-2 bg-light">
+								<div class="canvas-wrapper">
+									<canvas class="canTrace" id="03canTr" width="500" height="400"></canvas>
+									<canvas class="canDraw z_2" id="03canM1" width="500" height="400"></canvas>
+									<canvas class="canDraw z_3" id="03canM2" width="500" height="400"></canvas>
+									<canvas class="canDraw z_4" id="03canM3" width="500" height="400"></canvas>
+									<canvas class="canDraw z_5" id="03canGr" width="500" height="400"></canvas>
+								</div>
+
+								<!-- Animation Controls -->
+								<div class="d-flex justify-content-center gap-3 mt-2">
+									<button type="button" class="btn btn-outline-primary" id="03btnPlay" aria-label="Play animation">
+										<i class="fa-solid fa-circle-play fa-2xl" id="03butPlay" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-outline-secondary" id="03btnReset" aria-label="Reset animation">
+										<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="03butReset" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<figcaption class="figure-caption text-center mt-2">
+								<h3 id="03cap" class="h6 mb-0 fw-semibold"><b>Class 17:</b> There are two pairs of identical links, each of which is adjacent to each other. The short links are the coupler and rocker, and the coupler and rocker both make a full revolution.</h3>
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Right Column: Plot Controls & Display Graphs -->
+					<div class="col-12 col-lg-6">
+						<div class="plotControl bg-light p-3 rounded-bottom border mb-3 d-none">
+							<h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
+								Plotting Controls
+							</h3>
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-sm-4" id="pointSelect">
+									<label for="03selPin" class="visually-hidden">Select Point</label>
+									<select name="pointList" id="03selPin" class="form-select">
+										<option value="B">Point B</option>
+										<option value="P" class="d-none">Point P</option>
+										<option value="C">Point C</option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
+									<button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" id="03butDis">
+										Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="03butVel">
+										Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="03butAcc">
+										Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
+						
+						<!-- DISPLACEMENT PLOT CONTAINER (Visible by default) -->
+						<div class="plotCanvas mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="03conDis">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Displacement Plot</h3>
+								
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+						
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" aria-label="Resize Displacement Plot">
+										<i class="fa-solid fa-expand plotSizer" id="03sizeDis" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Disp [mm]
+								</div>
+
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="03canDis" width="500" height="125">
+										Displacement Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- VELOCITY PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="03conVel">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Velocity Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Velocity Plot">
+										<i class="fa-solid fa-expand plotSizer" id="03sizeVel" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Velocity [mm/s]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="03canVel" width="500" height="125">
+										Velocity Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- ACCELERATION PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="03conAcc">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Acceleration Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Acceleration Plot">
+										<i class="fa-solid fa-expand plotSizer" id="03sizeAcc" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Accel [mm/s²]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="03canAcc" width="500" height="125">
+										Acceleration Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ITEM 4: Class 18 -->
+			<section id="item04" class="animationContainer mb-4 d-none">  				
+				<div class="row g-4 align-items-start">
+					
+					<!-- Left Column: Canvas Animation & Controls -->
+					<div class="col-12 col-lg-6">
+						<figure class="figure w-100 m-0">
+							<div class="animationCanvas border rounded-bottom p-2 bg-light">
+								<div class="canvas-wrapper">
+									<canvas class="canTrace" id="04canTr" width="500" height="400"></canvas>
+									<canvas class="canDraw z_2" id="04canM1" width="500" height="400"></canvas>
+									<canvas class="canDraw z_3" id="04canM2" width="500" height="400"></canvas>
+									<canvas class="canDraw z_4" id="04canM3" width="500" height="400"></canvas>
+									<canvas class="canDraw z_5" id="04canGr" width="500" height="400"></canvas>
+								</div>
+
+								<!-- Animation Controls -->
+								<div class="d-flex justify-content-center gap-3 mt-2">
+									<button type="button" class="btn btn-outline-primary" id="04btnPlay" aria-label="Play animation">
+										<i class="fa-solid fa-circle-play fa-2xl" id="04butPlay" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-outline-secondary" id="04btnReset" aria-label="Reset animation">
+										<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="04butReset" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<figcaption class="figure-caption text-center mt-2">
+								<h3 id="04cap" class="h6 mb-0 fw-semibold"><b>Class 18:</b> There are two pairs of identical links, each of which is adjacent to each other. The short links are the rocker and ground, and all links make a complete revolution. Note that the crank and coupler make a single revolution for two revolutions of the rocker.</h3>
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Right Column: Plot Controls & Display Graphs -->
+					<div class="col-12 col-lg-6">
+						<div class="plotControl bg-light p-3 rounded-bottom border mb-3 d-none">
+							<h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
+								Plotting Controls
+							</h3>
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-sm-4" id="pointSelect">
+									<label for="04selPin" class="visually-hidden">Select Point</label>
+									<select name="pointList" id="04selPin" class="form-select">
+										<option value="B">Point B</option>
+										<option value="P" class="d-none">Point P</option>
+										<option value="C">Point C</option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
+									<button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" id="04butDis">
+										Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="04butVel">
+										Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="04butAcc">
+										Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
+						
+						<!-- DISPLACEMENT PLOT CONTAINER (Visible by default) -->
+						<div class="plotCanvas mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="04conDis">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Displacement Plot</h3>
+								
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+						
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" aria-label="Resize Displacement Plot">
+										<i class="fa-solid fa-expand plotSizer" id="04sizeDis" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Disp [mm]
+								</div>
+
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="04canDis" width="500" height="125">
+										Displacement Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- VELOCITY PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="04conVel">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Velocity Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Velocity Plot">
+										<i class="fa-solid fa-expand plotSizer" id="04sizeVel" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Velocity [mm/s]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="04canVel" width="500" height="125">
+										Velocity Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- ACCELERATION PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="04conAcc">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Acceleration Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Acceleration Plot">
+										<i class="fa-solid fa-expand plotSizer" id="04sizeAcc" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Accel [mm/s²]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="04canAcc" width="500" height="125">
+										Acceleration Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ITEM 5: Class 19 (Crossed) -->
+			<section id="item05" class="animationContainer mb-4 d-none">  				
+				<div class="row g-4 align-items-start">
+					
+					<!-- Left Column: Canvas Animation & Controls -->
+					<div class="col-12 col-lg-6">
+						<figure class="figure w-100 m-0">
+							<div class="animationCanvas border rounded-bottom p-2 bg-light">
+								<div class="canvas-wrapper">
+									<canvas class="canTrace" id="05canTr" width="500" height="400"></canvas>
+									<canvas class="canDraw z_2" id="05canM1" width="500" height="400"></canvas>
+									<canvas class="canDraw z_3" id="05canM2" width="500" height="400"></canvas>
+									<canvas class="canDraw z_4" id="05canM3" width="500" height="400"></canvas>
+									<canvas class="canDraw z_5" id="05canGr" width="500" height="400"></canvas>
+								</div>
+
+								<!-- Animation Controls -->
+								<div class="d-flex justify-content-center gap-3 mt-2">
+									<button type="button" class="btn btn-outline-primary" id="05btnPlay" aria-label="Play animation">
+										<i class="fa-solid fa-circle-play fa-2xl" id="05butPlay" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-outline-secondary" id="05btnReset" aria-label="Reset animation">
+										<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="05butReset" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<figcaption class="figure-caption text-center mt-2">
+								<h3 id="05cap" class="h6 mb-0 fw-semibold"><b>Class 19:</b> There are two pairs of identical links, each of which is opposite each other. This is the crossed version of the parallelogram linkage.</h3>
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Right Column: Plot Controls & Display Graphs -->
+					<div class="col-12 col-lg-6">
+						<div class="plotControl bg-light p-3 rounded-bottom border mb-3 d-none">
+							<h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
+								Plotting Controls
+							</h3>
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-sm-4" id="pointSelect">
+									<label for="05selPin" class="visually-hidden">Select Point</label>
+									<select name="pointList" id="05selPin" class="form-select">
+										<option value="B">Point B</option>
+										<option value="P" class="d-none">Point P</option>
+										<option value="C">Point C</option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
+									<button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" id="05butDis">
+										Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="05butVel">
+										Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="05butAcc">
+										Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
+						
+						<!-- DISPLACEMENT PLOT CONTAINER (Visible by default) -->
+						<div class="plotCanvas mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="05conDis">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Displacement Plot</h3>
+								
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+						
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" aria-label="Resize Displacement Plot">
+										<i class="fa-solid fa-expand plotSizer" id="05sizeDis" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Disp [mm]
+								</div>
+
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="05canDis" width="500" height="125">
+										Displacement Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- VELOCITY PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="05conVel">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Velocity Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Velocity Plot">
+										<i class="fa-solid fa-expand plotSizer" id="05sizeVel" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Velocity [mm/s]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="05canVel" width="500" height="125">
+										Velocity Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- ACCELERATION PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="05conAcc">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Acceleration Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Acceleration Plot">
+										<i class="fa-solid fa-expand plotSizer" id="05sizeAcc" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Accel [mm/s²]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="05canAcc" width="500" height="125">
+										Acceleration Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ITEM 6: Class 19 (Open) -->
+			<section id="item06" class="animationContainer mb-4 d-none">  				
+				<div class="row g-4 align-items-start">
+					
+					<!-- Left Column: Canvas Animation & Controls -->
+					<div class="col-12 col-lg-6">
+						<figure class="figure w-100 m-0">
+							<div class="animationCanvas border rounded-bottom p-2 bg-light">
+								<div class="canvas-wrapper">
+									<canvas class="canTrace" id="06canTr" width="500" height="400"></canvas>
+									<canvas class="canDraw z_2" id="06canM1" width="500" height="400"></canvas>
+									<canvas class="canDraw z_3" id="06canM2" width="500" height="400"></canvas>
+									<canvas class="canDraw z_4" id="06canM3" width="500" height="400"></canvas>
+									<canvas class="canDraw z_5" id="06canGr" width="500" height="400"></canvas>
+								</div>
+
+								<!-- Animation Controls -->
+								<div class="d-flex justify-content-center gap-3 mt-2">
+									<button type="button" class="btn btn-outline-primary" id="06btnPlay" aria-label="Play animation">
+										<i class="fa-solid fa-circle-play fa-2xl" id="06butPlay" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-outline-secondary" id="06btnReset" aria-label="Reset animation">
+										<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="06butReset" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<figcaption class="figure-caption text-center mt-2">
+								<h3 id="06cap" class="h6 mb-0 fw-semibold"><b>Class 19:</b> There are two pairs of identical links, each of which is opposite each other. This is the open version of the parallelogram linkage.</h3>
+							</figcaption>
+						</figure>
+					</div>
+
+					<!-- Right Column: Plot Controls & Display Graphs -->
+					<div class="col-12 col-lg-6">
+						<div class="plotControl bg-light p-3 rounded-bottom border mb-3 d-none">
+							<h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
+								Plotting Controls
+							</h3>
+
+							<div class="row g-2 align-items-center">
+								<div class="col-12 col-sm-4" id="pointSelect">
+									<label for="06selPin" class="visually-hidden">Select Point</label>
+									<select name="pointList" id="06selPin" class="form-select">
+										<option value="B">Point B</option>
+										<option value="P" class="d-none">Point P</option>
+										<option value="C">Point C</option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
+									<button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" id="06butDis">
+										Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="06butVel">
+										Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary plotButton" id="06butAcc">
+										Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
+						
+						<!-- DISPLACEMENT PLOT CONTAINER (Visible by default) -->
+						<div class="plotCanvas mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="06conDis">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Displacement Plot</h3>
+								
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+						
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" aria-label="Resize Displacement Plot">
+										<i class="fa-solid fa-expand plotSizer" id="06sizeDis" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Disp [mm]
+								</div>
+
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="06canDis" width="500" height="125">
+										Displacement Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- VELOCITY PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="06conVel">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Velocity Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Velocity Plot">
+										<i class="fa-solid fa-expand plotSizer" id="06sizeVel" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Velocity [mm/s]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="06canVel" width="500" height="125">
+										Velocity Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+
+						<!-- ACCELERATION PLOT CONTAINER -->
+						<div class="plotCanvas d-none mb-3 border rounded p-3 bg-white text-dark shadow-sm" id="06conAcc">
+							<div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+								<h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">Acceleration Plot</h3>
+								<div class="d-flex align-items-center gap-3 small">
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-x"></span> X
+									</span>
+									<span class="d-flex align-items-center gap-1">
+										<span class="legend-indicator legend-trace-y"></span> Y
+									</span>
+									<button type="button" class="btn btn-sm btn-outline-secondary border-0" aria-label="Resize Acceleration Plot">
+										<i class="fa-solid fa-expand plotSizer" id="06sizeAcc" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center">
+								<div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
+									Accel [mm/s²]
+								</div>
+								<div class="flex-grow-1 position-relative">
+									<canvas class="plot-short w-100" id="06canAcc" width="500" height="125">
+										Acceleration Plot
+									</canvas>
+								</div>
+							</div>
+
+							<div class="text-center text-muted small fw-semibold mt-1">
+								Crank Angle [deg]
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
+		
+		<!-- FOOTER CONTAINER -->
+		<footer id="footer-placeholder" data-footer-path="/includes/footer.html"></footer>
+
+		<!-- Bootstrap JS Bundle -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
