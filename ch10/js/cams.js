@@ -16,6 +16,7 @@ function init() {
 
   var camknife = new CamKnife(nDwell, rb, h, betad, betar, L);  // create cam with knife-edged follower
 	camknife.showPlots = false;
+  camknife.calcLengths =false;
   camknife.buttonCanvas("01", 140, 200);
   camknife.drawGround();
   camknife.draw(0);
@@ -31,6 +32,7 @@ function init() {
 
   var camflat = new CamFlat(nDwell, rb, h, betad, betar, L, W);  // create cam with flat-faced follower
   camflat.showPlots = false;
+  camflat.calcLengths = false;
 	camflat.buttonCanvas("02", 140, 200);
   camflat.drawGround();
   camflat.draw(0);
@@ -47,6 +49,7 @@ function init() {
 
   var camroll = new CamRoll(nDwell, rb, h, betad, betar, R, L, b);  // create cam with flat-faced follower
   camroll.showPlots = false;
+  camroll.calcLengths = false;
 	camroll.buttonCanvas("03", 140, 200);
   camroll.drawGround();
   camroll.draw(0);
@@ -63,6 +66,7 @@ function init() {
 
   var camrock = new CamRock(nDwell, rb, h, betad, betar, R, L, d);  // create cam with flat-faced follower
   camrock.showPlots = false;
+  camrock.calcLengths = false;
 	camrock.buttonCanvas("04", 140, 200);
   camrock.drawGround();
   camrock.draw(0);

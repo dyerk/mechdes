@@ -100,14 +100,6 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 	this.can[4] = document.getElementById(pageID + 'canGr');  // ground canvas for the linkage
   	this.ctx[4] = this.can[4].getContext('2d');               // ground context for the linkage
 
-	// capture canvas html id tags for plots into script
-	this.canAcc = document.getElementById(pageID+'canAcc');   // accel plot canvas
-	this.ctxAcc = this.canAcc.getContext('2d');								// accel plot context
-	this.canVel = document.getElementById(pageID+'canVel');   // vel plot canvas
-	this.ctxVel = this.canVel.getContext('2d');								// vel plot context
-	this.canDis = document.getElementById(pageID+'canDis');   // dis plot canvas
-	this.ctxDis = this.canDis.getContext('2d');								// dis plot context
-	
 	// set canvas size
   for (var i = 0; i < 5; i++) {
     this.can[i].width = 500;                                 // set width of drawing canvas
@@ -123,6 +115,14 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 	
 	// Generate plot functionality if turned on in instance of linkage
 	if (this.showPlots) {
+		// capture canvas html id tags for plots into script
+		this.canAcc = document.getElementById(pageID+'canAcc');   // accel plot canvas
+		this.ctxAcc = this.canAcc.getContext('2d');								// accel plot context
+		this.canVel = document.getElementById(pageID+'canVel');   // vel plot canvas
+		this.ctxVel = this.canVel.getContext('2d');								// vel plot context
+		this.canDis = document.getElementById(pageID+'canDis');   // dis plot canvas
+		this.ctxDis = this.canDis.getContext('2d');								// dis plot context
+
 		const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
 		if (plotControl) {
 			plotControl.classList.remove('d-none');
