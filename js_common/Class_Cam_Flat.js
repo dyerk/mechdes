@@ -5,7 +5,7 @@ CamFlat.prototype = new Linkage();
 // *********************************************************************************************************************
 function CamFlat(nDwell, rb, h, betad, betar, L, W) {
   this.cam = new Cam(nDwell, rb, h, betad, betar, this.geom, this.color[3], this.color[15]);
-  this.follow = new FollowFlat(L, W, this.geom, this.color[3], this.color[6]);
+  this.follow = new FollowFlat(L, W, this.geom, this.color[3], this.color[5]);
   this.pivot = new Pivot(0, 0, this.geom);
   var w2 = this.geom.barWidth/2;
   this.groundSlider = new Ground_Slider(rb+L, -w2, L, this.geom);

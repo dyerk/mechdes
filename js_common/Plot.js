@@ -58,7 +58,7 @@ function Plot(can,ctx){
 	this.yBounds = "manual";	  						// "auto" or "manual" bounding of y axis
 	//this.yZero = this.t+this.h; 						// y pixel location of x axis (y=0)
 	
-	this.plotColor = "#999";							// plot background color
+	this.plotColor = "#EEEEEE";							// plot background color
 	this.lineColor = "#000";							// border and text color
 	this.gridColor = "#444";							// gridline color
 	

@@ -11,16 +11,16 @@ function PlanR2P4(Nr1, Nr2, Np1, Np2, Np3, Np4) {
   this.Np3 = Np3;       // number of teeth on planet3 gear
   this.Np4 = Np4;       // number of teeth on planet4 gear
 
-  this.ring1 = new Ring(Nr1, this.geom, this.color[3], this.color[6], 1.0);
+  this.ring1 = new Ring(Nr1, this.geom, this.color[3], this.color[5], 1.0);
   this.ring2 = new Ring(Nr2, this.geom, this.color[3], this.color[2], 1.0);
   this.planet1 = new Gear(Np1, this.geom, this.color[3], this.color[15], 0.5);
   this.planet2 = new Gear(Np2, this.geom, this.color[3], this.color[20], 1.0);
-  this.planet3 = new Gear(Np3, this.geom, this.color[3], this.color[6], 0.5);
+  this.planet3 = new Gear(Np3, this.geom, this.color[3], this.color[5], 0.5);
   this.planet4 = new Gear(Np4, this.geom, this.color[3], this.color[11], 1.0);
 
   this.L1 = this.ring1.radius - this.planet1.radius;  // length to first pin
   this.L2 = this.ring2.radius - this.planet4.radius;  // length to second pin
-  this.arm = new Coupler(this.L1, this.L2, 0, this.geom, this.color[3], this.color[9]), // 3 pin link
+  this.arm = new Coupler(this.L1, this.L2, 0, this.geom, this.color[3], this.color[10]), // 3 pin link
   this.pivot = new Pivot(0, 0, this.geom);
   this.ring1.x = 0;  this.ring1.y = 0;
   this.ring2.x = 0;  this.ring2.y = 0;

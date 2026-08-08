@@ -9,7 +9,7 @@ function PlanSRP(Ns, Np, balanced) {
   this.Nr = Ns + 2*Np;  // number of teeth on ring
   this.balanced = balanced;  // one planet or three?
 
-  this.sun = new Gear(Ns, this.geom, this.color[3], this.color[6], 1.0);
+  this.sun = new Gear(Ns, this.geom, this.color[3], this.color[5], 1.0);
   this.ring = new Ring(Ns + 2*Np, this.geom, this.color[3], this.color[2]);
   if (balanced) {  // create three planets
     this.planet = [];
@@ -19,11 +19,11 @@ function PlanSRP(Ns, Np, balanced) {
     var R = 0.5*this.sun.radius;  // radius of hub of tri-arm
     this.L = this.sun.radius + this.planet[0].radius;  // length of tri-arm
     var r = 2*this.geom.pinRadius;  // radius of end of tri-arm
-    this.arm = new TriArm(R, r, this.L, this.geom, this.color[3], this.color[9], 0.8);
+    this.arm = new TriArm(R, r, this.L, this.geom, this.color[3], this.color[10], 0.8);
   } else {
     this.planet = new Gear(Np, this.geom, this.color[3], this.color[15], 1.0);
     this.L = this.sun.radius + this.planet.radius;     // length of arm
-    this.arm = new Bar(this.L, this.geom, this.color[3], this.color[9]);
+    this.arm = new Bar(this.L, this.geom, this.color[3], this.color[10]);
   }
 
   this.pivot = new Pivot(0, 0, this.geom);

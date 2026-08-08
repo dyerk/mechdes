@@ -4,7 +4,7 @@ Peaucellier.prototype = new Linkage();
 // Function Peaucellier creates a Peaucellier straight line linkage
 // *********************************************************************************************************************
 function Peaucellier(a,b,c) {
-  this.bar = [new Bar(b, this.geom, this.color[3], this.color[6]),  // medium link
+  this.bar = [new Bar(b, this.geom, this.color[3], this.color[5]),  // medium link
               new Bar(c, this.geom, this.color[3], this.color[5]),  // long link
               new Bar(c, this.geom, this.color[3], this.color[5]),  // long link
               new Bar(a, this.geom, this.color[3], this.color[10]),  // short link

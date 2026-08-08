@@ -4,7 +4,7 @@ Chebyshev.prototype = new Linkage();
 // Function Chebyshev creates a Chebyshev paradoxical mechanism
 // *********************************************************************************************************************
 function Chebyshev(a,b,c,d,e,f,g,h,iForward) {
-  this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),              // crank
+  this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),              // crank
               new Coupler(b, b+e, 0, this.geom, this.color[3], this.color[15]), // coupler
               new Bar(c, this.geom, this.color[3], this.color[5]),              // rocker
               new Bar(f, this.geom, this.color[3], this.color[10]),             // connecting link

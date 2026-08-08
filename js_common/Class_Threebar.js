@@ -4,8 +4,8 @@ Threebar.prototype = new Linkage();
 // Function Threebar creates a linkage of a bar, a slider, and two ground pins
 // **********************************************************************************
 function Threebar(a,p,g,d) {
-  this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),
-              new BarSlot(p, a, d, this.geom, this.color[3], this.color[12])];
+  this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),
+              new BarSlot(p, a, d, this.geom, this.color[3], this.color[15])];
 
   this.pivot = [new Pivot(0, 0, this.geom),
                 new Pivot(d, 0, this.geom)];

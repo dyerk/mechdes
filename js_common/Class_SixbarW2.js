@@ -4,7 +4,7 @@ SixbarW2.prototype = new Linkage();  // create Watt's type II linkage from basic
 // Function SixbarW2 creates a Watt type II sixbar linkage
 // *********************************************************************************************************************
 function SixbarW2(a,b,c,d,p,q,u,v,gamma1,gamma4) {
-  this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),
+  this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),
               new Bar(b, this.geom, this.color[3], this.color[12]),
               new Coupler(c, p, gamma4, this.geom, this.color[3], this.color[15]),
               new Bar(u, this.geom, this.color[3], this.color[5]),

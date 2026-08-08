@@ -4,9 +4,9 @@ Fourbar.prototype = new Linkage();
 // Function Fourbar creates a linkage of two bars, a coupler, and two ground pins
 // *******************************************************************************************
 function Fourbar(a,b,c,d,p,beta,iClass,open) {
-  this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),
+  this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),
               new Coupler(b, p, beta, this.geom, this.color[3], this.color[15]),
-              new Bar(c, this.geom, this.color[3], this.color[9])];
+              new Bar(c, this.geom, this.color[3], this.color[10])];
 
   this.pivot = [new Pivot(0, 0, this.geom),
                 new Pivot(d, 0, this.geom)];

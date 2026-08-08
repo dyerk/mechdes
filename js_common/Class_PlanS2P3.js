@@ -10,7 +10,7 @@ function PlanS2P3(Ns1, Ns2, Np1, Np2, Np3) {
   this.Np2 = Np2;       // number of teeth on planet2 gear
   this.Np3 = Np3;       // number of teeth on planet3 gear
 
-  this.sun1 = new Gear(Ns1, this.geom, this.color[3], this.color[6], 1.0);
+  this.sun1 = new Gear(Ns1, this.geom, this.color[3], this.color[5], 1.0);
   this.sun2 = new Gear(Ns2, this.geom, this.color[3], this.color[2], 1.0);
   this.planet1 = new Gear(Np1, this.geom, this.color[3], this.color[15], 0.5);
   this.planet2 = new Gear(Np2, this.geom, this.color[3], this.color[20], 1.0);
@@ -18,7 +18,7 @@ function PlanS2P3(Ns1, Ns2, Np1, Np2, Np3) {
 
   this.L1 = this.sun1.radius + this.planet1.radius;               // length to first pin
   this.L2 = this.L1 + this.planet1.radius + this.planet2.radius;  // length to second pin
-  this.arm = new Coupler(this.L1, this.L2, 0, this.geom, this.color[3], this.color[9]), // 3 pin link
+  this.arm = new Coupler(this.L1, this.L2, 0, this.geom, this.color[3], this.color[10]), // 3 pin link
   this.sun1.x = 0;  this.sun1.y = 0;
   this.sun2.x = 0;  this.sun2.y = 0;
 }
