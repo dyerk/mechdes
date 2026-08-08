@@ -4,9 +4,9 @@ SliderCrank.prototype = new Linkage();
 // Function SliderCrank creates a linkage of two bars, a piston and ground
 // **********************************************************************************
 function SliderCrank(a,b,c) {
-  this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),   // crank
-              new Bar(b, this.geom, this.color[3], this.color[12]),  // connecting rod
-              new Piston(this.geom, this.color[3], this.color[19])]; // piston
+  this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),   // crank
+              new Bar(b, this.geom, this.color[3], this.color[15]),  // connecting rod
+              new Piston(this.geom, this.color[3], this.color[10])]; // piston
 
   var width  = this.geom.pistonWidth;  // width of piston
   var height = this.geom.pistonHeight; // height of piston

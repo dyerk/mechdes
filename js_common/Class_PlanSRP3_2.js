@@ -10,15 +10,15 @@ function PlanSRP3_2(Ns, Nr, Np1, Np2, Np3) {
   this.Np2 = Np2;       // number of teeth on planet2 gear
   this.Np3 = Np3;       // number of teeth on planet3 gear
 
-  this.sun = new Gear(Ns, this.geom, this.color[3], this.color[6], 1.0);
+  this.sun = new Gear(Ns, this.geom, this.color[3], this.color[5], 1.0);
   this.ring = new Ring(Nr, this.geom, this.color[3], this.color[2], 1.0);
   this.planet1 = new Gear(Np1, this.geom, this.color[3], this.color[15], 0.5);
   this.planet2 = new Gear(Np2, this.geom, this.color[3], this.color[20], 1.0);
-  this.planet3 = new Gear(Np3, this.geom, this.color[3], this.color[6], 0.5);
+  this.planet3 = new Gear(Np3, this.geom, this.color[3], this.color[5], 0.5);
 
   this.L1 = this.sun.radius + this.planet1.radius;    // length to first pin
   this.L2 = this.ring.radius - this.planet3.radius;   // length to second pin
-  this.arm = new Coupler(this.L1, this.L2, 0, this.geom, this.color[3], this.color[9]), // 3 pin link
+  this.arm = new Coupler(this.L1, this.L2, 0, this.geom, this.color[3], this.color[10]), // 3 pin link
   this.pivot = new Pivot(0, 0, this.geom);
   this.sun.x = 0;   this.sun.y = 0;
   this.ring.x = 0;  this.ring.y = 0;

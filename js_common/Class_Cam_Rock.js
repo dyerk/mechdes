@@ -5,8 +5,8 @@ CamRock.prototype = new Linkage();
 // **********************************************************************************
 function CamRock(nDwell, rb, h, betad, betar, R, L, d) {
   this.cam = new Cam(nDwell, rb, h, betad, betar, this.geom, this.color[3], this.color[15]);
-  this.roller = new Roller(R, this.geom, this.color[3], this.color[5]);
-  this.bar = new Bar(L, this.geom, this.color[3], this.color[9]);
+  this.roller = new Roller(R, this.geom, this.color[3], this.color[9]);
+  this.bar = new Bar(L, this.geom, this.color[3], this.color[5]);
   this.pivot = [new Pivot(0, 0, this.geom),
                 new Pivot(d, 0, this.geom)];
   

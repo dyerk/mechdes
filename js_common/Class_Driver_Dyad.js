@@ -6,9 +6,9 @@ DriverDyad.prototype = new Linkage();
 function DriverDyad(a, b, c, d, e, f, g, h, open, dyad) {
 
   if (dyad) {
-    this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),  // Crank
+    this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),  // Crank
                 new Bar(b, this.geom, this.color[3], this.color[15]),  // Coupler
-                new Coupler(c, e, 0, this.geom, this.color[3], this.color[9]), // 3 pin link
+                new Coupler(c, e, 0, this.geom, this.color[3], this.color[10]), // 3 pin link
                 new Bar(f, this.geom, this.color[3], this.color[5]),  // Coupler of second linkage
                 new Bar(g, this.geom, this.color[3], this.color[10])], // Rocker of second linkage
     this.pivot = [new Pivot(  d, 0, this.geom),        // middle ground pivot
@@ -17,9 +17,9 @@ function DriverDyad(a, b, c, d, e, f, g, h, open, dyad) {
 
   } else {    // no driver dyad, just a normal fourbar
 
-    this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),  // Crank
+    this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),  // Crank
                 new Bar(b, this.geom, this.color[3], this.color[15]), // Coupler
-                new Bar(c, this.geom, this.color[3], this.color[9])]; // Rocker
+                new Bar(c, this.geom, this.color[3], this.color[10])]; // Rocker
     this.pivot = new Pivot(d, 0, this.geom);      // rocker ground pivot
   }
 

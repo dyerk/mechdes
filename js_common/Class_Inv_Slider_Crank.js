@@ -4,9 +4,9 @@ InvSlide.prototype = new Linkage();
 // Function InvSlide creates a linkage two bars, a slider and a rocker
 // **********************************************************************************
 function InvSlide(a,p,c,d,gamma,isOpen) {
-  this.bar = [new Bar(a, this.geom, this.color[3], this.color[6]),
-              new Slider(p, this.geom, this.color[3], this.color[12]),
-              new Rocker(c, gamma, this.geom, this.color[3], this.color[9])];
+  this.bar = [new Bar(a, this.geom, this.color[3], this.color[5]),
+              new Slider(p, this.geom, this.color[3], this.color[15]),
+              new Rocker(c, gamma, this.geom, this.color[3], this.color[10])];
 
   this.pivot = [new Pivot(0, 0, this.geom),
                 new Pivot(d, 0, this.geom)];

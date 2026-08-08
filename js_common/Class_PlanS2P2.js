@@ -10,7 +10,7 @@ function PlanS2P2(Ns1, Ns2, Np1, Np2, balanced) {
   this.Np2 = Np2;       // number of teeth on planet2 gear
   this.balanced = balanced;  // one planet or three?
 
-  this.sun1 = new Gear(Ns1, this.geom, this.color[3], this.color[6], 0.8);
+  this.sun1 = new Gear(Ns1, this.geom, this.color[3], this.color[5], 0.8);
   this.sun2 = new Gear(Ns2, this.geom, this.color[3], this.color[2], 1.0);
   if (balanced) {  // create three planets
     this.planet1 = [];  this.planet2 = [];
@@ -22,13 +22,13 @@ function PlanS2P2(Ns1, Ns2, Np1, Np2, balanced) {
     var R = 0.5*this.sun1.radius;  // radius of hub of tri-arm
     this.L = this.sun1.radius + this.planet1[0].radius;  // length of tri-arm
     var r = 2*this.geom.pinRadius;  // radius of end of tri-arm
-    this.arm = new TriArm(R, r, this.L, this.geom, this.color[3], this.color[9], 1.0);
+    this.arm = new TriArm(R, r, this.L, this.geom, this.color[3], this.color[10], 1.0);
 
   } else {
     this.planet1 = new Gear(Np1, this.geom, this.color[3], this.color[15], 0.5);
     this.planet2 = new Gear(Np2, this.geom, this.color[3], this.color[20], 1.0);
     this.L = this.sun1.radius + this.planet1.radius;     // length of arm
-    this.arm = new Bar(this.L, this.geom, this.color[3], this.color[9]);
+    this.arm = new Bar(this.L, this.geom, this.color[3], this.color[10]);
   }
 
   this.pivot = new Pivot(0, 0, this.geom);

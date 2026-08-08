@@ -4,10 +4,10 @@ Fivebar.prototype = new Linkage();
 // Function Fivebar creates a linkage of two gears, two couplers and two ground pins
 // **********************************************************************************
 function Fivebar(a,b,c,u,v,p,q,gamma3,gamma4,D1,D2) {
-  this.bar = [new Gearbar(D1, a, this.geom, this.color[3], this.color[6]),
+  this.bar = [new Gearbar(D1, a, this.geom, this.color[3], this.color[5]),
               new Coupler(b, p, gamma3, this.geom, this.color[3], this.color[16]),
               new Coupler(c, q, gamma4, this.geom, this.color[3], this.color[21]),
-              new Gearbar(D2, v, this.geom, this.color[3], this.color[9])];
+              new Gearbar(D2, v, this.geom, this.color[3], this.color[10])];
 
   this.pivot = [new Pivot(0, 0, this.geom),
                 new Pivot(u, 0, this.geom)];

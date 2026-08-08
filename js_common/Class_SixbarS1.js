@@ -4,7 +4,7 @@ SixbarS1.prototype = new Linkage();  // create Stephenson's type I linkage from 
 // Function Sixbar1 creates a Stephenson type 1 sixbar linkage
 // **********************************************************************************
 function SixbarS1(a,b,c,d,p,q,u,v,gamma2,gamma4) {
-  this.bar = [new Coupler(a, p, gamma2, this.geom, this.color[3], this.color[6]),
+  this.bar = [new Coupler(a, p, gamma2, this.geom, this.color[3], this.color[5]),
               new Bar(b, this.geom, this.color[3], this.color[5]),
               new Coupler(c, q, gamma4, this.geom, this.color[3], this.color[20]),
               new Bar(u, this.geom, this.color[3], this.color[10]),

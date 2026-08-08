@@ -21,26 +21,26 @@ function Linkage() {
                 "#AAAAAA",  // [2]  medium gray
 								"#333333",  // [3]  dark gray
 								"#000000",  // [4]  black
-                "#006DC7", 	// [5]  Main Primary color (pastel blue)
-                "#1894FB",  // [6]  light
-                "#058DFF",  // [7]  med light
-                "#005296",  // [8]  med dark
-                "#004075",  // [9]  dark
-                "#0400CF", 	// [10] Main Secondary color (deep blue)
-                "#2F2BFC",  // [11] light
-                "#0F0AFF",  // [12] med light
-                "#0300A2",  // [13] med dark
-                "#03007F",  // [14] dark
-                "#FFC000", 	// [15] Main Secondary color (yellow orange)
-                "#FFC207",  // [16] light
-                "#FFC000",  // [17] med light
-                "#E8AF00",  // [18] med dark
-                "#B68900",  // [19] dark
-                "#FF9400", 	// [20] Main Complement color (orange)
-                "#FF9707",  // [21] light
-                "#FF9400",  // [22] med light
-                "#E88600",  // [23] med dark
-                "#E66900"]; // [24] dark
+                "#B0A1BA", 	// [5]  Main Primary color (Rose Quartz)
+                "#F4F3F5",  // [6]  light
+                "#D5CEDA",  // [7]  med light
+                "#8E779E",  // [8]  med dark
+                "#705285",  // [9]  dark
+                "#1B998B", 	// [10] Main Secondary color (Perisan Green)
+                "#5FC1B7",  // [11] light
+                "#37A69B",  // [12] med light
+                "#068376",  // [13] med dark
+                "#00675C",  // [14] dark
+                "#C5D86D", 	// [15] Main Secondary color (Mindaro)
+                "#F1FACA",  // [16] light
+                "#E7F7A3",  // [17] med light
+                "#9CB13E",  // [18] med dark
+                "#778B1C",  // [19] dark
+                "#99621E", 	// [20] Main Complement color (Golden Brown)
+                "#E2AE6E",  // [21] light
+                "#B9813D",  // [22] med light
+                "#724105",  // [23] med dark
+                "#482800"]; // [24] dark
 
   // The geom object gives the dimensions of common shapes such as pins, pivots, etc.
   this.geom = {pinRadius: 4,                  // radius of all pins
@@ -111,7 +111,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
   this.y0 = y0;                                              // y coordinate of origin on canvas
   
 	// trace setup
-  this.traceColor = [this.color[15],this.color[20],this.color[10]];// colors of the tracing points
+  this.traceColor = [this.color[9],this.color[19],this.color[14]];// colors of the tracing points
 	
 	// Generate plot functionality if turned on in instance of linkage
 	if (this.showPlots) {
@@ -164,17 +164,17 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		
 		//Create displacement plot
 		this.plotDis = new Plot(this.canDis,this.ctxDis); 				// initialize plot
-		this.setPlotAttr('plotDis',this.color[10],this.color[15], // set plot parameters
+		this.setPlotAttr('plotDis',this.color[24],this.color[14], // set plot parameters
 		"DISPLACEMENT PLOT","Disp [mm]",-100,150);								// set plot parameters
 
 		//Create velocity plot
 		this.plotVel = new Plot(this.canVel,this.ctxVel);					// initialize plot
-		this.setPlotAttr('plotVel',this.color[10],this.color[15], // set plot parameters
+		this.setPlotAttr('plotVel',this.color[24],this.color[14], // set plot parameters
 		"VELOCITY PLOT","Velocity [mm/s]",-100,150);
 
 		//Create acceleration plot
 		this.plotAcc = new Plot(this.canAcc,this.ctxAcc);					// initialize plot
-		this.setPlotAttr('plotAcc',this.color[10],this.color[15], // set plot parameters
+		this.setPlotAttr('plotAcc',this.color[24],this.color[14], // set plot parameters
 		"ACCELERATION PLOT","Accel [mm/s"+String.fromCharCode(0x22C5)+"s]",
 		-100,150);
 	}
