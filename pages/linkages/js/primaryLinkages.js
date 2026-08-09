@@ -13,7 +13,11 @@ function init() {
 
   var threebar = new Threebar(a,p,g,d);  // create threebar
   threebar.buttonCanvas("01", 120, 200);
-	threebar.setLims([[-65,315],[-95,65],[-155,145]]); //[[dL,dH],[vL,vH],[aL,aH],[xL,xH]]
+	//threebar.setLims([[-65,315],[-95,65],[-155,145]]); //[[dL,dH],[vL,vH],[aL,aH],[xL,xH]]
+  threebar.limits = {
+    B: { dis: [-65, 65], vel: [-55, 70], acc: [-80, 70] },
+    P: { dis: [-65, 315],  vel: [-95, 65], acc: [-160, 160] },
+  };
   threebar.drawGround();
   threebar.draw(0);
   

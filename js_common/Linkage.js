@@ -161,6 +161,12 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		this.B = {x:0,y:1};		//index of the traces in the plot object
 		this.P = {x:2,y:3};		//index of the traces in the plot object
 		this.C = {x:4,y:5};		//index of the traces in the plot object
+
+		this.limits = {
+			B: { dis: [-100, 150], vel: [-200, 200], acc: [-500, 500] },
+			P: { dis: [-50, 200],  vel: [-150, 150], acc: [-400, 400] },
+			C: { dis: [0, 300],    vel: [-300, 300], acc: [-600, 600] }
+		};
 		
 		//Create displacement plot
 		this.plotDis = new Plot(this.canDis,this.ctxDis); 				// initialize plot
@@ -452,6 +458,10 @@ Linkage.prototype.setPlotAttr = function(plotName,xColor,yColor,title,yLabel,yMi
 Linkage.prototype.updatePlot = function(plotName,crankAngle){
 	if (this.pointSel != this.selPin.value){ 						 // if point selection changes
 		this.pointSel = this.selPin.value;								 // update the selection 
+		
+		//TODO: insert plot limit update based on pin selected
+		// Update Y limits for the newly selected point
+        this.updateLimits(this.pointSel);
 		
 		this.plotDis.drawPlot([this[this.pointSel].x,this[this.pointSel].y]); // and redraw plots
 		this.plotVel.drawPlot([this[this.pointSel].x,this[this.pointSel].y]);

@@ -120,24 +120,31 @@ Plot.prototype.drawGrid = function(){
 	this.ctx.fillRect(this.l,this.t,this.w,this.h);
 	
 	// draw grid lines and label them
-	for (var i = 0; i < this.nYGrid; i++){
-		//y-axis numbering
-		const yPos = Math.floor(this.lerp(this.t + this.h, this.t, i / (this.nYGrid - 1))) + 0.5;
+	const yTicks = this.generateYTicks();
+
+	for (var i = 0; i < yTicks.length; i++) {
+		const val = yTicks[i];
+		
+		// Map tick data value to pixel y-coordinate
+		const yPos = Math.floor(this.t + this.h - ((val - this.yMin) / (this.yMax - this.yMin)) * this.h) + 0.5;
+
+		// Skip drawing ticks if they overflow outside canvas bounds
+		if (yPos < this.t || yPos > this.t + this.h) continue;
+
+		// Draw Tick Label
 		this.ctx.font = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 		this.ctx.fillStyle = this.lineColor;
 		this.ctx.textAlign = "right";
 		this.ctx.textBaseline = 'middle';
-		this.ctx.fillText(parseFloat(this.lerp(this.yMin,this.yMax,i/(this.nYGrid-1))).toFixed(2),this.l-3,yPos);
-		
-		if ((i>0)&&(i<this.nYGrid-1)){
-			//y-axis grid lines
-			this.ctx.beginPath();
-			this.ctx.strokeStyle = this.gridColor;
-			this.ctx.setLineDash([1, 5]);
-			this.ctx.moveTo(this.l,yPos);
-			this.ctx.lineTo(this.l+this.w,yPos);
-			this.ctx.stroke();
-		}
+		this.ctx.fillText(val.toFixed(0), this.l - 3, yPos);
+
+		// Draw Gridlines (optional highlight for 0)
+		this.ctx.beginPath();
+		this.ctx.strokeStyle = (val === 0) ? this.lineColor : this.gridColor;
+		this.ctx.setLineDash(val === 0 ? [] : [1, 5]);
+		this.ctx.moveTo(this.l, yPos);
+		this.ctx.lineTo(this.l + this.w, yPos);
+		this.ctx.stroke();
 	}
 	
 	for (var i = 0; i < this.nXGrid; i++){
@@ -324,4 +331,71 @@ Plot.prototype.attachResizeObserver = function(traceList) {
 	});
 
 	observer.observe(this.can.parentElement);
+};
+
+
+// *************************************************************************************
+// Linkage.updateLimits - updates plot yMin/yMax based on selected point
+// *************************************************************************************
+Linkage.prototype.updateLimits = function(point) {
+    if (this.limits && this.limits[point]) {
+        const lim = this.limits[point];
+
+        if (lim.dis) {
+            this.plotDis.yMin = lim.dis[0];
+            this.plotDis.yMax = lim.dis[1];
+        }
+        if (lim.vel) {
+            this.plotVel.yMin = lim.vel[0];
+            this.plotVel.yMax = lim.vel[1];
+        }
+        if (lim.acc) {
+            this.plotAcc.yMin = lim.acc[0];
+            this.plotAcc.yMax = lim.acc[1];
+        }
+    }
+};
+
+// **************************************************************************
+// getNiceStepSize - calculates a round step increment (e.g. 10, 25, 50, 100)
+// **************************************************************************
+Plot.prototype.getNiceStepSize = function(yMin, yMax, targetTicks) {
+    const range = yMax - yMin;
+    if (range === 0) return 10;
+    const rawStep = range / (targetTicks || 5);
+    const exponent = Math.floor(Math.log10(rawStep));
+    const fraction = rawStep / Math.pow(10, exponent);
+    
+    let niceFraction;
+    if (fraction < 1.5) niceFraction = 1;
+    else if (fraction < 3) niceFraction = 2;
+    else if (fraction < 7) niceFraction = 5;
+    else niceFraction = 10;
+
+    return niceFraction * Math.pow(10, exponent);
+};
+
+// **************************************************************************
+// generateYTicks - creates tick values anchored around 0
+// **************************************************************************
+Plot.prototype.generateYTicks = function() {
+    const step = this.getNiceStepSize(this.yMin, this.yMax, this.nYGrid || 5);
+    const ticks = [0]; // Always include zero
+
+    // Ticks above 0 up to yMax
+    let current = step;
+    while (current <= this.yMax) {
+        ticks.push(current);
+        current += step;
+    }
+
+    // Ticks below 0 down to yMin
+    current = -step;
+    while (current >= this.yMin) {
+        ticks.push(current);
+        current -= step;
+    }
+
+    // Sort ticks numerically
+    return ticks.sort((a, b) => a - b);
 };
