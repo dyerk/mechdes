@@ -35,9 +35,9 @@
 }
 
 .legend-trace-x {
-  background-color: #FFC000;
+  background-color: #482800; /*Color 24 from Linkage.js*/
 }
 
 .legend-trace-y {
-  background-color: #006DC7;
+  background-color: #00675C; /*Color 14 from Linkage.js*/
 }
