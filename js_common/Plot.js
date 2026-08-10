@@ -74,8 +74,8 @@ function Plot(can,ctx){
 // drawPlot - main function that calls all support funtions to draw entire plot
 // ****************************************************************************
 Plot.prototype.drawPlot = function(traceList){
-	this.ctx.clearRect(0, 0, this.can.width, this.can.height);
 	this.checkSize();
+	this.ctx.clearRect(0, 0, this.can.width, this.can.height);
 	this.drawGrid();	
 	//this.drawLabels();
 	//this.drawLegend(traceList);
@@ -119,17 +119,14 @@ Plot.prototype.drawGrid = function(){
 	this.ctx.fillStyle = this.plotColor;
 	this.ctx.fillRect(this.l,this.t,this.w,this.h);
 	
-	// draw grid lines and label them
+	// draw y-axis grid
 	const yTicks = this.generateYTicks();
 
 	for (var i = 0; i < yTicks.length; i++) {
 		const val = yTicks[i];
 		
-		// Map tick data value to pixel y-coordinate
+		// Map tick data value precisely across canvas height
 		const yPos = Math.floor(this.t + this.h - ((val - this.yMin) / (this.yMax - this.yMin)) * this.h) + 0.5;
-
-		// Skip drawing ticks if they overflow outside canvas bounds
-		if (yPos < this.t || yPos > this.t + this.h) continue;
 
 		// Draw Tick Label
 		this.ctx.font = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
@@ -138,13 +135,15 @@ Plot.prototype.drawGrid = function(){
 		this.ctx.textBaseline = 'middle';
 		this.ctx.fillText(val.toFixed(0), this.l - 3, yPos);
 
-		// Draw Gridlines (optional highlight for 0)
-		this.ctx.beginPath();
-		this.ctx.strokeStyle = (val === 0) ? this.lineColor : this.gridColor;
-		this.ctx.setLineDash(val === 0 ? [] : [1, 5]);
-		this.ctx.moveTo(this.l, yPos);
-		this.ctx.lineTo(this.l + this.w, yPos);
-		this.ctx.stroke();
+		// Draw Gridlines (solid for 0, dashed for grid lines)
+		if (val !== this.yMin && val !== this.yMax) {
+			this.ctx.beginPath();
+			this.ctx.strokeStyle = (val === 0) ? this.lineColor : this.gridColor;
+			this.ctx.setLineDash(val === 0 ? [] : [1, 5]);
+			this.ctx.moveTo(this.l, yPos);
+			this.ctx.lineTo(this.l + this.w, yPos);
+			this.ctx.stroke();
+		}
 	}
 	
 	for (var i = 0; i < this.nXGrid; i++){
@@ -282,13 +281,25 @@ Plot.prototype.lerp = function(min, max, percent){
 // checkSize - checks canvas size to accomodate change in window sizes
 // *************************************************************************************
 Plot.prototype.checkSize = function(){
-	// Calculate width/height using CSS logical pixels, not internal DPR-scaled buffer width
-	const logicalWidth = this.can.width / this.dpr;
-	const logicalHeight = this.can.height / this.dpr;
+    // Sync width with container or canvas attribute
+    if (this.can.parentElement && this.can.parentElement.clientWidth > 0) {
+        this.can.width = this.can.parentElement.clientWidth;
+    } else if (!this.can.width || this.can.width === 0) {
+        this.can.width = 500; 
+    }
 
-	this.w = logicalWidth - this.l - this.r;  // plot width
-	this.h = logicalHeight - this.t - this.b; // plot height
-}
+    // Sync height with canvas attribute / class height
+    // If the canvas is in plot-short mode, force 125; if plot-tall, force 250
+    if (this.can.classList.contains("plot-tall")) {
+        this.can.height = 250;
+    } else {
+        this.can.height = 125;
+    }
+
+    // 3. Recalculate printable grid area
+    this.w = this.can.width - this.l - this.r;  // 500 - 60 - 25 = 415
+    this.h = this.can.height - this.t - this.b; // 125 - 20 - 35 = 70
+};
 
 // ************************************************************************************
 // scaleToPlot - scale value to plot pixel value
@@ -376,26 +387,37 @@ Plot.prototype.getNiceStepSize = function(yMin, yMax, targetTicks) {
 };
 
 // **************************************************************************
-// generateYTicks - creates tick values anchored around 0
+// generateYTicks - expands yMin/yMax to the nearest tick mark anchored at 0
 // **************************************************************************
 Plot.prototype.generateYTicks = function() {
-    const step = this.getNiceStepSize(this.yMin, this.yMax, this.nYGrid || 5);
-    const ticks = [0]; // Always include zero
+    const targetTicks = this.nYGrid || 5;
+    
+    // 1. Calculate clean step size based on initial limits
+    const step = this.getNiceStepSize(this.yMin, this.yMax, targetTicks);
 
-    // Ticks above 0 up to yMax
-    let current = step;
-    while (current <= this.yMax) {
-        ticks.push(current);
+    // 2. Snap yMin DOWN to the next lower tick multiple (if yMin isn't already a multiple)
+    if (this.yMin < 0) {
+        this.yMin = Math.floor(this.yMin / step) * step;
+    } else if (this.yMin > 0) {
+        this.yMin = Math.max(0, Math.floor(this.yMin / step) * step);
+    }
+
+    // 3. Snap yMax UP to the next higher tick multiple
+    if (this.yMax > 0) {
+        this.yMax = Math.ceil(this.yMax / step) * step;
+    } else if (this.yMax < 0) {
+        this.yMax = Math.min(0, Math.ceil(this.yMax / step) * step);
+    }
+
+    // 4. Generate all tick marks from updated yMin to yMax
+    const ticks = [];
+    let current = this.yMin;
+    
+    // Use Math.round to eliminate floating point rounding precision errors
+    while (current <= this.yMax + (step / 2)) {
+        ticks.push(Math.round(current * 1000) / 1000);
         current += step;
     }
 
-    // Ticks below 0 down to yMin
-    current = -step;
-    while (current >= this.yMin) {
-        ticks.push(current);
-        current -= step;
-    }
-
-    // Sort ticks numerically
-    return ticks.sort((a, b) => a - b);
+    return ticks;
 };

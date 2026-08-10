@@ -14,8 +14,13 @@
     height: 100% !important;
 }
 /* Plot Canvas styling */
+.plotCanvas {
+    width: 100%;
+    min-width: 0; /* Prevents container lockup */
+}
 .plotCanvas canvas {
     width: 100% !important;
+    box-sizing: border-box;
     height: auto !important;
     display: block;
 }

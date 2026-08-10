@@ -157,7 +157,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		this.sizeDis.addEventListener('click',function(){linkage.eventPlotResize(linkage,sizeDis)},false);
 	
 		//Determine desired plot point
-		this.pointSel = this.selPin.value;			//string value from dropdown
+		this.pointSel = this.selPin.value || 'B';			//string value from dropdown
 		this.B = {x:0,y:1};		//index of the traces in the plot object
 		this.P = {x:2,y:3};		//index of the traces in the plot object
 		this.C = {x:4,y:5};		//index of the traces in the plot object
@@ -367,25 +367,30 @@ Linkage.prototype.eventPlotToggle = function(linkage, plotSelection) {
 // Linkage.eventPlotResize - toggles height of plot using FontAwesome 6 icons
 // **************************************************************************************
 Linkage.prototype.eventPlotResize = function(linkage, plotSelection) {
-	const sizeName = document.getElementById(plotSelection);
-	const canName = document.getElementById(plotSelection.replace('size', 'can'));
-	const plotName = "plot".concat(plotSelection.substr(plotSelection.length - 3));
-	
-	if (canName.classList.contains("plot-short")) {
-		canName.classList.remove("plot-short");
-		canName.classList.add("plot-tall");
-		sizeName.classList.remove("fa-expand"); 
-		sizeName.classList.add("fa-compress"); 
-		canName.height = 250;
-	} else {
-		canName.classList.remove("plot-tall");
-		canName.classList.add("plot-short");
-		sizeName.classList.remove("fa-compress"); 	
-		sizeName.classList.add("fa-expand"); 
-		canName.height = 125;
-	}
-	this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
-};
+    var sizeName = document.getElementById(plotSelection); 							
+    var canName = document.getElementById(plotSelection.replace('size','can'));	
+    var plotName = "plot".concat(plotSelection.substr(plotSelection.length-3));
+    
+    if (canName.classList.contains("plot-short")) { 
+        canName.classList.remove("plot-short");				
+        canName.classList.add("plot-tall");						
+        sizeName.classList.remove("fa-toggle-down"); 		
+        sizeName.classList.add("fa-toggle-up"); 			
+        canName.height = 250;
+    } else {
+        canName.classList.remove("plot-tall");				
+        canName.classList.add("plot-short");					
+        sizeName.classList.remove("fa-toggle-up"); 	
+        sizeName.classList.add("fa-toggle-down"); 			  
+        canName.height = 125;
+    }
+
+    // Force canvas width synchronization with container
+    canName.width = canName.parentElement.clientWidth || 500;
+
+    // Redraw the plot axis and traces
+    this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
+}
 
 // ***************************************************************************************
 // Linkage.drawIC - draws instant centers
@@ -526,3 +531,22 @@ Linkage.prototype.setLims = function(input) {
 		}
 	}
 }
+
+// *************************************************************************************
+// Linkage.initPlots - refreshes and redraws all plots for the current point selection
+// *************************************************************************************
+Linkage.prototype.initPlots = function() {
+    if (!this.showPlots) return; // Guard clause if plots are disabled
+
+    // If updateLimits exists on the instance/class, call it
+    if (typeof this.updateLimits === 'function') {
+        this.updateLimits(this.pointSel);
+    }
+
+    var selectedIndices = [this[this.pointSel].x, this[this.pointSel].y];
+
+    // Force all three plots to redraw with current dimensions and traces
+    this.plotDis.drawPlot(selectedIndices);
+    this.plotVel.drawPlot(selectedIndices);
+    this.plotAcc.drawPlot(selectedIndices);
+};

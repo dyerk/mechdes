@@ -15,9 +15,10 @@ function init() {
   threebar.buttonCanvas("01", 120, 200);
 	//threebar.setLims([[-65,315],[-95,65],[-155,145]]); //[[dL,dH],[vL,vH],[aL,aH],[xL,xH]]
   threebar.limits = {
-    B: { dis: [-65, 65], vel: [-55, 70], acc: [-80, 70] },
+    B: { dis: [-65, 65], vel: [-60, 60], acc: [-70, 70] },
     P: { dis: [-65, 315],  vel: [-95, 65], acc: [-160, 160] },
   };
+  threebar.initPlots();
   threebar.drawGround();
   threebar.draw(0);
   
@@ -31,7 +32,13 @@ function init() {
 
   var fourbar = new Fourbar(a,b,c,d,p,beta,2,true);  // create fourbar
   fourbar.buttonCanvas("02", 120, 230);
-	fourbar.setLims([[-85,235],[-85,165],[-325,185]]); //[[dL,dH],[vL,vH],[aL,aH]]
+	//fourbar.setLims([[-85,235],[-85,165],[-325,185]]); //[[dL,dH],[vL,vH],[aL,aH]]
+  fourbar.limits = {
+    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
+    P: { dis: [-65, 200],  vel: [-95, 65], acc: [-160, 100] },
+    C: { dis: [0, 250], vel: [-85,165], acc: [-325,185]}
+  };
+  fourbar.initPlots();
   fourbar.drawGround();
   fourbar.draw(0);
 
@@ -42,7 +49,12 @@ function init() {
 
   var sliderCrank = new SliderCrank(a,b,c);  // create slider-crank
   sliderCrank.buttonCanvas("03", 140, 210);
-	sliderCrank.setLims([[-65,185],[-65,105],[-105,150]]); //[[dL,dH],[vL,vH],[aL,aH]]
+	//sliderCrank.setLims([[-65,185],[-65,105],[-105,150]]); //[[dL,dH],[vL,vH],[aL,aH]]
+  sliderCrank.limits = {
+    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
+    C: { dis: [0, 200], vel: [-85,125], acc: [-200,200]}
+  };
+  sliderCrank.initPlots();
   sliderCrank.drawGround();
   sliderCrank.draw(0);
 
@@ -56,7 +68,12 @@ function init() {
 
   var invSlide = new InvSlide(a,p,c,d,gamma,true); // create inverted slider-crank
   invSlide.buttonCanvas("04", 120, 250);
-	invSlide.setLims([[-65,265],[-90,90],[-195,110]]); //[[dL,dH],[vL,vH],[aL,aH]]
+	//invSlide.setLims([[-65,265],[-90,90],[-195,110]]); //[[dL,dH],[vL,vH],[aL,aH]]
+  invSlide.limits = {
+    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
+    P: { dis: [-65, 75],  vel: [-100, 100], acc: [-200, 200] },
+  };
+  invSlide.initPlots();
   invSlide.drawGround();
   invSlide.draw(0);
 
