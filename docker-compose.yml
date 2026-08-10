@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  sass-builder:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules # Avoid overwriting node_modules inside container

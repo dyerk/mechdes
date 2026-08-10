@@ -1,0 +1,8 @@
+// 1. Override existing Bootstrap colors
+$primary: #6f42c1;   // Custom purple
+$danger: #e63946;    // Custom red
+
+// 2. Add brand-new colors to the theme map (optional)
+$custom-colors: (
+  "accent": #ffb703
+);

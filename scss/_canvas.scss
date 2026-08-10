@@ -1,0 +1,47 @@
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 5 / 4;
+    margin: 0 auto;
+}
+.canvas-wrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+/* Plot Canvas styling */
+.plotCanvas {
+    width: 100%;
+    min-width: 0; /* Prevents container lockup */
+}
+.plotCanvas canvas {
+    width: 100% !important;
+    box-sizing: border-box;
+    height: auto !important;
+    display: block;
+}
+/* Rotated Y-Axis Label */
+.y-axis-label {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  text-align: center;
+}
+
+/* Custom HTML Legend Indicators */
+.legend-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-trace-x {
+  background-color: #482800; /*Color 24 from Linkage.js*/
+}
+
+.legend-trace-y {
+  background-color: #00675C; /*Color 14 from Linkage.js*/
+}

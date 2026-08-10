@@ -1,0 +1,12 @@
+{
+  "name": "bootstrap-sass-docker",
+  "version": "1.0.0",
+  "scripts": {
+    "build-sass": "sass scss/main.scss src/css/main.css --no-source-map",
+    "watch-sass": "sass --watch scss/main.scss:src/css/main.css"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.0",
+    "sass": "^1.60.0"
+  }
+}
