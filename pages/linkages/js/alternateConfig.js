@@ -12,7 +12,12 @@ function init() {
 
   var sliderCrankA = new SliderCrank(a,b,c);  // create slider-crank
   sliderCrankA.buttonCanvas("01", 140, 210, true, 0, true);
-	sliderCrankA.setLims([[-65,195],[-65,105],[-105,150]]); //[[dL,dH],[vL,vH],[aL,aH]]
+	//sliderCrankA.setLims([[-65,195],[-65,105],[-105,150]]); //[[dL,dH],[vL,vH],[aL,aH]]
+  sliderCrankA.limits = {
+    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
+    C: { dis: [0, 200], vel: [-100,100], acc: [-100,100]}
+  };
+  sliderCrankA.initPlots();
   sliderCrankA.drawGround();
   sliderCrankA.draw(0);
 	
