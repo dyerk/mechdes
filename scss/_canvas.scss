@@ -29,7 +29,6 @@
   transform: rotate(180deg);
   text-align: center;
 }
-
 /* Custom HTML Legend Indicators */
 .legend-indicator {
   display: inline-block;
@@ -37,11 +36,9 @@
   height: 10px;
   border-radius: 50%;
 }
-
 .legend-trace-x {
   background-color: #482800; /*Color 24 from Linkage.js*/
 }
-
 .legend-trace-y {
   background-color: #00675C; /*Color 14 from Linkage.js*/
 }

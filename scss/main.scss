@@ -1,14 +1,8 @@
-// 1. Load your custom variables first
+// 1. Load your custom variables and overrides first
 @import "custom-vars";
 
-// 2. Load Bootstrap's functions & mandatory variables
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-
-// 3. Merge custom colors into Bootstrap's map if you defined new ones
-$theme-colors: map-merge($theme-colors, $custom-colors);
-
-// 4. Import the rest of Bootstrap (or select parts)
+// 2. Load complete Bootstrap (this automatically loads functions, variables, mixins, and utilities in correct order)
 @import "bootstrap/scss/bootstrap";
 
+// 3. Load your custom partials after Bootstrap
 @import "canvas";
