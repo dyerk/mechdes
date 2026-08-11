@@ -1,8 +1,40 @@
-// 1. Override existing Bootstrap colors
-$primary: #6f42c1;   // Custom purple
-$danger: #e63946;    // Custom red
+@use "sass:map";
 
-// 2. Add brand-new colors to the theme map (optional)
-$custom-colors: (
-  "accent": #ffb703
+$textbook-colors: (
+  "textbook-white": #FFFFFF, // [0] white
+  "textbook-lt-gray": #DDDDDD,  // [1]  light gray
+  "textbook-md-gray": #AAAAAA,  // [2]  medium gray
+	"textbook-dk-gray":	#333333,  // [3]  dark gray
+  "textbook-black": #000000, // [4] black
+  "rose-quartz-3": #B0A1BA, 	// [5]  Main Primary color (Rose Quartz)
+  "rose-quartz-1": #F4F3F5,  // [6]  light
+  "rose-quartz-2": #D5CEDA,  // [7]  med light
+  "rose-quartz-4": #8E779E,  // [8]  med dark
+  "rose-quartz-5": #705285,  // [9]  dark
+  "persian-green-3": #1B998B, 	// [10] Main Secondary color (Perisan Green)
+  "persian-green-1": #5FC1B7,  // [11] light
+  "persian-green-2": #37A69B,  // [12] med light
+  "persian-green-4": #068376,  // [13] med dark
+  "persian-green-5": #00675C,  // [14] dark
+  "mindaro-3": #C5D86D, 	// [15] Main Secondary color (Mindaro)
+  "mindaro-1": #F1FACA,  // [16] light
+  "mindaro-2": #E7F7A3,  // [17] med light
+  "mindaro-4": #9CB13E,  // [18] med dark
+  "mindaro-5": #778B1C,  // [19] dark
+  "golden-brown-3": #99621E, 	// [20] Main Complement color (Golden Brown)
+  "golden-brown-1": #E2AE6E,  // [21] light
+  "golden-brown-2": #B9813D,  // [22] med light
+  "golden-brown-4": #724105,  // [23] med dark
+  "golden-brown-5": #482800, // [24] dark
+  "space-cadet-3": #2E294E, // Space Cadet
+  "space-cadet-1": #625C83, // Space Cadet - light
+  "space-cadet-2": #464168, // Space Cadet - med light
+  "space-cadet-4": #1F1A40, // Space Cadet - med dark
+  "space-cadet-5": #100C2C, // Space Cadet - dark
 );
+
+// Override default colors
+$primary: map.get($textbook-colors, "golden-brown-5");
+$secondary: map.get($textbook-colors, "mindaro-4");
+//$primary: #6f42c1;   // Custom purple
+//$danger: #e63946;    // Custom red
