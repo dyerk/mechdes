@@ -19,24 +19,24 @@ function Linkage() {
   this.color = ["#FFFFFF",  // [0]  white
                 "#DDDDDD",  // [1]  light gray
                 "#AAAAAA",  // [2]  medium gray
-								"#333333",  // [3]  dark gray
-								"#000000",  // [4]  black
-                "#B0A1BA", 	// [5]  Main Primary color (Rose Quartz)
+				"#333333",  // [3]  dark gray
+				"#000000",  // [4]  black
+                "#B0A1BA",  // [5]  Main Primary color (Rose Quartz)
                 "#F4F3F5",  // [6]  light
                 "#D5CEDA",  // [7]  med light
                 "#8E779E",  // [8]  med dark
                 "#705285",  // [9]  dark
-                "#1B998B", 	// [10] Main Secondary color (Perisan Green)
+                "#1B998B",  // [10] Main Secondary color (Perisan Green)
                 "#5FC1B7",  // [11] light
                 "#37A69B",  // [12] med light
                 "#068376",  // [13] med dark
                 "#00675C",  // [14] dark
-                "#C5D86D", 	// [15] Main Secondary color (Mindaro)
+                "#C5D86D",  // [15] Main Secondary color (Mindaro)
                 "#F1FACA",  // [16] light
                 "#E7F7A3",  // [17] med light
                 "#9CB13E",  // [18] med dark
                 "#778B1C",  // [19] dark
-                "#99621E", 	// [20] Main Complement color (Golden Brown)
+                "#99621E",  // [20] Main Complement color (Golden Brown)
                 "#E2AE6E",  // [21] light
                 "#B9813D",  // [22] med light
                 "#724105",  // [23] med dark
@@ -45,26 +45,26 @@ function Linkage() {
   // The geom object gives the dimensions of common shapes such as pins, pivots, etc.
   this.geom = {pinRadius: 4,                  // radius of all pins
                pinLineColor: this.color[3],   // line color for pins
-							 pinFillColor: this.color[2],   // fill color for pins
+			   pinFillColor: this.color[2],   // fill color for pins
                barWidth: 15,                  // width of bars
                barDiam: 20,                   // diameter of end knob on bar
                couplerRadius: 10,             // coupler fillet radius
                pivotWidth: 30,                // width of bottom of pivot
                pivotHeight: 20,               // vertical distance from pivot pin to bottom
                pivotRadius: 10,               // radius of top end of pivot
-							 pivotLineColor: this.color[3], // line color for pivot
-							 pivotFillColor: this.color[1], // pivot fill color
+			   pivotLineColor: this.color[3], // line color for pivot
+			   pivotFillColor: this.color[1], // pivot fill color
                pistonWidth: 40,               // width of piston
                pistonHeight: 50,              // height of piston
                rockerWidth: 60,               // width of top of rocker
                groundHeight: 20,              // height of ground slider rectangle
-							 groundFillColor: this.color[1],// ground rectangle fill color
-							 groundLineColor: this.color[4],// ground line color
+			   groundFillColor: this.color[1],// ground rectangle fill color
+			   groundLineColor: this.color[4],// ground line color
                motorWidth1: 20,               // upper width of motor quadrilateral
                motorWidth2: 40,               // lower width of motor quadrilateral
                motorHeight: 25,               // height of motor quadrilateral
-							 motorRadius: 20,               // radius of motor circle	
-							 pitch: 1/3}                    // gear pitch in pixels per tooth
+			   motorRadius: 20,               // radius of motor circle	
+			   pitch: 1/3}                    // gear pitch in pixels per tooth
 }
 
 // ****************************************************************************************
@@ -84,7 +84,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 
 	// Attach click listeners to the BUTTONS, not the icons:
 	this.btnPlay.addEventListener('click', function () { linkage.eventPlay(linkage); }, false);
-	this.btnReset.addEventListener('click', function () {linkage.eventReset(linkage)},false);
+	this.btnReset.addEventListener('click', function () {linkage.eventReset(linkage)}, false);
 	
 	// capture canvas html id tags for animation into script
 	this.can = [];
@@ -140,8 +140,8 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 		
 		// capture html id tags into script
 		this.selPin   = document.getElementById(selPin);			// pin selection for T,A,V,D plots
-		this.butAcc   = document.getElementById(butAcc);	  	// button show/hide acceleration plot
-		this.butVel   = document.getElementById(butVel);    	// button show/hide velocity plot
+		this.butAcc   = document.getElementById(butAcc);	  		// button show/hide acceleration plot
+		this.butVel   = document.getElementById(butVel);    		// button show/hide velocity plot
 		this.butDis   = document.getElementById(butDis);			// button show/hide displacement plot
 		this.sizeAcc = document.getElementById(sizeAcc);			// size acceleration plot
 		this.sizeVel = document.getElementById(sizeVel);			// size velocity plot
