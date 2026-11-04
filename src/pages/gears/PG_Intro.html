@@ -30,7 +30,8 @@
 
         <script src="../../js_common/Common_Shapes_Planetary.js" defer></script>
         <script src="../../js_common/Class_PlanSRP_select.js" defer></script>
-		<script src="js/sunRingPlanet_select.js" defer></script>
+		<script src="../../js_common/Class_PlanInteractive.js" defer></script>
+		<script src="js/intro.js" defer></script>
 	</head>
 
 	<body class="bg-dark text-light d-flex flex-column min-vh-100">
@@ -307,24 +308,106 @@
 							</div>
 						</section>
 
-						<!-- INTERACTIVE DEMO (Canvas 7) -->
+						<!-- INTERACTIVE DEMO -->
 						<section class="my-2" aria-labelledby="interactive-demo-heading">
-							<h3 id="interactive-demo-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Interactive Hybrid Powertrain Simulation</h3>
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-3">
-								<figcaption class="visually-hidden">Interactive Planetary Gearset Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3 d-inline-block">
-									<canvas class="noBorder img-fluid" id="canvas7" width="600" height="480" role="img" aria-label="Interactive simulation of a hybrid powertrain planetary gearset."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play7" aria-label="Play Interactive Hybrid Powertrain simulation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
-								</div>
-							</figure>
-
-							<p>
-								In each of the previous animations one of the inputs was held fixed, while the other was free to move. You might be curious to see what happens when two inputs are free to move, as is the case in a hybrid powertrain. The animation above provides a demonstration. Click "Play" to start the animation, and use the slider bars to control the speeds of the two inputs. Use the pushbuttons at the lower left to control which gear is the output. Note that the speed of the two inputs determines the output speed - you can't change the output speed with the slider! Play around with this animation until you feel comfortable with the behavior of the gearset.
+							<h3 id="interactive-demo-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Interactive Planetary Powertrain Simulation</h3>
+							<p class="mt-2">
+								In each of the previous animations one of the inputs was held fixed, while the other was free to move. You might be curious to see what happens when two inputs are free to move, as is the case in a hybrid powertrain. The animation below provides a demonstration. Click "Play" to start the animation, and use the slider bars to control the speeds of the two inputs. Use the radio buttons at the lower left to control which gear is the output. Note that the speed of the two inputs determines the output speed - you can't change the output speed with the slider! Play around with this animation until you feel comfortable with the behavior of the gearset.
 							</p>
+							<div class="row justify-content-center g-4">
+								<div class="col-12 col-md-8 col-lg-6">
+									<figure class="figure w-100 m-0">
+										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+											<figcaption class="h6 fw-bold text-dark text-center mb-3">Interactive Planetary</figcaption>
+											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+												<canvas class="canTrace" id="07canTr" width="500" height="400"></canvas>
+												<canvas class="canDraw z_2" id="07canM1" width="500" height="400"></canvas>
+												<canvas class="canDraw z_3" id="07canM2" width="500" height="400"></canvas>
+												<canvas class="canDraw z_4" id="07canM3" width="500" height="400"></canvas>
+												<canvas class="canDraw z_5" id="07canGr" width="500" height="400"></canvas>
+											</div>
+
+											<!-- Animation Controls -->
+											<div class="d-flex justify-content-center gap-3 mt-3">
+												<button type="button" class="btn btn-outline-primary" id="07btnPlay" aria-label="Play animation">
+													<i class="fa-solid fa-circle-play fa-2xl" id="07butPlay" aria-hidden="true"></i>
+												</button>
+												<button type="button" class="btn btn-outline-secondary" id="07btnReset" aria-label="Reset animation">
+													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="07butReset" aria-hidden="true"></i>
+												</button>
+											</div>
+										</div>
+										<!-- Controls Fieldset stretching 100% width of figure -->
+										<fieldset class="w-100 border rounded p-3 bg-light" aria-label="Interactive Planetary Gearset Controls">
+											<legend class="h5">Planetary Gear Inputs and Speeds</legend>
+
+											<!-- Datalist for slider ticks -->
+											<datalist id="speedTicks">
+											<option value="-20" label="-20"></option>
+											<option value="-10" label="-10"></option>
+											<option value="0" label="0"></option>
+											<option value="10" label="10"></option>
+											<option value="20" label="20"></option>
+											</datalist>
+
+											<!-- Sun Control Group -->
+											<div class="d-flex align-items-center gap-2 mb-3 w-100">
+											<label for="07sliderSun" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
+												Sun Speed:
+											</label>
+											
+											<input type="range" class="form-range flex-grow-1" id="07sliderSun" min="-20" max="20" value="5" step="1" list="speedTicks" />
+											
+											<output id="07valSun" for="07sliderSun" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">5</output>
+
+											<div class="form-check mb-0 ms-2 text-nowrap">
+												<input type="radio" class="form-check-input" id="07btnSelectSun" name="gearOutput07" value="sun" />
+												<label for="07btnSelectSun" class="form-check-label small">Output</label>
+											</div>
+											</div>
+
+											<!-- Ring Control Group -->
+											<div class="d-flex align-items-center gap-2 mb-3 w-100">
+											<label for="07sliderRing" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
+												Ring Speed:
+											</label>
+											
+											<input type="range" class="form-range flex-grow-1" id="07sliderRing" min="-20" max="20" value="5" step="1" list="speedTicks" />
+											
+											<output id="07valRing" for="07sliderRing" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">5</output>
+
+											<div class="form-check mb-0 ms-2 text-nowrap">
+												<input type="radio" class="form-check-input" id="07btnSelectRing" name="gearOutput07" value="ring" />
+												<label for="07btnSelectRing" class="form-check-label small">Output</label>
+											</div>
+											</div>
+
+											<!-- Carrier Control Group -->
+											<div class="d-flex align-items-center gap-2 w-100">
+											<label for="07sliderCarrier" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
+												Carrier Speed:
+											</label>
+											
+											<input type="range" class="form-range flex-grow-1" id="07sliderCarrier" min="-20" max="20" value="0" step="1" list="speedTicks" disabled />
+											
+											<output id="07valCarrier" for="07sliderCarrier" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">0</output>
+
+											<div class="form-check mb-0 ms-2 text-nowrap">
+												<input type="radio" class="form-check-input" id="07btnSelectCarrier" name="gearOutput07" value="carrier" checked />
+												<label for="07btnSelectCarrier" class="form-check-label small">Output</label>
+											</div>
+											</div>
+											<figcaption class="figure-caption text-center mt-2">
+												Adjust sliders to vary component speeds and buttons to select an output component.
+											</figcaption>
+
+										</fieldset>
+										
+									</figure>
+
+									
+								</div>
+							</div>
 						</section>
 			</article>
 

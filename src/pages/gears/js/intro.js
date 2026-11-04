@@ -75,6 +75,17 @@ function init() {
   planSRP_s.buttonCanvas("06", 250, 200);
   planSRP_s.drawGround();
   planSRP_s.draw(0);
+
+
+  // ***** Interactive Planetary **********
+  var Ns = 60; 
+  var Np = 30;
+  
+  var planInteractive = new PlanInteractive(Ns, Np);
+  planInteractive.showPlots = false;
+  planInteractive.buttonCanvas("07", 250, 200);
+  planInteractive.drawGround();
+  planInteractive.draw(0);
 }
 
 
