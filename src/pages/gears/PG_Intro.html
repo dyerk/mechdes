@@ -21,13 +21,6 @@
         <script src="../../js_common/Common_Shapes.js" defer></script>
 
 		<!-- Page Specific JavaScript Links -->
-		<!-- <script src="../../JS/shapes.js"></script>
-		<script src="../../JS/utilities.js"></script>
-		<script src="../../JS/PG/PG_Intro_Init.js"></script>
-		<script src="../../JS/PG/PG_Intro_Draw.js"></script>
-		<script src="../../JS/PG/PG_Intro_Handle.js"></script>
-		<script src="../../JS/PG/PG_Intro_Main.js"></script> -->
-
         <script src="../../js_common/Common_Shapes_Planetary.js" defer></script>
         <script src="../../js_common/Class_PlanSRP_select.js" defer></script>
 		<script src="../../js_common/Class_PlanInteractive.js" defer></script>
@@ -116,299 +109,299 @@
 
 				<!-- Animations Section-->
 				<h2 class="h4 text-muted border-bottom pb-2 mb-2">Planetary Animations</h2>
-						<p>
-							The animations shown below are designed to help you gain some insight into the behavior of planetary gearsets. In each case, one of the two inputs is fixed, and the other input makes one full rotation. The sun gear is twice the diameter of the planet gear, and the ring gear is twice the diameter of the sun gear. Even though the size ratios are pretty boring (1:2 and 1:4), the speed ratios will prove to be interesting, as you will see. Press the 'Play' button beneath each animation to observe the resulting motion.
-						</p>
+				<p>
+					The animations shown below are designed to help you gain some insight into the behavior of planetary gearsets. In each case, one of the two inputs is fixed, and the other input makes one full rotation. The sun gear is twice the diameter of the planet gear, and the ring gear is twice the diameter of the sun gear. Even though the size ratios are pretty boring (1:2 and 1:4), the speed ratios will prove to be interesting, as you will see. Press the 'Play' button beneath each animation to observe the resulting motion.
+				</p>
 
-						<!-- SECTION 1 (Carrier Fixed) -->
-						<section class="my-2" aria-labelledby="carrier-fixed-heading">
-							<h3 id="carrier-fixed-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Carrier Fixed Animations</h3>
-							<p class="mt-2">
-								In the animations below, the carrier is fixed and no epicyclic motion results. Both gearsets behave like ordinary gearsets - they are not really planetary at all! In both animations. The planet makes two rotations and the ring makes half a rotation, as would be expected in an ordinary gearset. The difference is the speed due to the varied system input.
-							</p>
-							<div class="row g-4 align-items-start">
-				
-								<!-- Left Column: Canvas Animation & Controls -->
-								<div class="col-12 col-md-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Carrier Fixed - Sun Input</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
-											</div>
+				<!-- SECTION 1 (Carrier Fixed) -->
+				<section class="my-2" aria-labelledby="carrier-fixed-heading">
+					<h3 id="carrier-fixed-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Carrier Fixed Animations</h3>
+					<p class="mt-2">
+						In the animations below, the carrier is fixed and no epicyclic motion results. Both gearsets behave like ordinary gearsets - they are not really planetary at all! In both animations. The planet makes two rotations and the ring makes half a rotation, as would be expected in an ordinary gearset. The difference is the speed due to the varied system input.
+					</p>
+					<div class="row g-4 align-items-start">
+		
+						<!-- Left Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Carrier Fixed - Sun Input</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</figure>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
+							</figure>
+						</div>
 
-								<!-- Right Column: Canvas Animation & Controls -->
-								<div class="col-12 col-md-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Carrier Fixed - Ring Input</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
-											</div>
+						<!-- Right Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Carrier Fixed - Ring Input</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</figure>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
+							</figure>
+						</div>
 
-							</div>
-						</section>
+					</div>
+				</section>
 
-						<!-- SECTION 2 (Sun Fixed) -->
-						<section class="my-2" aria-labelledby="sun-fixed-heading">
-							<h3 id="sun-fixed-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Sun Fixed Animations</h3>
-							<p class="mt-2">
-								The sun gear is fixed in the two animations below, while the carrier is free to move. The resulting motion is epicyclic, since the planet makes orbits around the sun. Now count the number of rotations made by each gear in the carrier-input animation. You should observe that the planet makes three rotations and the ring makes 1.5 for every rotation of the carrier. Intuitively, you might have expected the speed ratios to be multiples of 2, following the size ratios, but here we have multiples of 3! Epicyclic motion makes for counterintuitive behavior.
-							</p>
-							<div class="row g-4">
+				<!-- SECTION 2 (Sun Fixed) -->
+				<section class="my-2" aria-labelledby="sun-fixed-heading">
+					<h3 id="sun-fixed-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Sun Fixed Animations</h3>
+					<p class="mt-2">
+						The sun gear is fixed in the two animations below, while the carrier is free to move. The resulting motion is epicyclic, since the planet makes orbits around the sun. Now count the number of rotations made by each gear in the carrier-input animation. You should observe that the planet makes three rotations and the ring makes 1.5 for every rotation of the carrier. Intuitively, you might have expected the speed ratios to be multiples of 2, following the size ratios, but here we have multiples of 3! Epicyclic motion makes for counterintuitive behavior.
+					</p>
+					<div class="row g-4">
 
-								<!-- Left Column: Canvas Animation & Controls -->
-								<div class="col-12 col-md-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun Fixed - Carrier Input</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="03canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="03canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="03canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="03canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="03canGr" width="500" height="400"></canvas>
-											</div>
+						<!-- Left Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun Fixed - Carrier Input</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="03canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="03canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="03canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="03canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="03canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="03btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="03butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="03btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="03butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</figure>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="03btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="03butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="03btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="03butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
+							</figure>
+						</div>
 
-								<!-- Right Column: Canvas Animation & Controls -->
-								<div class="col-12 col-md-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun Fixed - Ring Input</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="04canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="04canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="04canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="04canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="04canGr" width="500" height="400"></canvas>
-											</div>
+						<!-- Right Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun Fixed - Ring Input</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="04canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="04canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="04canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="04canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="04canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="04btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="04butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="04btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="04butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</figure>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="04btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="04butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="04btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="04butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
+							</figure>
+						</div>
 
-							</div>
-						</section>
+					</div>
+				</section>
 
-						<!-- SECTION 3 (Ring Fixed) -->
-						<section class="my-2" aria-labelledby="ring-fixed-heading">
-							<h3 id="ring-fixed-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Ring Fixed Animations</h3>
-							<p class="mt-2">
-								In this set of animations we hold the ring fixed. In the sun-input animation observe that the carrier makes 1/3 rotation and the planet makes a full rotation for each rotation of the sun.
-							</p>
-							<div class="row g-4">
+				<!-- SECTION 3 (Ring Fixed) -->
+				<section class="my-2" aria-labelledby="ring-fixed-heading">
+					<h3 id="ring-fixed-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Ring Fixed Animations</h3>
+					<p class="mt-2">
+						In this set of animations we hold the ring fixed. In the sun-input animation observe that the carrier makes 1/3 rotation and the planet makes a full rotation for each rotation of the sun.
+					</p>
+					<div class="row g-4">
 
-								<!-- Left Column: Canvas Animation & Controls -->
-								<div class="col-12 col-md-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Ring Fixed - Sun Input</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="05canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="05canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="05canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="05canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="05canGr" width="500" height="400"></canvas>
-											</div>
+						<!-- Left Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Ring Fixed - Sun Input</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="05canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="05canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="05canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="05canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="05canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="05btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="05butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="05btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="05butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</figure>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="05btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="05butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="05btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="05butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
+							</figure>
+						</div>
 
-								<!-- Right Column: Canvas Animation & Controls -->
-								<div class="col-12 col-md-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Ring Fixed - Carrier Input</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="06canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="06canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="06canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="06canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="06canGr" width="500" height="400"></canvas>
-											</div>
+						<!-- Right Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Ring Fixed - Carrier Input</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="06canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="06canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="06canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="06canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="06canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="06btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="06butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="06btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="06butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-									</figure>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="06btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="06butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="06btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="06butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
-							</div>
-						</section>
+							</figure>
+						</div>
+					</div>
+				</section>
 
-						<!-- INTERACTIVE DEMO -->
-						<section class="my-2" aria-labelledby="interactive-demo-heading">
-							<h3 id="interactive-demo-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Interactive Planetary Powertrain Simulation</h3>
-							<p class="mt-2">
-								In each of the previous animations one of the inputs was held fixed, while the other was free to move. You might be curious to see what happens when two inputs are free to move, as is the case in a hybrid powertrain. The animation below provides a demonstration. Click "Play" to start the animation, and use the slider bars to control the speeds of the two inputs. Use the radio buttons at the lower left to control which gear is the output. Note that the speed of the two inputs determines the output speed - you can't change the output speed with the slider! Play around with this animation until you feel comfortable with the behavior of the gearset.
-							</p>
-							<div class="row justify-content-center g-4">
-								<div class="col-12 col-md-8 col-lg-6">
-									<figure class="figure w-100 m-0">
-										<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-											<figcaption class="h6 fw-bold text-dark text-center mb-3">Interactive Planetary</figcaption>
-											<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-												<canvas class="canTrace" id="07canTr" width="500" height="400"></canvas>
-												<canvas class="canDraw z_2" id="07canM1" width="500" height="400"></canvas>
-												<canvas class="canDraw z_3" id="07canM2" width="500" height="400"></canvas>
-												<canvas class="canDraw z_4" id="07canM3" width="500" height="400"></canvas>
-												<canvas class="canDraw z_5" id="07canGr" width="500" height="400"></canvas>
-											</div>
+				<!-- INTERACTIVE DEMO -->
+				<section class="my-2" aria-labelledby="interactive-demo-heading">
+					<h3 id="interactive-demo-heading" class="h5 border-bottom pt-3 pb-1 text-secondary">Interactive Planetary Powertrain Simulation</h3>
+					<p class="mt-2">
+						In each of the previous animations one of the inputs was held fixed, while the other was free to move. You might be curious to see what happens when two inputs are free to move, as is the case in a hybrid powertrain. The animation below provides a demonstration. Click "Play" to start the animation, and use the slider bars to control the speeds of the two inputs. Use the radio buttons at the lower left to control which gear is the output. Note that the speed of the two inputs determines the output speed - you can't change the output speed with the slider! Play around with this animation until you feel comfortable with the behavior of the gearset.
+					</p>
+					<div class="row justify-content-center g-4">
+						<div class="col-12 col-md-8 col-lg-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Interactive Planetary</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="07canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="07canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="07canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="07canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="07canGr" width="500" height="400"></canvas>
+									</div>
 
-											<!-- Animation Controls -->
-											<div class="d-flex justify-content-center gap-3 mt-3">
-												<button type="button" class="btn btn-outline-primary" id="07btnPlay" aria-label="Play animation">
-													<i class="fa-solid fa-circle-play fa-2xl" id="07butPlay" aria-hidden="true"></i>
-												</button>
-												<button type="button" class="btn btn-outline-secondary" id="07btnReset" aria-label="Reset animation">
-													<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="07butReset" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-										<!-- Controls Fieldset stretching 100% width of figure -->
-										<fieldset class="w-100 border rounded p-3 bg-light" aria-label="Interactive Planetary Gearset Controls">
-											<legend class="h5">Planetary Gear Inputs and Speeds</legend>
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="07btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="07butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="07btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="07butReset" aria-hidden="true"></i>
+										</button>
+									</div>
+								</div>
+								<!-- Controls Fieldset stretching 100% width of figure -->
+								<fieldset class="w-100 border rounded p-3 bg-light" aria-label="Interactive Planetary Gearset Controls">
+									<legend class="h5">Planetary Gear Inputs and Speeds</legend>
 
-											<!-- Datalist for slider ticks -->
-											<datalist id="speedTicks">
-											<option value="-20" label="-20"></option>
-											<option value="-10" label="-10"></option>
-											<option value="0" label="0"></option>
-											<option value="10" label="10"></option>
-											<option value="20" label="20"></option>
-											</datalist>
+									<!-- Datalist for slider ticks -->
+									<datalist id="speedTicks">
+									<option value="-20" label="-20"></option>
+									<option value="-10" label="-10"></option>
+									<option value="0" label="0"></option>
+									<option value="10" label="10"></option>
+									<option value="20" label="20"></option>
+									</datalist>
 
-											<!-- Sun Control Group -->
-											<div class="d-flex align-items-center gap-2 mb-3 w-100">
-											<label for="07sliderSun" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
-												Sun Speed:
-											</label>
-											
-											<input type="range" class="form-range flex-grow-1" id="07sliderSun" min="-20" max="20" value="5" step="1" list="speedTicks" />
-											
-											<output id="07valSun" for="07sliderSun" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">5</output>
-
-											<div class="form-check mb-0 ms-2 text-nowrap">
-												<input type="radio" class="form-check-input" id="07btnSelectSun" name="gearOutput07" value="sun" />
-												<label for="07btnSelectSun" class="form-check-label small">Output</label>
-											</div>
-											</div>
-
-											<!-- Ring Control Group -->
-											<div class="d-flex align-items-center gap-2 mb-3 w-100">
-											<label for="07sliderRing" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
-												Ring Speed:
-											</label>
-											
-											<input type="range" class="form-range flex-grow-1" id="07sliderRing" min="-20" max="20" value="5" step="1" list="speedTicks" />
-											
-											<output id="07valRing" for="07sliderRing" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">5</output>
-
-											<div class="form-check mb-0 ms-2 text-nowrap">
-												<input type="radio" class="form-check-input" id="07btnSelectRing" name="gearOutput07" value="ring" />
-												<label for="07btnSelectRing" class="form-check-label small">Output</label>
-											</div>
-											</div>
-
-											<!-- Carrier Control Group -->
-											<div class="d-flex align-items-center gap-2 w-100">
-											<label for="07sliderCarrier" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
-												Carrier Speed:
-											</label>
-											
-											<input type="range" class="form-range flex-grow-1" id="07sliderCarrier" min="-20" max="20" value="0" step="1" list="speedTicks" disabled />
-											
-											<output id="07valCarrier" for="07sliderCarrier" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">0</output>
-
-											<div class="form-check mb-0 ms-2 text-nowrap">
-												<input type="radio" class="form-check-input" id="07btnSelectCarrier" name="gearOutput07" value="carrier" checked />
-												<label for="07btnSelectCarrier" class="form-check-label small">Output</label>
-											</div>
-											</div>
-											<figcaption class="figure-caption text-center mt-2">
-												Adjust sliders to vary component speeds and buttons to select an output component.
-											</figcaption>
-
-										</fieldset>
-										
-									</figure>
-
+									<!-- Sun Control Group -->
+									<div class="d-flex align-items-center gap-2 mb-3 w-100">
+									<label for="07sliderSun" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
+										Sun Speed:
+									</label>
 									
-								</div>
-							</div>
-						</section>
+									<input type="range" class="form-range flex-grow-1" id="07sliderSun" min="-20" max="20" value="5" step="1" list="speedTicks" />
+									
+									<output id="07valSun" for="07sliderSun" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">5</output>
+
+									<div class="form-check mb-0 ms-2 text-nowrap">
+										<input type="radio" class="form-check-input" id="07btnSelectSun" name="gearOutput07" value="sun" />
+										<label for="07btnSelectSun" class="form-check-label small">Output</label>
+									</div>
+									</div>
+
+									<!-- Ring Control Group -->
+									<div class="d-flex align-items-center gap-2 mb-3 w-100">
+									<label for="07sliderRing" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
+										Ring Speed:
+									</label>
+									
+									<input type="range" class="form-range flex-grow-1" id="07sliderRing" min="-20" max="20" value="5" step="1" list="speedTicks" />
+									
+									<output id="07valRing" for="07sliderRing" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">5</output>
+
+									<div class="form-check mb-0 ms-2 text-nowrap">
+										<input type="radio" class="form-check-input" id="07btnSelectRing" name="gearOutput07" value="ring" />
+										<label for="07btnSelectRing" class="form-check-label small">Output</label>
+									</div>
+									</div>
+
+									<!-- Carrier Control Group -->
+									<div class="d-flex align-items-center gap-2 w-100">
+									<label for="07sliderCarrier" class="form-label mb-0 fw-semibold text-nowrap" style="min-width: 90px;">
+										Carrier Speed:
+									</label>
+									
+									<input type="range" class="form-range flex-grow-1" id="07sliderCarrier" min="-20" max="20" value="0" step="1" list="speedTicks" disabled />
+									
+									<output id="07valCarrier" for="07sliderCarrier" class="fw-bold text-end" style="min-width: 2.5rem;" aria-live="polite">0</output>
+
+									<div class="form-check mb-0 ms-2 text-nowrap">
+										<input type="radio" class="form-check-input" id="07btnSelectCarrier" name="gearOutput07" value="carrier" checked />
+										<label for="07btnSelectCarrier" class="form-check-label small">Output</label>
+									</div>
+									</div>
+									<figcaption class="figure-caption text-center mt-2">
+										Adjust sliders to vary component speeds and buttons to select an output component.
+									</figcaption>
+
+								</fieldset>
+								
+							</figure>
+
+							
+						</div>
+					</div>
+				</section>
 			</article>
 
 			<div class="d-flex justify-content-end">
