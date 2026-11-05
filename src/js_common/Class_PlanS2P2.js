@@ -2,21 +2,23 @@ PlanS2P2.prototype = new Linkage();
 
 // *********************************************************************************************************************
 // Function PlanS2P2 creates a two-sun, two planet planetary gearset
+// inputSun is optional: 1 = Sun 1 input (Sun 2 fixed, default), 2 = Sun 2 input (Sun 1 fixed)
 // *********************************************************************************************************************
-function PlanS2P2(Ns1, Ns2, Np1, Np2, balanced) {
+function PlanS2P2(Ns1, Ns2, Np1, Np2, balanced, inputSun = 1) {
   this.Ns1 = Ns1;       // number of teeth on sun1 gear
   this.Ns2 = Ns2;       // number of teeth on sun2 gear
   this.Np1 = Np1;       // number of teeth on planet1 gear
   this.Np2 = Np2;       // number of teeth on planet2 gear
   this.balanced = balanced;  // one planet or three?
+  this.inputSun = inputSun;  // defaults to 1 for backward compatibility
 
-  this.sun1 = new Gear(Ns1, this.geom, this.color[3], this.color[5], 0.8);
-  this.sun2 = new Gear(Ns2, this.geom, this.color[3], this.color[2], 1.0);
+  this.sun1 = new Gear(Ns1, this.geom, this.color[3], this.color[22], 0.8);
+  this.sun2 = new Gear(Ns2, this.geom, this.color[3], this.color[5], 1.0);
   if (balanced) {  // create three planets
     this.planet1 = [];  this.planet2 = [];
     for (var i = 0; i < 3; i++) {
       this.planet1[i] = new Gear(Np1, this.geom, this.color[3], this.color[15], 0.5);
-      this.planet2[i] = new Gear(Np2, this.geom, this.color[3], this.color[20], 1.0);
+      this.planet2[i] = new Gear(Np2, this.geom, this.color[3], this.color[19], 1.0);
     }
 
     var R = 0.5*this.sun1.radius;  // radius of hub of tri-arm
@@ -26,7 +28,7 @@ function PlanS2P2(Ns1, Ns2, Np1, Np2, balanced) {
 
   } else {
     this.planet1 = new Gear(Np1, this.geom, this.color[3], this.color[15], 0.5);
-    this.planet2 = new Gear(Np2, this.geom, this.color[3], this.color[20], 1.0);
+    this.planet2 = new Gear(Np2, this.geom, this.color[3], this.color[19], 1.0);
     this.L = this.sun1.radius + this.planet1.radius;     // length of arm
     this.arm = new Bar(this.L, this.geom, this.color[3], this.color[10]);
   }
@@ -40,42 +42,56 @@ function PlanS2P2(Ns1, Ns2, Np1, Np2, balanced) {
 // PlanS2P2.draw - calculates the planet positions and draws the gears
 // *********************************************************************************************************************
 PlanS2P2.prototype.draw = function(angle) {
-  var thetas1 = -angle
-  var r1 = this.Ns1/this.Np1;  var r2 = this.Ns2/this.Np2;
-  var thetap = thetas1*r1*(r2+1)/(r1-r2);
-  var thetaa = thetas1*r1/(r1-r2);
+  var r1 = this.Ns1 / this.Np1;
+  var r2 = this.Ns2 / this.Np2;
+  var thetas1, thetas2, thetap, thetaa;
 
-// update crank, coupler and rocker angles
-  this.sun1.theta = thetas1; // sun1 angle
-  this.arm.theta = -thetaa; // arm angle
+  if (this.inputSun === 2) {
+    // Sun 2 is input, Sun 1 fixed
+    thetas2 = -angle;
+    thetas1 = 0;
+    thetaa = (-r2 / (r1 - r2)) * thetas2;
+    thetap = ((-r2 * (r1 + 1)) / (r1 - r2)) * thetas2;
+  } else {
+    // Sun 1 is input, Sun 2 fixed (Default / Backward Compatible)
+    thetas1 = -angle;
+    thetas2 = 0;
+    thetaa = (r1 / (r1 - r2)) * thetas1;
+    thetap = ((r1 * (r2 + 1)) / (r1 - r2)) * thetas1;
+  }
 
-// update planet positions
+  // update gear & arm angles
+  this.sun1.theta = thetas1;
+  this.sun2.theta = thetas2;
+  this.arm.theta = -thetaa;
+
+  // update planet positions
   if (this.balanced) {
     for (var i = 0; i < 3; i++) {
-      var gamma = i*120*Math.PI/180;
-      this.planet1[i].x = this.L*Math.cos(gamma + thetaa);
-      this.planet1[i].y = this.L*Math.sin(gamma + thetaa);
+      var gamma = i * 120 * Math.PI / 180;
+      this.planet1[i].x = this.L * Math.cos(gamma + thetaa);
+      this.planet1[i].y = this.L * Math.sin(gamma + thetaa);
       this.planet1[i].theta = thetap;
       this.planet2[i].x = this.planet1[i].x;
       this.planet2[i].y = this.planet1[i].y;
       this.planet2[i].theta = thetap;
     }
   } else {
-    this.planet1.x = this.L*Math.cos(thetaa);
-    this.planet1.y = this.L*Math.sin(thetaa);
+    this.planet1.x = this.L * Math.cos(thetaa);
+    this.planet1.y = this.L * Math.sin(thetaa);
     this.planet1.theta = thetap;
     this.planet2.x = this.planet1.x;
     this.planet2.y = this.planet1.y;
     this.planet2.theta = thetap;
   }
 
-// clear canvas
+  // clear canvas
   this.ctx[1].clearRect(0, 0, this.can[1].width, this.can[1].height);
   this.ctx[3].clearRect(0, 0, this.can[3].width, this.can[3].height);
 
-// draw the bars
+  // draw the bars
   this.ctx[1].save();
-  this.ctx[1].translate(this.x0,this.y0);
+  this.ctx[1].translate(this.x0, this.y0);
   this.sun2.draw(this.ctx[1]);
   if (this.balanced) {
     for (var i = 0; i < 3; i++) {
@@ -90,7 +106,7 @@ PlanS2P2.prototype.draw = function(angle) {
   this.ctx[1].restore();
 
   this.ctx[3].save();
-  this.ctx[3].translate(this.x0,this.y0);
+  this.ctx[3].translate(this.x0, this.y0);
   this.arm.draw(this.ctx[3]);
   this.ctx[3].restore();
 }
@@ -100,7 +116,7 @@ PlanS2P2.prototype.draw = function(angle) {
 /**********************************************************************************************************************/
 PlanS2P2.prototype.drawGround = function() {
   this.ctx[2].save();
-  this.ctx[2].translate(this.x0,this.y0);
+  this.ctx[2].translate(this.x0, this.y0);
   this.pivot.draw(this.ctx[2]);
   this.ctx[2].restore();
 }
