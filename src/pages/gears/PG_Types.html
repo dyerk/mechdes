@@ -16,10 +16,14 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon/favicon-32x32.png">
 		<link rel="stylesheet" href="../../css/main.css">
 
+		<!-- Common JavaScript links -->
+        <script src="../../js_common/Linkage.js" defer></script>
+        <script src="../../js_common/Common_Shapes.js" defer></script>
+
 		<!-- Page Specific JavaScript Links -->
-		<script src="../../JS/shapes.js"></script>
-		<script src="../../JS/utilities.js"></script>
-		<script src="../../JS/PG/PG_Types.js"></script>
+		<script src="../../js_common/Common_Shapes_Planetary.js" defer></script>
+        <script src="../../js_common/Class_PlanS2P2.js" defer></script>
+		<script src="js/types.js" defer></script>
 	</head>
 
 	<body class="bg-dark text-light d-flex flex-column min-vh-100">
@@ -42,140 +46,167 @@
 				
 				<!-- Introduction -->
 				<p>
-					Zoltan Levai<sup>[1]</sup> described a total of 34 different types of planetary gearsets that can be constructed; of these, only a few are used in practice. A few of the more common ones are shown in the sections below. The twelve illustrated by Norton<sup>[2]</sup> are shown on the <a href="PG_Oddities.html" class="text-decoration-none fw-semibold">Planetary Oddities</a> page. For clarity, only one planet gear is shown for each type; more planets can be added as <a href="balancingGears.html" class="text-decoration-none fw-semibold">Balancing Gears</a> and to increase the torque capacity of the gearset.
+					Zoltan Levai<sup>[1]</sup> described a total of 34 different types of planetary gearsets that can be constructed; of these, only a few are used in practice. A few of the more common ones are shown in the sections below. The twelve illustrated by Norton<sup>[2]</sup> are shown on the <a href="PG_Oddities.html" class=" fw-semibold">Planetary Oddities</a> page. For clarity, only one planet gear is shown for each type; more planets can be added as <a href="balancingGears.html" class=" fw-semibold">Balancing Gears</a> and to increase the torque capacity of the gearset.
 				</p>
 
 				<!-- SECTION 1: Sun, Ring and Planet -->
-				<section class="my-2" aria-labelledby="sun-ring-planet-heading">
-					<h3 id="sun-ring-planet-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Sun, Ring, and Planet</h3>
+				<section class="mt-4" aria-labelledby="sun-ring-planet-heading">
+					<h3 id="sun-ring-planet-heading" class="h5 border-bottom text-secondary pb-2 mb-2">Sun, Ring, and Planet</h3>
 					
+					<p>
+						The most basic type of planetary gearset is shown in the figures above. The figure at left shows a three-dimensional view, while the figure at right provides a cross-section. In this geartrain, inputs and outputs can be taken from the carrier, ring, and sun gears, and only the planet experiences epicyclic motion. This is the most common type of planetary gearset (with the exception of the differential), and it finds application in speed reducers and automatic transmissions. If you take apart a cordless drill, you'll probably find this type of planetary gearset right behind the drill chuck. This type of gearset is explored and animated in great detail on the <a href="PG_Intro.html" class="fw-semibold">Planetary Introduction</a> page.
+					</p>
+
 					<div class="row g-4 mb-3">
 						<!-- Left Image Card -->
-            <div class="col-12 col-md-6">
-              <figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
-                <!-- Fixed height container for image -->
-                <div class="w-100" style="height: 250px;"> 
-                  <img src="../../images/PG/Sun_Ring_Planet.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Sun-Ring-Planet gearset">
-                </div>
-                <figcaption class="figure-caption text-center fw-semibold mt-2">
-                  Sun-Ring-Planet Gearset
-                </figcaption>
-              </figure>
-            </div>
+						<div class="col-12 col-md-6">
+						<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
+							<!-- Fixed height container for image -->
+							<div class="w-100" style="height: 250px;"> 
+							<img src="../../images/planetary-srp-a.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Sun-Ring-Planet gearset">
+							</div>
+							<figcaption class="figure-caption text-center fw-semibold mt-2">
+							Sun-Ring-Planet Gearset
+							</figcaption>
+						</figure>
+						</div>
 
-            <!-- Right Image Card -->
-            <div class="col-12 col-md-6">
-              <figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
-                <!-- Fixed height container for image -->
-                <div class="w-100" style="height: 250px;">
-                  <img src="../../images/PG/Sun_Ring_Planet_CS.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Cross-sectional view of Sun-Ring-Planet gearset">
-                </div>
-                <figcaption class="figure-caption text-center fw-semibold mt-2">
-                  Cross-Sectional View
-                </figcaption>
-              </figure>
-            </div>
+						<!-- Right Image Card -->
+						<div class="col-12 col-md-6">
+						<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
+							<!-- Fixed height container for image -->
+							<div class="w-100" style="height: 250px;">
+							<img src="../../images/planetary-srp-a-cross-section.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Cross-sectional view of Sun-Ring-Planet gearset">
+							</div>
+							<figcaption class="figure-caption text-center fw-semibold mt-2">
+							Cross-Sectional View
+							</figcaption>
+						</figure>
+						</div>
 					</div>
-
-					<p>
-						The most basic type of planetary gearset is shown in the figures above. The figure at left shows a three-dimensional view, while the figure at right provides a cross-section. In this geartrain, inputs and outputs can be taken from the carrier, ring, and sun gears, and only the planet experiences epicyclic motion. This is the most common type of planetary gearset (with the exception of the differential), and it finds application in speed reducers and automatic transmissions. If you take apart a cordless drill, you'll probably find this type of planetary gearset right behind the drill chuck.
-					</p>
 				</section>
 
 				<!-- SECTION 2: Two Suns, Two Planets -->
-				<section class="my-2" aria-labelledby="two-suns-heading">
-					<h3 id="two-suns-heading" class="h5 border-bottom pb-2 text-secondary mb-3">Two Suns, Two Planets</h3>
-
-					<div class="row g-4 mb-3">
-						<!-- Left Image Card -->
-            <div class="col-12 col-md-6">
-              <figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
-                <!-- Fixed height container for image -->
-                <div class="w-100" style="height: 250px;">
-                  <img src="../../images/PG/Two_Suns_Two_Planets.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Sun-Ring-Planet gearset">
-                </div>
-                <figcaption class="figure-caption text-center fw-semibold mt-2">
-                  Sun-Ring-Planet Gearset
-                </figcaption>
-              </figure>
-            </div>
-
-            <!-- Right Image Card -->
-            <div class="col-12 col-md-6">
-              <figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
-                <!-- Fixed height container for image -->
-                <div class="w-100" style="height: 250px;">
-                  <img src="../../images/PG/Two_Suns_Two_Planets_CS.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Cross-sectional view of Sun-Ring-Planet gearset">
-                </div>
-                <figcaption class="figure-caption text-center fw-semibold mt-2">
-                  Cross-Sectional View
-                </figcaption>
-              </figure>
-            </div>
-					</div>
-
+				<section class="mt-4" aria-labelledby="two-suns-heading">
+					<h3 id="two-suns-heading" class="h5 border-bottom text-secondary pb-2 mb-2">Two Suns, Two Planets</h3>
 					<p>
 						The gearset shown above has two sun gears, and the two planet gears (the yellow gears) rotate as a single unit. The sun gears (green and brown) can rotate independently of one another. The inputs and output can be selected from either sun gear and/or the carrier. Very high speed reductions can be achieved with this unit, but it can suffer from low efficiency if not designed correctly.
 					</p>
 
-					<!-- Animations Row -->
-					<div class="row g-4 my-2">
+					<div class="row g-4 mb-3">
+						<!-- Left Image Card -->
 						<div class="col-12 col-md-6">
-							<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
-								<figcaption class="h6 fw-bold text-dark mb-3">Red Sun Input — Purple Sun Fixed</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas1" width="300" height="250" role="img" aria-label="Animation showing two suns gearset with red sun input and purple sun fixed."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play1" aria-label="Play Red sun input animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+						<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
+							<!-- Fixed height container for image -->
+							<div class="w-100" style="height: 250px;">
+							<img src="../../images/planetary-s2p2-g.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Sun-Ring-Planet gearset">
+							</div>
+							<figcaption class="figure-caption text-center fw-semibold mt-2">
+							Sun-Ring-Planet Gearset
+							</figcaption>
+						</figure>
+						</div>
+
+						<!-- Right Image Card -->
+						<div class="col-12 col-md-6">
+						<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 h-100 mb-0 d-flex flex-column align-items-center justify-content-between">
+							<!-- Fixed height container for image -->
+							<div class="w-100" style="height: 250px;">
+							<img src="../../images/planetary-s2p2-g-cross-section.jpg" class="bg-white w-100 h-100 rounded border shadow-sm mb-2 object-fit-contain" alt="Cross-sectional view of Sun-Ring-Planet gearset">
+							</div>
+							<figcaption class="figure-caption text-center fw-semibold mt-2">
+							Cross-Sectional View
+							</figcaption>
+						</figure>
+						</div>
+					</div>
+				</section>	
+
+				<!-- SECTION 3: Carrier Fixed Animations -->
+				<section class="mt-4" aria-labelledby="carrier-fixed-heading">
+					<h3 id="carrier-fixed-heading" class="h5 border-bottom text-secondary pb-2 mb-2">Carrier Fixed Animations</h3>
+					<p class="mt-2">
+						In the animations below, the carrier is fixed and no epicyclic motion results. Both gearsets behave like ordinary gearsets - they are not really planetary at all! In both animations. The planet makes two rotations and the ring makes half a rotation, as would be expected in an ordinary gearset. The difference is the speed due to the varied system input. 
+					</p>
+					<p>	
+						The animations below show the "two suns — two planets" gearset with one sun as input and the other sun fixed. Note that the carrier rotates clockwise in the animation with the large sun fixed and counterclockwise in the animation with the small sun fixed — despite the fact that the input sun rotates counterclockwise in both cases.
+					</p>
+					<div class="row g-4 align-items-start">
+		
+						<!-- Left Column: Canvas Animation & Controls -->
+						<div class="col-12 col-md-6">
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Small Sun Input - Large Sun Fixed</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
 
+						<!-- Right Column: Canvas Animation & Controls -->
 						<div class="col-12 col-md-6">
-							<figure class="card h-100 bg-light border p-3 text-center shadow-sm mb-0">
-								<figcaption class="h6 fw-bold text-dark mb-3">Purple Sun Input — Red Sun Fixed</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas2" width="300" height="250" role="img" aria-label="Animation showing two suns gearset with purple sun input and red sun fixed."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play2" aria-label="Play Purple sun input animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Large Sun Input - Small Sun Fixed</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
 					</div>
-
-					<p class="mt-3">
-						The animations above show the "two suns — two planets" gearset with one sun as input and the other sun fixed. Note that the carrier rotates clockwise in the animation at left and counterclockwise in the animation at right — despite the fact that the sun rotates counterclockwise in both cases.
-					</p>
 				</section>
 
-				<!-- SECTION 3: The Differential -->
-				<section class="my-2" aria-labelledby="differential-heading">
-					<h3 id="differential-heading" class="h5 border-bottom pb-2 text-secondary mb-3">The Differential</h3>
-					
+				<!-- SECTION 4: The Differential -->
+				<section class="mt-4" aria-labelledby="differential-heading">
+					<h3 id="differential-heading" class="h5 border-bottom text-secondary pb-2 mb-2">The Differential</h3>
+					<p>
+						The gearset shown above is different from the preceding gearsets in that it is composed of miter gears rather than spur (or helical) gears. The "sun" gears are those that do not undergo the epicyclic motion experienced by the planets. The differential can be used to measure the difference in speed between two shafts for the purpose of synchronization. In addition, the differential is often used in automotive drivetrains to overcome the difference in wheel speed when a car goes around a corner.
+					</p>
 					<figure class="card bg-light border p-3 text-center shadow-sm mb-3">
 						<div class="text-center">
-							<img src="../../images/PG/Differential.jpg" class="bg-white img-fluid rounded border shadow-sm mb-2" style="max-width: 500px;" alt="The Differential Gearset Assembly">
+							<img src="../../images/differential.jpg" class="bg-white img-fluid rounded border shadow-sm mb-2" style="max-width: 500px;" alt="The Differential Gearset Assembly">
 						</div>
 						<figcaption class="figure-caption text-center fw-semibold h6 mt-2 mb-0">
 							The Differential Gearset
 						</figcaption>
 					</figure>
-
-					<p>
-						The gearset shown above is different from the preceding gearsets in that it is composed of miter gears rather than spur (or helical) gears. The "sun" gears are those that do not undergo the epicyclic motion experienced by the planets. The differential can be used to measure the difference in speed between two shafts for the purpose of synchronization. In addition, the differential is often used in automotive drivetrains to overcome the difference in wheel speed when a car goes around a corner.
-					</p>
-
-					<p>
-						The sun/ring/planet and differential are the two most commonly encountered planetary gearsets in practice. To see some more unusual types, visit <a href="PG_Oddities.html" class="text-decoration-none fw-semibold">Planetary Oddities</a>.
-					</p>
 				</section>
 
+				<p>
+					The sun/ring/planet and differential are the two most commonly encountered planetary gearsets in practice. To see some more unusual types, visit <a href="PG_Oddities.html" class=" fw-semibold">Planetary Oddities</a>.
+				</p>
+				
 				<!-- References -->
 				<hr class="my-4">
 				<footer class="text-muted small">
