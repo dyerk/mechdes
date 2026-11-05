@@ -16,13 +16,33 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon/favicon-32x32.png">
 		<link rel="stylesheet" href="../../css/main.css">
 
+        <!-- Common JavaScript links -->
+        <script src="../../js_common/Linkage.js" defer></script>
+		<script src="../../js_common/Common_Shapes.js" defer></script>
+
 		<!-- Page Specific JavaScript Links -->
-		<script src="../../JS/shapes.js"></script>
+		<!-- <script src="../../JS/shapes.js"></script>
     	<script src="../../JS/utilities.js"></script>
 		<script src="../../JS/PG/PG_Oddities_Init.js"></script>
 		<script src="../../JS/PG/PG_Oddities_Draw.js"></script>
 		<script src="../../JS/PG/PG_Oddities_Handle.js"></script>
-		<script src="../../JS/PG/PG_Oddities_Main.js"></script>
+		<script src="../../JS/PG/PG_Oddities_Main.js"></script> -->
+
+		        <!-- Page-Specific JavaScript links -->
+        <script src="../../js_common/Common_Shapes_Planetary.js" defer></script>
+        <script src="../../js_common/Class_PlanSRP.js" defer></script>
+        <script src="../../js_common/Class_PlanSRP2_1.js" defer></script>
+        <script src="../../js_common/Class_PlanSRP2_2.js" defer></script>
+        <script src="../../js_common/Class_PlanSRP3_1.js" defer></script>
+        <script src="../../js_common/Class_PlanSRP3_2.js" defer></script>
+        <script src="../../js_common/Class_PlanSRP4.js" defer></script>
+		<script src="../../js_common/Class_PlanS2P2.js" defer></script>
+        <script src="../../js_common/Class_PlanS2P3.js" defer></script>
+        <script src="../../js_common/Class_PlanS2P4.js" defer></script>
+		<script src="../../js_common/Class_PlanR2P2.js" defer></script>
+        <script src="../../js_common/Class_PlanR2P3.js" defer></script>
+        <script src="../../js_common/Class_PlanR2P4.js" defer></script>
+		<script src="js/oddities.js" defer></script>
 	</head>
 
 	<body class="bg-dark text-light d-flex flex-column min-vh-100">
@@ -60,22 +80,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Sun_Ring_Two_Planets_Type_1.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and two planets - 1">
+									<img src="../../images/gears/C8_IN_bSR2P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and two planets - 1">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Sun, Ring and Two Planets — Type 1
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Type 1 Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas1" width="300" height="250" role="img" aria-label="Animation showing Sun, Ring and Two Planets Type 1 behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play1" aria-label="Play Type 1 animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun, Ring and Two Planets - Type 1</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -84,22 +115,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Sun_Ring_Two_Planets_Type_2.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and two planets - 2">
+									<img src="../../images/gears/C8_IN_iSR2P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and two planets - 2">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Sun, Ring and Two Planets — Type 2
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Type 2 Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas2" width="300" height="250" role="img" aria-label="Animation showing Sun, Ring and Two Planets Type 2 behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play2" aria-label="Play Type 2 animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun, Ring and Two Planets - Type 2</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -122,22 +164,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Sun_Ring_Three_Planets_Type_1.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and three planets - 1">
+									<img src="../../images/gears/C8_IN_kSR3P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and three planets - 1">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Sun, Ring and Three Planets — Type 1
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Type 1 Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas3" width="300" height="250" role="img" aria-label="Animation showing Sun, Ring and Three Planets Type 1 behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play3" aria-label="Play Type 1 animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun, Ring and Three Planets — Type 1</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="03canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="03canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="03canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="03canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="03canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="03btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="03butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="03btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="03butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -146,22 +199,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Sun_Ring_Three_Planets_Type_2.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and three planets - 2">
+									<img src="../../images/gears/C8_IN_lSR3P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and three planets - 2">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Sun, Ring and Three Planets — Type 2
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Type 2 Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas4" width="300" height="250" role="img" aria-label="Animation showing Sun, Ring and Three Planets Type 2 behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play4" aria-label="Play Type 2 animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun, Ring and Three Planets — Type 2</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="04canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="04canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="04canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="04canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="04canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="04btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="04butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="04btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="04butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -180,22 +244,33 @@
 						<div class="col-12 col-md-8 col-lg-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Sun_Ring_Four_Planets.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and four planets - 1">
+									<img src="../../images/gears/C8_IN_jSR4P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Sun, ring and four planets - 1">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Sun, Ring and Four Planets
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0">
-								<figcaption class="h6 fw-bold text-dark mb-3">Four Planets Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas5" width="300" height="250" role="img" aria-label="Animation showing Sun, Ring and Four Planets behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play5" aria-label="Play Four Planets animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Sun, Ring and Four Planets</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="05canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="05canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="05canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="05canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="05canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="05btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="05butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="05btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="05butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -215,22 +290,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Two_Rings_Two_Planets.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two rings, two planets">
+									<img src="../../images/gears/C8_IN_h2R2P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two rings, two planets">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Two Rings, Two Planets
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Two Rings, Two Planets Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas6" width="300" height="250" role="img" aria-label="Animation showing Two Rings Two Planets behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play6" aria-label="Play Two Rings Two Planets animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Two Rings, Two Planets</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="06canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="06canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="06canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="06canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="06canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="06btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="06butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="06btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="06butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -239,22 +325,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Two_Rings_Three_Planets.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two rings, three planets">
+									<img src="../../images/gears/C8_IN_e2R3P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two rings, three planets">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Two Rings, Three Planets
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Two Rings, Three Planets Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas7" width="300" height="250" role="img" aria-label="Animation showing Two Rings Three Planets behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play7" aria-label="Play Two Rings Three Planets animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Two Rings, Three Planets</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="07canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="07canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="07canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="07canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="07canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="07btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="07butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="07btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="07butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -273,22 +370,33 @@
 						<div class="col-12 col-md-8 col-lg-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Two_Rings_Four_Planets.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two rings, four planets">
+									<img src="../../images/gears/C8_IN_d2R4P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two rings, four planets">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Two Rings, Four Planets
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0">
-								<figcaption class="h6 fw-bold text-dark mb-3">Two Rings, Four Planets Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas8" width="300" height="250" role="img" aria-label="Animation showing Two Rings Four Planets behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play8" aria-label="Play Two Rings Four Planets animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Two Rings, Four Planets</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="08canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="08canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="08canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="08canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="08canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="08btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="08butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="08btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="08butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -308,22 +416,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Two_Suns_Three_Planets.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two suns, three planets">
+									<img src="../../images/gears/C8_IN_f2S3P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two suns, three planets">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Two Suns, Three Planets
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Two Suns, Three Planets Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas9" width="300" height="250" role="img" aria-label="Animation showing Two Suns Three Planets behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play9" aria-label="Play Two Suns Three Planets animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Two Suns, Three Planets</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="09canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="09canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="09canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="09canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="09canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="09btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="09butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="09btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="09butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -332,22 +451,33 @@
 						<div class="col-12 col-md-6 d-flex flex-column gap-3">
 							<figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-0 d-flex flex-column align-items-center justify-content-between">
 								<div class="w-100" style="height: 220px;">
-									<img src="../../images/PG/Two_Suns_Four_Planets.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two suns, four planets">
+									<img src="../../images/gears/C8_IN_c2S4P.jpg" class="w-100 h-100 bg-white rounded border shadow-sm mb-2 object-fit-contain" alt="Two suns, four planets">
 								</div>
 								<figcaption class="figure-caption text-center fw-semibold mt-2">
 									Two Suns, Four Planets
 								</figcaption>
 							</figure>
 
-							<figure class="card bg-light border p-3 text-center shadow-sm mb-0 flex-grow-1 d-flex flex-column justify-content-between">
-								<figcaption class="h6 fw-bold text-dark mb-3">Two Suns, Four Planets Simulation</figcaption>
-								<div class="canvas-wrapper bg-white border rounded p-2 mb-3">
-									<canvas class="noBorder img-fluid" id="canvas10" width="300" height="250" role="img" aria-label="Animation showing Two Suns Four Planets behavior."></canvas>
-								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary" id="play10" aria-label="Play Two Suns Four Planets animation">
-										<i class="fa-solid fa-play me-1" aria-hidden="true"></i> <span>Play</span>
-									</button>
+							<figure class="figure w-100 m-0">
+								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
+									<figcaption class="h6 fw-bold text-dark text-center mb-3">Two Suns, Four Planets</figcaption>
+									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
+										<canvas class="canTrace" id="10canTr" width="500" height="400"></canvas>
+										<canvas class="canDraw z_2" id="10canM1" width="500" height="400"></canvas>
+										<canvas class="canDraw z_3" id="10canM2" width="500" height="400"></canvas>
+										<canvas class="canDraw z_4" id="10canM3" width="500" height="400"></canvas>
+										<canvas class="canDraw z_5" id="10canGr" width="500" height="400"></canvas>
+									</div>
+
+									<!-- Animation Controls -->
+									<div class="d-flex justify-content-center gap-3 mt-3">
+										<button type="button" class="btn btn-outline-primary" id="10btnPlay" aria-label="Play animation">
+											<i class="fa-solid fa-circle-play fa-2xl" id="10butPlay" aria-hidden="true"></i>
+										</button>
+										<button type="button" class="btn btn-outline-secondary" id="10btnReset" aria-label="Reset animation">
+											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="10butReset" aria-hidden="true"></i>
+										</button>
+									</div>
 								</div>
 							</figure>
 						</div>
@@ -358,7 +488,7 @@
 					</p>
 				</section>
 
-				<!-- SECTION 7: Two Rings, Two Suns -->
+				<!-- TODO SECTION 7: Two Rings, Two Suns -->
 				<section class="my-2" aria-labelledby="two-rings-two-suns-heading">
 					<h3 id="two-rings-two-suns-heading" class="h4 border-bottom pb-2 text-secondary mb-3">Two Rings, Two Suns</h3>
 
