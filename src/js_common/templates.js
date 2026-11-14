@@ -1,42 +1,30 @@
 // js_common/templates.js
-// Generates HTML templates for mechanism animations and responsive SVG plots
+// Generates HTML templates for mechanism animations and unified small-multiple plots
 
-function renderPlotCard(config) {
+function renderPlotRow(config) {
   var type = config.type;
-  var title = config.title;
-  var unit = config.unit;
-  var isVisible = config.isVisible || false;
+  var label = config.label;
+  var height = config.height || 100;
 
   return `
-    <div class="plotCanvas ${isVisible ? '' : 'd-none'} mb-3 border rounded p-3 bg-white text-dark shadow-sm" data-plot-container="${type}">
-      <!-- Plot Header: Title & Legend -->
-      <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
-        <h3 class="h6 mb-0 fw-semibold text-uppercase text-secondary">${title}</h3>
-        
-        <div class="d-flex align-items-center gap-3 small">
-          <span class="d-flex align-items-center gap-1">
-            <span class="legend-indicator legend-trace-x"></span> X
-          </span>
-          <span class="d-flex align-items-center gap-1">
-            <span class="legend-indicator legend-trace-y"></span> Y
-          </span>
-          <button type="button" class="btn btn-sm btn-outline-secondary border-0 ms-2" data-plot-resize="${type}" aria-label="Resize ${title}">
-            <i class="fa-solid fa-expand plotSizer" aria-hidden="true"></i>
+    <div class="plot-row mb-1" data-plot-container="${type}">
+      <div class="d-flex align-items-stretch">
+        <!-- Sideways Vertical Y-Axis Label -->
+        <div class="y-axis-vertical text-muted fw-semibold d-flex align-items-center justify-content-center pe-1">
+          <span>${label}</span>
+        </div>
+
+        <!-- Full-Width Responsive SVG Host + Top-Right Chevron Overlay -->
+        <div class="flex-grow-1 position-relative">
+          <div class="plot-svg-host plot-short" data-plot-host="${type}" style="height: ${height}px;"></div>
+          <button type="button"
+                  class="btn btn-sm plot-expand-btn position-absolute"
+                  data-plot-resize="${type}"
+                  aria-label="Expand ${label} plot"
+                  title="Expand/Collapse height">
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
         </div>
-      </div>
-
-      <!-- Plot Workspace -->
-      <div class="d-flex align-items-center">
-        <div class="y-axis-label text-muted small fw-semibold text-nowrap me-1">
-          ${unit}
-        </div>
-        <div class="flex-grow-1 position-relative plot-svg-host plot-short" data-plot-host="${type}" style="height: 125px;"></div>
-      </div>
-
-      <!-- X-Axis Label -->
-      <div class="text-center text-muted small fw-semibold mt-1">
-        Crank Angle [deg]
       </div>
     </div>
   `;
@@ -58,34 +46,40 @@ function renderMechanismSection(config) {
 
   var plotColumn = showPlots ? `
     <div class="col-12 col-lg-6">
-      <div class="plotControl bg-light p-3 rounded-bottom border mb-3">
-        <h3 class="h6 text-uppercase fw-bold text-secondary tracking-wide mb-2 pb-1 border-bottom">
-          Plotting Controls
-        </h3>
+      <div class="plotControl card shadow-sm border rounded bg-white text-dark">
+        <!-- Unified Card Header: Point Selector & Shared Legend -->
+        <div class="card-header bg-light py-2 px-3">
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <label for="sel-${id}" class="small fw-semibold text-uppercase text-secondary mb-0">Point:</label>
+              <select id="sel-${id}" name="pointList" class="form-select form-select-sm w-auto" data-role="sel-pin">
+                ${pinOptions}
+              </select>
+            </div>
 
-        <div class="row g-2 align-items-center">
-          <div class="col-12 col-sm-4">
-            <select name="pointList" class="form-select" data-role="sel-pin" aria-label="Select Point">
-              ${pinOptions}
-            </select>
+            <div class="d-flex align-items-center gap-3 small fw-semibold text-secondary">
+              <span class="d-flex align-items-center gap-1">
+                <span class="legend-indicator legend-trace-x"></span> X
+              </span>
+              <span class="d-flex align-items-center gap-1">
+                <span class="legend-indicator legend-trace-y"></span> Y
+              </span>
+            </div>
           </div>
-          <div class="col-12 col-sm-8 d-flex gap-1 justify-content-sm-end">
-            <button type="button" aria-pressed="true" class="btn btn-sm btn-secondary active plotButton" data-plot-toggle="dis">
-              Displacement <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-            </button>
-            <button type="button" aria-pressed="false" class="btn btn-sm btn-outline-secondary plotButton" data-plot-toggle="vel">
-              Velocity <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-            </button>
-            <button type="button" aria-pressed="false" class="btn btn-sm btn-outline-secondary plotButton" data-plot-toggle="acc">
-              Acceleration <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-            </button>
+        </div>
+
+        <!-- Unified Card Body: Stacked Small Multiples -->
+        <div class="card-body p-2">
+          ${renderPlotRow({ type: 'dis', label: 'Disp [mm]', height: 100 })}
+          ${renderPlotRow({ type: 'vel', label: 'Vel [mm/s]', height: 100 })}
+          ${renderPlotRow({ type: 'acc', label: 'Accel [mm/s²]', height: 116 })}
+
+          <!-- Shared Bottom X-Axis Title -->
+          <div class="text-center text-muted fw-semibold mt-1" style="font-size: 0.75rem;">
+            Crank Angle [deg]
           </div>
         </div>
       </div>
-
-      ${renderPlotCard({ type: 'dis', title: 'Displacement Plot', unit: 'Disp [mm]', isVisible: true })}
-      ${renderPlotCard({ type: 'vel', title: 'Velocity Plot', unit: 'Velocity [mm/s]', isVisible: false })}
-      ${renderPlotCard({ type: 'acc', title: 'Acceleration Plot', unit: 'Accel [mm/s²]', isVisible: false })}
     </div>
   ` : '';
 
@@ -121,7 +115,7 @@ function renderMechanismSection(config) {
           </figure>
         </div>
 
-        <!-- Right Column: Plot Controls & Display Graphs -->
+        <!-- Right Column: Unified Plot Card -->
         ${plotColumn}
       </div>
     </section>

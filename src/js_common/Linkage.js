@@ -14,33 +14,12 @@ function Linkage() {
   this.deltaT = 1.5;
   this.timeStep = 0;
 
-  // Paletton tetrad color palette (base 006DC7)
   this.color = [
-    "#FFFFFF", // [0]  white
-    "#DDDDDD", // [1]  light gray
-    "#AAAAAA", // [2]  medium gray
-    "#333333", // [3]  dark gray
-    "#000000", // [4]  black
-    "#B0A1BA", // [5]  Main Primary color (Rose Quartz)
-    "#F4F3F5", // [6]  light
-    "#D5CEDA", // [7]  med light
-    "#8E779E", // [8]  med dark
-    "#705285", // [9]  dark
-    "#1B998B", // [10] Main Secondary color (Persian Green)
-    "#5FC1B7", // [11] light
-    "#37A69B", // [12] med light
-    "#068376", // [13] med dark
-    "#00675C", // [14] dark
-    "#C5D86D", // [15] Main Secondary color (Mindaro)
-    "#F1FACA", // [16] light
-    "#E7F7A3", // [17] med light
-    "#9CB13E", // [18] med dark
-    "#778B1C", // [19] dark
-    "#99621E", // [20] Main Complement color (Golden Brown)
-    "#E2AE6E", // [21] light
-    "#B9813D", // [22] med light
-    "#724105", // [23] med dark
-    "#482800"  // [24] dark
+    "#FFFFFF", "#DDDDDD", "#AAAAAA", "#333333", "#000000",
+    "#B0A1BA", "#F4F3F5", "#D5CEDA", "#8E779E", "#705285",
+    "#1B998B", "#5FC1B7", "#37A69B", "#068376", "#00675C",
+    "#C5D86D", "#F1FACA", "#E7F7A3", "#9CB13E", "#778B1C",
+    "#99621E", "#E2AE6E", "#B9813D", "#724105", "#482800"
   ];
 
   this.geom = {
@@ -69,9 +48,6 @@ function Linkage() {
   };
 }
 
-// ****************************************************************************************
-// Linkage.buttonCanvas - binds scoped DOM controls, canvases, and responsive SVG plots
-// ****************************************************************************************
 Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
   var linkage = this;
   this.root = document.querySelector('[data-mechanism-id="' + pageID + '"]');
@@ -81,11 +57,15 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     return;
   }
 
-  // Animation Controls
   this.btnPlay = this.root.querySelector('[data-role="btn-play"]');
   this.btnReset = this.root.querySelector('[data-role="btn-reset"]');
   this.iconPlay = this.root.querySelector('[data-role="icon-play"]');
   this.iconReset = this.root.querySelector('[data-role="icon-reset"]');
+
+  if (!this.btnPlay || !this.btnReset) {
+    console.error("Play/Reset buttons not found inside [data-mechanism-id='" + pageID + "']");
+    return;
+  }
 
   this.btnPlay.addEventListener("click", function () {
     linkage.eventPlay();
@@ -94,7 +74,6 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     linkage.eventReset();
   });
 
-  // Animation Canvases (Layers 0-4)
   this.can = [];
   this.ctx = [];
   for (var i = 0; i < 5; i++) {
@@ -108,7 +87,6 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
   this.y0 = y0;
   this.traceColor = [this.color[9], this.color[19], this.color[14]];
 
-  // Initialize Plots if enabled and present in template
   var plotControl = this.root.querySelector(".plotControl");
   if (this.showPlots && plotControl) {
     this.selPin = this.root.querySelector('[data-role="sel-pin"]');
@@ -124,22 +102,12 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
       C: { dis: [0, 300], vel: [-300, 300], acc: [-600, 600] }
     };
 
-    // Instant plot update on dropdown change (even while paused)
     this.selPin.addEventListener("change", function () {
       linkage.pointSel = linkage.selPin.value;
       linkage.initPlots();
     });
 
-    // Plot visibility toggle buttons (Dis, Vel, Acc)
-    var toggleBtns = this.root.querySelectorAll("[data-plot-toggle]");
-    toggleBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var type = btn.getAttribute("data-plot-toggle");
-        linkage.eventPlotToggle(type, btn);
-      });
-    });
-
-    // Plot height resize buttons
+    // Plot height expand/collapse chevron buttons
     var resizeBtns = this.root.querySelectorAll("[data-plot-resize]");
     resizeBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -148,21 +116,18 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
       });
     });
 
-    // Instantiate SVG Plots
-    this.plotDis = new Plot(this.root.querySelector('[data-plot-host="dis"]'));
+    // Instantiate SVG Plots (bottom plot 'acc' permanently owns the shared X-axis ticks)
+    this.plotDis = new Plot(this.root.querySelector('[data-plot-host="dis"]'), { showXAxis: false });
     this.setPlotAttr("plotDis", this.color[24], this.color[14], "DISPLACEMENT PLOT", "Disp [mm]", -100, 150);
 
-    this.plotVel = new Plot(this.root.querySelector('[data-plot-host="vel"]'));
+    this.plotVel = new Plot(this.root.querySelector('[data-plot-host="vel"]'), { showXAxis: false });
     this.setPlotAttr("plotVel", this.color[24], this.color[14], "VELOCITY PLOT", "Velocity [mm/s]", -100, 150);
 
-    this.plotAcc = new Plot(this.root.querySelector('[data-plot-host="acc"]'));
+    this.plotAcc = new Plot(this.root.querySelector('[data-plot-host="acc"]'), { showXAxis: true });
     this.setPlotAttr("plotAcc", this.color[24], this.color[14], "ACCELERATION PLOT", "Accel [mm/s²]", -100, 150);
   }
 };
 
-// **************************************************************************************
-// Linkage.eventPlay - handles play/pause button clicks
-// **************************************************************************************
 Linkage.prototype.eventPlay = function () {
   var linkage = this;
   this.isPlaying = !this.isPlaying;
@@ -170,8 +135,6 @@ Linkage.prototype.eventPlay = function () {
   if (this.isPlaying) {
     this.iconPlay.classList.remove("fa-circle-play");
     this.iconPlay.classList.add("fa-circle-stop");
-
-    // Enable reset button once animation has started
     this.btnReset.disabled = false;
     this.iconReset.classList.remove("button-disabled");
   } else {
@@ -213,9 +176,6 @@ Linkage.prototype.eventPlay = function () {
   drawFrame();
 };
 
-// ****************************************************************************************
-// Linkage.eventReset - resets mechanism position, trace canvas, and plot data
-// ****************************************************************************************
 Linkage.prototype.eventReset = function () {
   if (this.isPlaying) {
     this.isPlaying = false;
@@ -250,56 +210,32 @@ Linkage.prototype.eventReset = function () {
   }
 };
 
-// ****************************************************************************************
-// Linkage.eventPlotToggle - toggles visibility of individual plot cards
-// ****************************************************************************************
-Linkage.prototype.eventPlotToggle = function (type, btn) {
-  var container = this.root.querySelector('[data-plot-container="' + type + '"]');
-  if (!container) return;
-
-  var isHidden = container.classList.contains("d-none");
-  if (isHidden) {
-    container.classList.remove("d-none");
-    btn.classList.remove("btn-outline-secondary");
-    btn.classList.add("btn-secondary", "active");
-    btn.setAttribute("aria-pressed", "true");
-
-    // Redraw plot now that container has visible width
-    var plotKey = "plot" + type.charAt(0).toUpperCase() + type.slice(1);
-    if (this[plotKey]) {
-      this[plotKey].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
-    }
-  } else {
-    container.classList.add("d-none");
-    btn.classList.remove("btn-secondary", "active");
-    btn.classList.add("btn-outline-secondary");
-    btn.setAttribute("aria-pressed", "false");
-  }
-};
-
 // **************************************************************************************
-// Linkage.eventPlotResize - toggles height of SVG plot container between 125px and 250px
+// Linkage.eventPlotResize - toggles height of an individual plot with up/down chevrons
 // **************************************************************************************
 Linkage.prototype.eventPlotResize = function (type, btn) {
   var host = this.root.querySelector('[data-plot-host="' + type + '"]');
   var icon = btn.querySelector("i");
   var plotKey = "plot" + type.charAt(0).toUpperCase() + type.slice(1);
+  var extraBottom = type === "acc" ? 16 : 0;
 
   if (host.classList.contains("plot-short")) {
     host.classList.remove("plot-short");
     host.classList.add("plot-tall");
-    host.style.height = "250px";
+    host.style.height = (200 + extraBottom) + "px";
+    btn.setAttribute("aria-label", "Collapse plot");
     if (icon) {
-      icon.classList.remove("fa-expand");
-      icon.classList.add("fa-compress");
+      icon.classList.remove("fa-chevron-down");
+      icon.classList.add("fa-chevron-up");
     }
   } else {
     host.classList.remove("plot-tall");
     host.classList.add("plot-short");
-    host.style.height = "125px";
+    host.style.height = (100 + extraBottom) + "px";
+    btn.setAttribute("aria-label", "Expand plot");
     if (icon) {
-      icon.classList.remove("fa-compress");
-      icon.classList.add("fa-expand");
+      icon.classList.remove("fa-chevron-up");
+      icon.classList.add("fa-chevron-down");
     }
   }
 
@@ -308,9 +244,6 @@ Linkage.prototype.eventPlotResize = function (type, btn) {
   }
 };
 
-// ***************************************************************************************
-// Linkage.drawIC - draws instant centers
-// ***************************************************************************************
 Linkage.prototype.drawIC = function () {
   this.ctx[4].clearRect(0, 0, this.can[4].width, this.can[4].height);
   this.drawGround(0);
@@ -335,9 +268,6 @@ Linkage.prototype.drawIC = function () {
   this.ctx[4].restore();
 };
 
-// ***************************************************************************************
-// Linkage.drawTrace - traces paths of selected pins
-// ***************************************************************************************
 Linkage.prototype.drawTrace = function () {
   this.ctx[0].lineWidth = 1;
   this.ctx[0].save();
@@ -353,9 +283,6 @@ Linkage.prototype.drawTrace = function () {
   this.ctx[0].restore();
 };
 
-// **************************************************************************************
-// Linkage.setPlotAttr - initialize a plot
-// **************************************************************************************
 Linkage.prototype.setPlotAttr = function (plotName, xColor, yColor, title, yLabel, yMin, yMax) {
   this[plotName].traces[0] = new Trace("x", xColor);
   this[plotName].traces[1] = new Trace("y", yColor);
@@ -370,16 +297,12 @@ Linkage.prototype.setPlotAttr = function (plotName, xColor, yColor, title, yLabe
   this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
 };
 
-// *************************************************************************************
-// Linkage.updatePlot - records first-cycle kinematics and updates SVG traces/cursor
-// *************************************************************************************
 Linkage.prototype.updatePlot = function (plotName, crankAngle) {
   var prefix = plotName.substr(4, 1).toLowerCase();
   var deg = (crankAngle * 180) / Math.PI;
   var plot = this[plotName];
   var activeIndices = [this[this.pointSel].x, this[this.pointSel].y];
 
-  // Record points during the first full 360-degree revolution
   if (this.timeStep * this.deltaT <= plot.xMax - plot.xMin) {
     plot.traces[this.B.x].xVals.push(deg);
     plot.traces[this.B.x].yVals.push(this[prefix + "B"].x);
@@ -403,15 +326,11 @@ Linkage.prototype.updatePlot = function (plotName, crankAngle) {
     plot.stopIndex = this.timeStep;
     plot.drawTraces(activeIndices, this.timeStep, false);
   } else if (plot.stopIndex > 0) {
-    // Subsequent cycles: keep full curve static and slide vertical cursor line
     var cycleIdx = ((this.timeStep - 1) % plot.stopIndex) + 1;
     plot.drawTraces(activeIndices, cycleIdx, true);
   }
 };
 
-// *************************************************************************************
-// Linkage.updateLimits & initPlots
-// *************************************************************************************
 Linkage.prototype.updateLimits = function (point) {
   if (this.limits && this.limits[point]) {
     var lim = this.limits[point];

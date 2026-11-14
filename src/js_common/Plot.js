@@ -1,5 +1,5 @@
 // js_common/Plot.js
-// Generates responsive HTML/SVG line plots for mechanism kinematics
+// Generates responsive HTML/SVG line plots with shared X-axis support
 
 // ***********************************************************************************
 // Trace - class defining trace objects
@@ -17,15 +17,19 @@ function Trace(traceName, traceColor) {
 // **********************************************************************************
 // Plot - responsive SVG plot renderer
 // **********************************************************************************
-function Plot(hostElement) {
+function Plot(hostElement, options) {
   this.host = hostElement;
   this.svgNS = "http://www.w3.org/2000/svg";
+  options = options || {};
 
-  // Layout offsets (in logical SVG pixels matching container CSS size)
+  // Toggleable bottom X-axis labels (only shown on the bottom-most visible plot)
+  this.showXAxis = options.showXAxis !== undefined ? options.showXAxis : true;
+
+  // Layout offsets
   this.l = 42;
   this.r = 12;
-  this.t = 10;
-  this.b = 22;
+  this.t = 6;
+  this.b = this.showXAxis ? 20 : 4;
 
   this.xMin = 0;
   this.xMax = 360;
@@ -72,7 +76,6 @@ function Plot(hostElement) {
 
   this.polylines = [];
 
-  // Observe container resizes (window resize, tab switch, or short/tall toggle)
   var self = this;
   if (typeof ResizeObserver !== "undefined") {
     this.resizeObserver = new ResizeObserver(function () {
@@ -97,11 +100,21 @@ Plot.prototype._createEl = function (tag, attrs) {
 };
 
 // ****************************************************************************
+// setShowXAxis - toggles whether this plot renders X-axis tick numbers
+// ****************************************************************************
+Plot.prototype.setShowXAxis = function (show) {
+  if (this.showXAxis === show) return;
+  this.showXAxis = show;
+  this.b = show ? 20 : 4;
+  this.drawPlot(this.activeTraceIndices);
+};
+
+// ****************************************************************************
 // checkSize - reads live HTML container dimensions
 // ****************************************************************************
 Plot.prototype.checkSize = function () {
   this.width = this.host.clientWidth || 500;
-  this.height = this.host.clientHeight || (this.host.classList.contains("plot-tall") ? 250 : 125);
+  this.height = this.host.clientHeight || (this.host.classList.contains("plot-tall") ? 200 : 100);
 
   this.svg.setAttribute("viewBox", "0 0 " + this.width + " " + this.height);
 
@@ -127,7 +140,6 @@ Plot.prototype.drawPlot = function (traceList) {
 Plot.prototype.drawGrid = function () {
   this.gridGroup.innerHTML = "";
 
-  // Auto-scale Y bounds if requested
   if (this.yBounds === "auto" && this.traces.length > 0) {
     var tempYMin = Infinity;
     var tempYMax = -Infinity;
@@ -162,7 +174,6 @@ Plot.prototype.drawGrid = function () {
     var val = yTicks[j];
     var yPos = Math.round(this.t + this.h - ((val - this.yMin) / (this.yMax - this.yMin)) * this.h) + 0.5;
 
-    // Tick label
     var label = this._createEl("text", {
       x: this.l - 5,
       y: yPos,
@@ -175,7 +186,6 @@ Plot.prototype.drawGrid = function () {
     label.textContent = val.toFixed(0);
     this.gridGroup.appendChild(label);
 
-    // Gridline
     if (val !== this.yMin && val !== this.yMax) {
       this.gridGroup.appendChild(this._createEl("line", {
         x1: this.l,
@@ -189,22 +199,24 @@ Plot.prototype.drawGrid = function () {
     }
   }
 
-  // X-axis ticks and vertical gridlines
+  // X-axis vertical gridlines (always drawn) & tick numbers (only when showXAxis is true)
   for (var k = 0; k < this.nXGrid; k++) {
     var pct = k / (this.nXGrid - 1);
     var xPos = Math.round(this.lerp(this.l, this.l + this.w, pct)) + 0.5;
-    var xVal = this.lerp(this.xMin, this.xMax, pct);
 
-    var xLabel = this._createEl("text", {
-      x: xPos,
-      y: this.t + this.h + 14,
-      fill: this.lineColor,
-      "font-size": "11px",
-      "font-weight": "500",
-      "text-anchor": "middle"
-    });
-    xLabel.textContent = xVal.toFixed(0);
-    this.gridGroup.appendChild(xLabel);
+    if (this.showXAxis) {
+      var xVal = this.lerp(this.xMin, this.xMax, pct);
+      var xLabel = this._createEl("text", {
+        x: xPos,
+        y: this.t + this.h + 13,
+        fill: this.lineColor,
+        "font-size": "11px",
+        "font-weight": "500",
+        "text-anchor": "middle"
+      });
+      xLabel.textContent = xVal.toFixed(0);
+      this.gridGroup.appendChild(xLabel);
+    }
 
     if (k > 0 && k < this.nXGrid - 1) {
       this.gridGroup.appendChild(this._createEl("line", {
@@ -219,11 +231,9 @@ Plot.prototype.drawGrid = function () {
     }
   }
 
-  // Calculate zero origins
   this.yZero = this.t + this.scaleToPlot("y", this.yMax);
   this.xZero = this.l + this.w - this.scaleToPlot("x", this.xMax);
 
-  // Update cursor bounds
   this.cursorLine.setAttribute("y1", this.t);
   this.cursorLine.setAttribute("y2", this.t + this.h);
 };
@@ -248,7 +258,6 @@ Plot.prototype.rebuildPolylines = function () {
       "stroke-linecap": "round"
     });
 
-    // Plot all points recorded so far (start at index 1 to skip initial [0,0] placeholder)
     var pts = [];
     for (var p = 1; p < trace.xVals.length; p++) {
       var px = this.xZero + this.scaleToPlot("x", trace.xVals[p]);
@@ -284,7 +293,6 @@ Plot.prototype.drawTraces = function (traceList, index, isCycleComplete) {
       item.el.setAttribute("points", currentPts ? currentPts + " " + nextPt : nextPt);
     }
 
-    // Move live tracking cursor on the first trace's X coordinate
     if (i === 0) {
       this.cursorLine.setAttribute("x1", px.toFixed(1));
       this.cursorLine.setAttribute("x2", px.toFixed(1));
