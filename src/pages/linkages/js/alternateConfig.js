@@ -1,5 +1,5 @@
 "use strict"
-window.onload = init;
+document.addEventListener("animationsRendered", init);
 
 //********************************************************************************
 // function init() - initializes javascript on html page
