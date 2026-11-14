@@ -1,9 +1,6 @@
 // js_common/Plot.js
-// Generates responsive HTML/SVG line plots with shared X-axis support
+// Generates responsive HTML/SVG line plots with shared X-axis & automatic Y-axis scaling
 
-// ***********************************************************************************
-// Trace - class defining trace objects
-// ***********************************************************************************
 function Trace(traceName, traceColor) {
   this.traceName = traceName;
   this.traceColor = traceColor;
@@ -14,15 +11,11 @@ function Trace(traceName, traceColor) {
   this.vMax = 0;
 }
 
-// **********************************************************************************
-// Plot - responsive SVG plot renderer
-// **********************************************************************************
 function Plot(hostElement, options) {
   this.host = hostElement;
   this.svgNS = "http://www.w3.org/2000/svg";
   options = options || {};
 
-  // Toggleable bottom X-axis labels (only shown on the bottom-most visible plot)
   this.showXAxis = options.showXAxis !== undefined ? options.showXAxis : true;
 
   // Layout offsets
@@ -35,10 +28,10 @@ function Plot(hostElement, options) {
   this.xMax = 360;
   this.nXGrid = 13;
 
-  this.yMin = -100;
-  this.yMax = 100;
+  this.yBounds = options.yBounds || "auto";
+  this.yMin = -10;
+  this.yMax = 10;
   this.nYGrid = 5;
-  this.yBounds = "manual";
 
   this.plotColor = "#EEEEEE";
   this.lineColor = "#000000";
@@ -47,12 +40,13 @@ function Plot(hostElement, options) {
   this.traces = [];
   this.activeTraceIndices = [0, 1];
   this.stopIndex = 0;
+  this.isPrecomputed = false;
+  this.currentCursorIndex = 1;
 
   this.xLabel = "Crank Angle [deg]";
   this.yLabel = "Disp [mm]";
   this.title = "Displacement vs. Crank Angle";
 
-  // Create root SVG element
   this.svg = document.createElementNS(this.svgNS, "svg");
   this.svg.setAttribute("class", "w-100 h-100 d-block");
   this.svg.style.overflow = "visible";
@@ -60,7 +54,6 @@ function Plot(hostElement, options) {
   this.host.innerHTML = "";
   this.host.appendChild(this.svg);
 
-  // Groups for layered rendering
   this.gridGroup = this._createEl("g", { class: "plot-grid" });
   this.traceGroup = this._createEl("g", { class: "plot-traces" });
   this.cursorLine = this._createEl("line", {
@@ -81,6 +74,9 @@ function Plot(hostElement, options) {
     this.resizeObserver = new ResizeObserver(function () {
       if (self.host.clientWidth > 0 && self.host.clientHeight > 0) {
         self.drawPlot(self.activeTraceIndices);
+        if (self.isPrecomputed) {
+          self.setCursorIndex(self.currentCursorIndex);
+        }
       }
     });
     this.resizeObserver.observe(this.host);
@@ -99,9 +95,6 @@ Plot.prototype._createEl = function (tag, attrs) {
   return el;
 };
 
-// ****************************************************************************
-// setShowXAxis - toggles whether this plot renders X-axis tick numbers
-// ****************************************************************************
 Plot.prototype.setShowXAxis = function (show) {
   if (this.showXAxis === show) return;
   this.showXAxis = show;
@@ -109,9 +102,6 @@ Plot.prototype.setShowXAxis = function (show) {
   this.drawPlot(this.activeTraceIndices);
 };
 
-// ****************************************************************************
-// checkSize - reads live HTML container dimensions
-// ****************************************************************************
 Plot.prototype.checkSize = function () {
   this.width = this.host.clientWidth || 500;
   this.height = this.host.clientHeight || (this.host.classList.contains("plot-tall") ? 200 : 100);
@@ -122,42 +112,69 @@ Plot.prototype.checkSize = function () {
   this.h = Math.max(10, this.height - this.t - this.b);
 };
 
-// ****************************************************************************
-// drawPlot - rebuilds grid, axes, and re-projects any existing trace points
-// ****************************************************************************
+Plot.prototype.computeAutoBounds = function () {
+  if (this.yBounds !== "auto" || !this.traces.length) return false;
+
+  var dataMin = Infinity;
+  var dataMax = -Infinity;
+  var hasPoints = false;
+
+  for (var i = 0; i < this.activeTraceIndices.length; i++) {
+    var idx = this.activeTraceIndices[i];
+    var trace = this.traces[idx];
+    if (!trace || trace.yVals.length <= 1) continue;
+
+    for (var p = 1; p < trace.yVals.length; p++) {
+      var val = trace.yVals[p];
+      if (!isNaN(val) && isFinite(val)) {
+        hasPoints = true;
+        if (val < dataMin) dataMin = val;
+        if (val > dataMax) dataMax = val;
+      }
+    }
+  }
+
+  if (!hasPoints) {
+    this.yMin = -10;
+    this.yMax = 10;
+    return false;
+  }
+
+  var span = dataMax - dataMin;
+  var pad = span > 0 ? span * 0.1 : Math.max(1, Math.abs(dataMax) * 0.15);
+
+  var targetMin = dataMin - pad;
+  var targetMax = dataMax + pad;
+
+  if (targetMin > 0 && targetMin < span * 0.25) targetMin = 0;
+  if (targetMax < 0 && Math.abs(targetMax) < span * 0.25) targetMax = 0;
+
+  if (dataMin < this.yMin || dataMax > this.yMax) {
+    this.yMin = Math.min(this.yMin, targetMin);
+    this.yMax = Math.max(this.yMax, targetMax);
+    return true;
+  }
+
+  return false;
+};
+
 Plot.prototype.drawPlot = function (traceList) {
   if (traceList) {
     this.activeTraceIndices = traceList;
+  }
+  if (this.yBounds === "auto") {
+    this.yMin = Infinity;
+    this.yMax = -Infinity;
+    this.computeAutoBounds();
   }
   this.checkSize();
   this.drawGrid();
   this.rebuildPolylines();
 };
 
-// ****************************************************************************
-// drawGrid - renders SVG background, gridlines, ticks, and border
-// ****************************************************************************
 Plot.prototype.drawGrid = function () {
   this.gridGroup.innerHTML = "";
 
-  if (this.yBounds === "auto" && this.traces.length > 0) {
-    var tempYMin = Infinity;
-    var tempYMax = -Infinity;
-    for (var i = 0; i < this.traces.length; i++) {
-      if (this.traces[i].yVals.length > 1) {
-        var vMin = Math.min.apply(null, this.traces[i].yVals);
-        var vMax = Math.max.apply(null, this.traces[i].yVals);
-        if (vMin < tempYMin) tempYMin = vMin;
-        if (vMax > tempYMax) tempYMax = vMax;
-      }
-    }
-    if (tempYMin < tempYMax) {
-      this.yMin = tempYMin;
-      this.yMax = tempYMax;
-    }
-  }
-
-  // Plot background box
   this.gridGroup.appendChild(this._createEl("rect", {
     x: this.l,
     y: this.t,
@@ -168,7 +185,6 @@ Plot.prototype.drawGrid = function () {
     "stroke-width": 1
   }));
 
-  // Y-axis ticks and horizontal gridlines
   var yTicks = this.generateYTicks();
   for (var j = 0; j < yTicks.length; j++) {
     var val = yTicks[j];
@@ -183,7 +199,7 @@ Plot.prototype.drawGrid = function () {
       "text-anchor": "end",
       "dominant-baseline": "middle"
     });
-    label.textContent = val.toFixed(0);
+    label.textContent = Math.abs(val) < 1 && val !== 0 ? val.toFixed(1) : val.toFixed(0);
     this.gridGroup.appendChild(label);
 
     if (val !== this.yMin && val !== this.yMax) {
@@ -199,7 +215,6 @@ Plot.prototype.drawGrid = function () {
     }
   }
 
-  // X-axis vertical gridlines (always drawn) & tick numbers (only when showXAxis is true)
   for (var k = 0; k < this.nXGrid; k++) {
     var pct = k / (this.nXGrid - 1);
     var xPos = Math.round(this.lerp(this.l, this.l + this.w, pct)) + 0.5;
@@ -238,9 +253,6 @@ Plot.prototype.drawGrid = function () {
   this.cursorLine.setAttribute("y2", this.t + this.h);
 };
 
-// ****************************************************************************
-// rebuildPolylines - creates SVG <polyline> elements for active traces
-// ****************************************************************************
 Plot.prototype.rebuildPolylines = function () {
   this.traceGroup.innerHTML = "";
   this.polylines = [];
@@ -271,11 +283,30 @@ Plot.prototype.rebuildPolylines = function () {
   }
 };
 
-// ****************************************************************************
-// drawTraces - appends the latest point or updates the live angle cursor
-// ****************************************************************************
+// Positions the red vertical cursor at a specific trace sample index
+Plot.prototype.setCursorIndex = function (index) {
+  var firstTraceIdx = this.activeTraceIndices[0];
+  var trace = this.traces[firstTraceIdx];
+  if (!trace || trace.xVals.length <= 1) return;
+
+  var safeIdx = Math.max(1, Math.min(index, trace.xVals.length - 1));
+  this.currentCursorIndex = safeIdx;
+
+  var px = this.xZero + this.scaleToPlot("x", trace.xVals[safeIdx]);
+  this.cursorLine.setAttribute("x1", px.toFixed(1));
+  this.cursorLine.setAttribute("x2", px.toFixed(1));
+  this.cursorLine.setAttribute("visibility", "visible");
+};
+
 Plot.prototype.drawTraces = function (traceList, index, isCycleComplete) {
-  if (!this.polylines.length) {
+  if (traceList) {
+    this.activeTraceIndices = traceList;
+  }
+
+  if (!isCycleComplete && this.computeAutoBounds()) {
+    this.drawGrid();
+    this.rebuildPolylines();
+  } else if (!this.polylines.length) {
     this.rebuildPolylines();
   }
 
@@ -284,28 +315,32 @@ Plot.prototype.drawTraces = function (traceList, index, isCycleComplete) {
     var trace = this.traces[item.traceIdx];
     if (!trace || index >= trace.xVals.length) continue;
 
-    var px = this.xZero + this.scaleToPlot("x", trace.xVals[index]);
-    var py = this.yZero - this.scaleToPlot("y", trace.yVals[index]);
-
     if (!isCycleComplete) {
+      var px = this.xZero + this.scaleToPlot("x", trace.xVals[index]);
+      var py = this.yZero - this.scaleToPlot("y", trace.yVals[index]);
       var currentPts = item.el.getAttribute("points");
       var nextPt = px.toFixed(1) + "," + py.toFixed(1);
       item.el.setAttribute("points", currentPts ? currentPts + " " + nextPt : nextPt);
     }
-
-    if (i === 0) {
-      this.cursorLine.setAttribute("x1", px.toFixed(1));
-      this.cursorLine.setAttribute("x2", px.toFixed(1));
-      this.cursorLine.setAttribute("visibility", "visible");
-    }
   }
+
+  this.setCursorIndex(index);
 };
 
 Plot.prototype.resetTraces = function () {
+  if (this.isPrecomputed) {
+    this.setCursorIndex(1);
+    return;
+  }
+
   this.stopIndex = 0;
   for (var i = 0; i < this.traces.length; i++) {
     this.traces[i].xVals = [0];
     this.traces[i].yVals = [0];
+  }
+  if (this.yBounds === "auto") {
+    this.yMin = -10;
+    this.yMax = 10;
   }
   this.cursorLine.setAttribute("visibility", "hidden");
   this.drawPlot(this.activeTraceIndices);
@@ -327,7 +362,7 @@ Plot.prototype.scaleToPlot = function (axis, val) {
 
 Plot.prototype.getNiceStepSize = function (yMin, yMax, targetTicks) {
   var range = yMax - yMin;
-  if (range === 0) return 10;
+  if (range <= 0 || !isFinite(range)) return 5;
   var rawStep = range / (targetTicks || 5);
   var exponent = Math.floor(Math.log10(rawStep));
   var fraction = rawStep / Math.pow(10, exponent);
@@ -342,6 +377,11 @@ Plot.prototype.getNiceStepSize = function (yMin, yMax, targetTicks) {
 };
 
 Plot.prototype.generateYTicks = function () {
+  if (!isFinite(this.yMin) || !isFinite(this.yMax) || this.yMin >= this.yMax) {
+    this.yMin = -10;
+    this.yMax = 10;
+  }
+
   var targetTicks = this.nYGrid || 5;
   var step = this.getNiceStepSize(this.yMin, this.yMax, targetTicks);
 

@@ -1,5 +1,5 @@
 // js_common/Linkage.js
-// Base object for all mechanisms
+// Base object for all mechanisms with pre-computed full-cycle kinematic plots
 
 function Linkage() {
   this.isPlaying = false;
@@ -96,12 +96,6 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     this.P = { x: 2, y: 3 };
     this.C = { x: 4, y: 5 };
 
-    this.limits = {
-      B: { dis: [-100, 150], vel: [-200, 200], acc: [-500, 500] },
-      P: { dis: [-50, 200], vel: [-150, 150], acc: [-400, 400] },
-      C: { dis: [0, 300], vel: [-300, 300], acc: [-600, 600] }
-    };
-
     this.selPin.addEventListener("change", function () {
       linkage.pointSel = linkage.selPin.value;
       linkage.initPlots();
@@ -118,13 +112,107 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
 
     // Instantiate SVG Plots (bottom plot 'acc' permanently owns the shared X-axis ticks)
     this.plotDis = new Plot(this.root.querySelector('[data-plot-host="dis"]'), { showXAxis: false });
-    this.setPlotAttr("plotDis", this.color[24], this.color[14], "DISPLACEMENT PLOT", "Disp [mm]", -100, 150);
+    this.setPlotAttr("plotDis", this.color[24], this.color[14], "DISPLACEMENT PLOT", "Disp [mm]", -10, 10);
 
     this.plotVel = new Plot(this.root.querySelector('[data-plot-host="vel"]'), { showXAxis: false });
-    this.setPlotAttr("plotVel", this.color[24], this.color[14], "VELOCITY PLOT", "Velocity [mm/s]", -100, 150);
+    this.setPlotAttr("plotVel", this.color[24], this.color[14], "VELOCITY PLOT", "Velocity [mm/s]", -10, 10);
 
     this.plotAcc = new Plot(this.root.querySelector('[data-plot-host="acc"]'), { showXAxis: true });
-    this.setPlotAttr("plotAcc", this.color[24], this.color[14], "ACCELERATION PLOT", "Accel [mm/s²]", -100, 150);
+    this.setPlotAttr("plotAcc", this.color[24], this.color[14], "ACCELERATION PLOT", "Accel [mm/s²]", -10, 10);
+  }
+};
+
+// ****************************************************************************************
+// Linkage.precomputePlots - computes the full 360-deg cycle on load, tunes Y-axis limits,
+// draws the complete curves immediately, and resets the mechanism back to t = 0.
+// ****************************************************************************************
+Linkage.prototype.precomputePlots = function () {
+  if (!this.showPlots || !this.plotDis) return;
+
+  var maxSteps = Math.round((this.plotDis.xMax - this.plotDis.xMin) / this.deltaT);
+
+  // Clear any prior trace arrays
+  var plots = [this.plotDis, this.plotVel, this.plotAcc];
+  for (var p = 0; p < plots.length; p++) {
+    plots[p].isPrecomputed = false;
+    for (var t = 0; t < plots[p].traces.length; t++) {
+      plots[p].traces[t].xVals = [0];
+      plots[p].traces[t].yVals = [0];
+    }
+  }
+
+  // Silently step through 0 -> 360 deg to populate all kinematic arrays
+  for (var s = 1; s <= maxSteps; s++) {
+    this.timeStep = s;
+    var crankAngle;
+    if (this.isGrashof) {
+      crankAngle = (this.deltaT * this.timeStep * Math.PI) / 180;
+    } else {
+      var amp = (0.999 * (this.crankMax - this.crankMin)) / 2;
+      var off = (this.crankMax + this.crankMin) / 2;
+      crankAngle = -amp * Math.cos((Math.PI * this.timeStep * this.deltaT) / 180) + off;
+    }
+
+    if (typeof this.calcKinematics === "function") {
+      this.calcKinematics(crankAngle);
+    } else {
+      this.draw(crankAngle);
+    }
+
+    this._recordStepData("plotDis", crankAngle);
+    this._recordStepData("plotVel", crankAngle);
+    this._recordStepData("plotAcc", crankAngle);
+  }
+
+  // Mark plots as precomputed, auto-fit Y bounds, and render full polylines immediately
+  var selectedIndices = [this[this.pointSel].x, this[this.pointSel].y];
+  for (var k = 0; k < plots.length; k++) {
+    plots[k].stopIndex = maxSteps;
+    plots[k].isPrecomputed = true;
+    plots[k].drawPlot(selectedIndices);
+    plots[k].setCursorIndex(1);
+  }
+
+  // Reset mechanism canvases & timeStep back to 0 without wiping the precomputed plots
+  for (var c = 0; c < 5; c++) {
+    this.ctx[c].clearRect(0, 0, this.can[c].width, this.can[c].height);
+  }
+  if (this.showIC) {
+    this.drawIC();
+  } else {
+    this.drawGround();
+  }
+  this.timeStep = 0;
+  if (this.isGrashof) {
+    this.draw(0);
+  } else {
+    this.draw((this.crankMin + this.crankMax) / 2);
+  }
+};
+
+// Internal helper to push one angle step into a plot's trace arrays
+Linkage.prototype._recordStepData = function (plotName, crankAngle) {
+  var prefix = plotName.substr(4, 1).toLowerCase();
+  var deg = (crankAngle * 180) / Math.PI;
+  var plot = this[plotName];
+
+  plot.traces[this.B.x].xVals.push(deg);
+  plot.traces[this.B.x].yVals.push(this[prefix + "B"].x);
+  plot.traces[this.B.y].xVals.push(deg);
+  plot.traces[this.B.y].yVals.push(this[prefix + "B"].y);
+
+  if (this.dP !== undefined) {
+    plot.traces[this.P.x].xVals.push(deg);
+    plot.traces[this.P.x].yVals.push(this[prefix + "P"].x);
+    plot.traces[this.P.y].xVals.push(deg);
+    plot.traces[this.P.y].yVals.push(this[prefix + "P"].y);
+  }
+
+  if (this.dC !== undefined) {
+    plot.traces[this.C.x].xVals.push(deg);
+    plot.traces[this.C.x].yVals.push(this[prefix + "C"].x);
+    plot.traces[this.C.y].xVals.push(deg);
+    plot.traces[this.C.y].yVals.push(this[prefix + "C"].y);
   }
 };
 
@@ -210,9 +298,6 @@ Linkage.prototype.eventReset = function () {
   }
 };
 
-// **************************************************************************************
-// Linkage.eventPlotResize - toggles height of an individual plot with up/down chevrons
-// **************************************************************************************
 Linkage.prototype.eventPlotResize = function (type, btn) {
   var host = this.root.querySelector('[data-plot-host="' + type + '"]');
   var icon = btn.querySelector("i");
@@ -298,36 +383,24 @@ Linkage.prototype.setPlotAttr = function (plotName, xColor, yColor, title, yLabe
 };
 
 Linkage.prototype.updatePlot = function (plotName, crankAngle) {
-  var prefix = plotName.substr(4, 1).toLowerCase();
-  var deg = (crankAngle * 180) / Math.PI;
   var plot = this[plotName];
   var activeIndices = [this[this.pointSel].x, this[this.pointSel].y];
 
+  // If precomputed on load, simply move the vertical cursor along the existing curve
+  if (plot.isPrecomputed && plot.stopIndex > 0) {
+    var cycleIdx = ((this.timeStep - 1) % plot.stopIndex) + 1;
+    plot.drawTraces(activeIndices, cycleIdx, true);
+    return;
+  }
+
+  // Fallback live-recording path if precomputePlots() wasn't called
   if (this.timeStep * this.deltaT <= plot.xMax - plot.xMin) {
-    plot.traces[this.B.x].xVals.push(deg);
-    plot.traces[this.B.x].yVals.push(this[prefix + "B"].x);
-    plot.traces[this.B.y].xVals.push(deg);
-    plot.traces[this.B.y].yVals.push(this[prefix + "B"].y);
-
-    if (this.dP !== undefined) {
-      plot.traces[this.P.x].xVals.push(deg);
-      plot.traces[this.P.x].yVals.push(this[prefix + "P"].x);
-      plot.traces[this.P.y].xVals.push(deg);
-      plot.traces[this.P.y].yVals.push(this[prefix + "P"].y);
-    }
-
-    if (this.dC !== undefined) {
-      plot.traces[this.C.x].xVals.push(deg);
-      plot.traces[this.C.x].yVals.push(this[prefix + "C"].x);
-      plot.traces[this.C.y].xVals.push(deg);
-      plot.traces[this.C.y].yVals.push(this[prefix + "C"].y);
-    }
-
+    this._recordStepData(plotName, crankAngle);
     plot.stopIndex = this.timeStep;
     plot.drawTraces(activeIndices, this.timeStep, false);
   } else if (plot.stopIndex > 0) {
-    var cycleIdx = ((this.timeStep - 1) % plot.stopIndex) + 1;
-    plot.drawTraces(activeIndices, cycleIdx, true);
+    var loopIdx = ((this.timeStep - 1) % plot.stopIndex) + 1;
+    plot.drawTraces(activeIndices, loopIdx, true);
   }
 };
 
@@ -335,14 +408,17 @@ Linkage.prototype.updateLimits = function (point) {
   if (this.limits && this.limits[point]) {
     var lim = this.limits[point];
     if (lim.dis && this.plotDis) {
+      this.plotDis.yBounds = "manual";
       this.plotDis.yMin = lim.dis[0];
       this.plotDis.yMax = lim.dis[1];
     }
     if (lim.vel && this.plotVel) {
+      this.plotVel.yBounds = "manual";
       this.plotVel.yMin = lim.vel[0];
       this.plotVel.yMax = lim.vel[1];
     }
     if (lim.acc && this.plotAcc) {
+      this.plotAcc.yBounds = "manual";
       this.plotAcc.yMin = lim.acc[0];
       this.plotAcc.yMax = lim.acc[1];
     }
@@ -358,4 +434,11 @@ Linkage.prototype.initPlots = function () {
   this.plotDis.drawPlot(selectedIndices);
   this.plotVel.drawPlot(selectedIndices);
   this.plotAcc.drawPlot(selectedIndices);
+
+  if (this.plotDis.isPrecomputed) {
+    var idx = this.timeStep > 0 ? ((this.timeStep - 1) % this.plotDis.stopIndex) + 1 : 1;
+    this.plotDis.setCursorIndex(idx);
+    this.plotVel.setCursorIndex(idx);
+    this.plotAcc.setCursorIndex(idx);
+  }
 };

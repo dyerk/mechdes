@@ -2,6 +2,9 @@
 "use strict";
 window.onload = init;
 
+//********************************************************************************
+// function init() - initializes javascript on html page
+// *******************************************************************************
 function init() {
   var mount = document.getElementById("mechanisms-mount");
 
