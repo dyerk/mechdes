@@ -26,16 +26,15 @@ function Plot(hostElement, options) {
 
   this.xMin = 0;
   this.xMax = 360;
-  this.nXGrid = 13;
+  this.nXGrid = 9;
 
   this.yBounds = options.yBounds || "auto";
   this.yMin = -10;
   this.yMax = 10;
   this.nYGrid = 5;
 
-  this.plotColor = "#EEEEEE";
-  this.lineColor = "#000000";
-  this.gridColor = "#666666";
+  this.plotColor = "#FAFAFA";
+  this.gridColor = "#CCCCCC";
 
   this.traces = [];
   this.activeTraceIndices = [0, 1];
@@ -49,7 +48,18 @@ function Plot(hostElement, options) {
 
   this.svg = document.createElementNS(this.svgNS, "svg");
   this.svg.setAttribute("class", "w-100 h-100 d-block");
+  this.svg.setAttribute("role", "img");
   this.svg.style.overflow = "visible";
+
+  var uid = "plot-" + Math.random().toString(36).substr(2, 9);
+  this.svgTitle = this._createEl("title", { id: uid + "-title" });
+  this.svgDesc = this._createEl("desc", { id: uid + "-desc" });
+  this.svg.setAttribute("aria-labelledby", uid + "-title " + uid + "-desc");
+
+  this.svg.appendChild(this.svgTitle);
+  this.svg.appendChild(this.svgDesc);
+
+  this.gridGroup = this._createEl("g", { class: "plot-grid", "aria-hidden": "true" });
 
   this.host.innerHTML = "";
   this.host.appendChild(this.svg);
@@ -170,6 +180,7 @@ Plot.prototype.drawPlot = function (traceList) {
   this.checkSize();
   this.drawGrid();
   this.rebuildPolylines();
+  this.updateAccessibleSummary();
 };
 
 Plot.prototype.drawGrid = function () {
@@ -262,19 +273,29 @@ Plot.prototype.rebuildPolylines = function () {
     var trace = this.traces[traceIdx];
     if (!trace) continue;
 
-    var poly = this._createEl("polyline", {
+    var polyAttrs = {
       fill: "none",
       stroke: trace.traceColor,
       "stroke-width": trace.traceWidth,
       "stroke-linejoin": "round",
       "stroke-linecap": "round"
-    });
+    };
+    if (trace.traceName === "y") {
+      polyAttrs["stroke-dasharray"] = "6,3";
+    }
+    var poly = this._createEl("polyline", polyAttrs);
 
     var pts = [];
     for (var p = 1; p < trace.xVals.length; p++) {
-      var px = this.xZero + this.scaleToPlot("x", trace.xVals[p]);
-      var py = this.yZero - this.scaleToPlot("y", trace.yVals[p]);
-      pts.push(px.toFixed(1) + "," + py.toFixed(1));
+      var xVal = trace.xVals[p];
+      var yVal = trace.yVals[p];
+      if (!isFinite(xVal) || !isFinite(yVal)) continue;
+
+      var px = this.xZero + this.scaleToPlot("x", xVal);
+      var py = this.yZero - this.scaleToPlot("y", yVal);
+      if (isFinite(px) && isFinite(py)) {
+        pts.push(px.toFixed(1) + "," + py.toFixed(1));
+      }
     }
     poly.setAttribute("points", pts.join(" "));
 
@@ -282,7 +303,6 @@ Plot.prototype.rebuildPolylines = function () {
     this.polylines.push({ traceIdx: traceIdx, el: poly });
   }
 };
-
 // Positions the red vertical cursor at a specific trace sample index
 Plot.prototype.setCursorIndex = function (index) {
   var firstTraceIdx = this.activeTraceIndices[0];
@@ -303,11 +323,18 @@ Plot.prototype.drawTraces = function (traceList, index, isCycleComplete) {
     this.activeTraceIndices = traceList;
   }
 
-  if (!isCycleComplete && this.computeAutoBounds()) {
-    this.drawGrid();
-    this.rebuildPolylines();
-  } else if (!this.polylines.length) {
-    this.rebuildPolylines();
+  if (!isCycleComplete) {
+    var xVal = trace.xVals[index];
+    var yVal = trace.yVals[index];
+    if (isFinite(xVal) && isFinite(yVal)) {
+      var px = this.xZero + this.scaleToPlot("x", xVal);
+      var py = this.yZero - this.scaleToPlot("y", yVal);
+      if (isFinite(px) && isFinite(py)) {
+        var currentPts = item.el.getAttribute("points");
+        var nextPt = px.toFixed(1) + "," + py.toFixed(1);
+        item.el.setAttribute("points", currentPts ? currentPts + " " + nextPt : nextPt);
+      }
+    }
   }
 
   for (var i = 0; i < this.polylines.length; i++) {
@@ -404,4 +431,30 @@ Plot.prototype.generateYTicks = function () {
     current += step;
   }
   return ticks;
+};
+
+Plot.prototype.updateAccessibleSummary = function () {
+  if (!this.svgTitle || !this.svgDesc) return;
+  this.svgTitle.textContent = this.title + " (" + this.yLabel + " vs. " + this.xLabel + ")";
+
+  var parts = [];
+  for (var i = 0; i < this.activeTraceIndices.length; i++) {
+    var trace = this.traces[this.activeTraceIndices[i]];
+    if (!trace || trace.yVals.length <= 1) continue;
+
+    var min = Infinity, max = -Infinity, minDeg = 0, maxDeg = 0;
+    for (var p = 1; p < trace.yVals.length; p++) {
+      var v = trace.yVals[p];
+      if (v < min) { min = v; minDeg = trace.xVals[p]; }
+      if (v > max) { max = v; maxDeg = trace.xVals[p]; }
+    }
+    if (isFinite(min) && isFinite(max)) {
+      parts.push(
+        trace.traceName.toUpperCase() + " component ranges from " +
+        min.toFixed(1) + " at " + Math.round(minDeg) + " degrees to " +
+        max.toFixed(1) + " at " + Math.round(maxDeg) + " degrees."
+      );
+    }
+  }
+  this.svgDesc.textContent = parts.join(" ");
 };

@@ -4,6 +4,8 @@ function Select_Animation(mechanisms) {
   var animations = document.querySelectorAll(".animationContainer");
   var numCanvas = links.length;
 
+  if (!numCanvas) return;
+
   for (var i = 0; i < numCanvas; i++) {
     links[i].addEventListener("click", setClickedItem, false);
   }

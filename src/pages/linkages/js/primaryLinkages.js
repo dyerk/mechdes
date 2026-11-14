@@ -12,16 +12,20 @@ function init() {
   var sectionConfigs = [
     {
       id: "01",
-      title: "Threebar",
+      title: "Threebar Linkage",
+      tabTitle: "Threebar",
       description: "This linkage consists of a crank, coupler and ground.",
+      ariaDiagram: "Animation of threebar mechanism in motion",
       showPlots: true,
       pins: ["B", "P"],
-      isActive: true
+      isActive: true,
     },
     {
       id: "02",
       title: "Fourbar Linkage",
+      tabTitle: "Fourbar",
       description: "This very common linkage consists of a crank, coupler, rocker and ground.",
+      ariaDiagram: "Animation of fourbar mechanism in motion",
       showPlots: true,
       pins: ["B", "P", "C"]
     },
@@ -29,6 +33,7 @@ function init() {
       id: "03",
       title: "Slider-Crank",
       description: "This linkage consists of a crank, connecting rod, slider and ground.",
+      ariaDiagram: "Animation of slider-crank mechanism in motion",
       showPlots: true,
       pins: ["B", "C"]
     },
@@ -36,6 +41,7 @@ function init() {
       id: "04",
       title: "Inverted Slider-Crank",
       description: "This linkage consists of a crank, slider, rocker and ground.",
+      ariaDiagram: "Animation of inverted slider-crank mechanism in motion",
       showPlots: true,
       pins: ["B", "P"]
     },
@@ -43,18 +49,20 @@ function init() {
       id: "05",
       title: "Geared Fivebar",
       description: "This linkage consists of two gears, two couplers and ground.",
+      ariaDiagram: "Animation of geared fivebar mechanism in motion",
       showPlots: false
     },
     {
       id: "06",
       title: "Cam-Follower",
       description: "The cam-follower changes rotary motion of the cam to translational motion of a follower. The cam-follower pictured is known as a rocker configuration.",
+      ariaDiagram: "Animation of cam-follower in motion",
       showPlots: false
     }
   ];
 
   // 2. Render HTML templates into DOM
-  mount.innerHTML = sectionConfigs.map(renderMechanismSection).join("");
+mount.innerHTML = renderMechanismSet(sectionConfigs);
 
   // 3. Instantiate and initialize each mechanism
   // 01: Threebar

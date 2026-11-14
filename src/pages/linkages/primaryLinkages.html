@@ -15,13 +15,13 @@
 
   <!-- Shared Components & Templates Loader Script -->
   <script src="../../js_common/load_components.js" defer></script>
-  <script src="../../js_common/templates.js"></script>
 
   <!-- Common Animation JavaScript -->
   <script src="../../js_common/Linkage.js"></script>
   <script src="../../js_common/Plot.js"></script>
   <script src="../../js_common/Select_Animation.js"></script>
   <script src="../../js_common/Common_Shapes.js"></script>
+  <script src="../../js_common/templates.js" defer></script>
 
   <!-- Page Specific Mechanism Classes -->
   <script src="../../js_common/Class_Threebar.js"></script>
@@ -42,30 +42,6 @@
   <main class="container my-4 flex-grow-1 bg-white text-dark p-4 rounded-3">
     <h1 class="h2">Linkages</h1>
     <h2 class="h4 text-muted">Primary Linkages</h2>
-
-    <!-- Animation Selection Navigation (Nav Pills) -->
-    <nav aria-label="Animation Selection" class="mt-3 border-bottom border-3">
-      <ul id="sliderLinks" class="nav nav-pills justify-content-center bg-light p-2 rounded-top border">
-        <li class="nav-item">
-          <button class="nav-link itemLinks active" data-pos="0" id="pill-threebar-tab" type="button" aria-selected="true">Threebar</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link itemLinks" data-pos="1" id="pill-fourbar-tab" type="button" aria-selected="false">Fourbar</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link itemLinks" data-pos="2" id="pill-slider-crank-tab" type="button" aria-selected="false">Slider-Crank</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link itemLinks" data-pos="3" id="pill-inverted-slider-tab" type="button" aria-selected="false">Inverted Slider</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link itemLinks" data-pos="4" id="pill-geared-fivebar-tab" type="button" aria-selected="false">Geared Fivebar</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link itemLinks" data-pos="5" id="pill-cam-follower-tab" type="button" aria-selected="false">Cam Follower</button>
-        </li>
-      </ul>
-    </nav>
 
     <!-- DYNAMICALLY RENDERED MECHANISM SECTIONS -->
     <div id="mechanisms-mount"></div>

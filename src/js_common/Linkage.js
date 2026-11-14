@@ -1,6 +1,3 @@
-// js_common/Linkage.js
-// Base object for all mechanisms with pre-computed full-cycle kinematic plots
-
 function Linkage() {
   this.isPlaying = false;
   this.isGrashof = true;
@@ -61,11 +58,16 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
   this.btnReset = this.root.querySelector('[data-role="btn-reset"]');
   this.iconPlay = this.root.querySelector('[data-role="icon-play"]');
   this.iconReset = this.root.querySelector('[data-role="icon-reset"]');
+  this.srStatus = this.root.querySelector('[data-role="sr-status"]');
 
   if (!this.btnPlay || !this.btnReset) {
     console.error("Play/Reset buttons not found inside [data-mechanism-id='" + pageID + "']");
     return;
   }
+
+  // Store initial accessible labels so pause/reset restore mechanism-specific names
+  this.playLabelDefault = this.btnPlay.getAttribute("aria-label") || "Play animation";
+  this.pauseLabelDefault = this.playLabelDefault.replace(/^Play\b/i, "Pause");
 
   this.btnPlay.addEventListener("click", function () {
     linkage.eventPlay();
@@ -99,6 +101,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     this.selPin.addEventListener("change", function () {
       linkage.pointSel = linkage.selPin.value;
       linkage.initPlots();
+      linkage.announceStatus("Plots updated for Point " + linkage.pointSel + ".");
     });
 
     // Plot height expand/collapse chevron buttons
@@ -120,6 +123,16 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     this.plotAcc = new Plot(this.root.querySelector('[data-plot-host="acc"]'), { showXAxis: true });
     this.setPlotAttr("plotAcc", this.color[24], this.color[14], "ACCELERATION PLOT", "Accel [mm/s²]", -10, 10);
   }
+};
+
+// Helper to update the polite screen-reader live region
+Linkage.prototype.announceStatus = function (message) {
+  if (!this.srStatus) return;
+  this.srStatus.textContent = "";
+  var srEl = this.srStatus;
+  setTimeout(function () {
+    srEl.textContent = message;
+  }, 50);
 };
 
 // ****************************************************************************************
@@ -223,11 +236,17 @@ Linkage.prototype.eventPlay = function () {
   if (this.isPlaying) {
     this.iconPlay.classList.remove("fa-circle-play");
     this.iconPlay.classList.add("fa-circle-stop");
+    this.btnPlay.setAttribute("aria-pressed", "true");
+    this.btnPlay.setAttribute("aria-label", this.pauseLabelDefault);
     this.btnReset.disabled = false;
     this.iconReset.classList.remove("button-disabled");
+    this.announceStatus("Animation playing.");
   } else {
     this.iconPlay.classList.remove("fa-circle-stop");
     this.iconPlay.classList.add("fa-circle-play");
+    this.btnPlay.setAttribute("aria-pressed", "false");
+    this.btnPlay.setAttribute("aria-label", this.playLabelDefault);
+    this.announceStatus("Animation paused.");
     return;
   }
 
@@ -271,8 +290,11 @@ Linkage.prototype.eventReset = function () {
     this.iconPlay.classList.add("fa-circle-play");
   }
 
+  this.btnPlay.setAttribute("aria-pressed", "false");
+  this.btnPlay.setAttribute("aria-label", this.playLabelDefault);
   this.btnReset.disabled = true;
   this.iconReset.classList.add("button-disabled");
+  this.announceStatus("Animation reset to initial position.");
 
   for (var i = 0; i < 5; i++) {
     this.ctx[i].clearRect(0, 0, this.can[i].width, this.can[i].height);
@@ -303,12 +325,14 @@ Linkage.prototype.eventPlotResize = function (type, btn) {
   var icon = btn.querySelector("i");
   var plotKey = "plot" + type.charAt(0).toUpperCase() + type.slice(1);
   var extraBottom = type === "acc" ? 16 : 0;
+  var currentLabel = btn.getAttribute("aria-label") || "Expand plot";
 
   if (host.classList.contains("plot-short")) {
     host.classList.remove("plot-short");
     host.classList.add("plot-tall");
     host.style.height = (200 + extraBottom) + "px";
-    btn.setAttribute("aria-label", "Collapse plot");
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", currentLabel.replace(/^Expand\b/i, "Collapse"));
     if (icon) {
       icon.classList.remove("fa-chevron-down");
       icon.classList.add("fa-chevron-up");
@@ -317,7 +341,8 @@ Linkage.prototype.eventPlotResize = function (type, btn) {
     host.classList.remove("plot-tall");
     host.classList.add("plot-short");
     host.style.height = (100 + extraBottom) + "px";
-    btn.setAttribute("aria-label", "Expand plot");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", currentLabel.replace(/^Collapse\b/i, "Expand"));
     if (icon) {
       icon.classList.remove("fa-chevron-up");
       icon.classList.add("fa-chevron-down");
