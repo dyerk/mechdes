@@ -60,47 +60,22 @@ function init() {
   // 01: Threebar
   var threebar = new Threebar(60, 250, 160, 160);
   threebar.buttonCanvas("01", 120, 200);
-  threebar.limits = {
-    B: { dis: [-65, 65], vel: [-60, 60], acc: [-70, 70] },
-    P: { dis: [-65, 315], vel: [-95, 65], acc: [-160, 160] }
-  };
-  threebar.initPlots();
-  threebar.drawGround();
-  threebar.draw(0);
+  threebar.precomputePlots();
 
   // 02: Fourbar
   var fourbar = new Fourbar(80, 170, 120, 160, 70, (40 * Math.PI) / 180, 2, true);
   fourbar.buttonCanvas("02", 120, 230);
-  fourbar.limits = {
-    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
-    P: { dis: [-65, 200], vel: [-95, 65], acc: [-160, 100] },
-    C: { dis: [0, 250], vel: [-85, 165], acc: [-325, 185] }
-  };
-  fourbar.initPlots();
-  fourbar.drawGround();
-  fourbar.draw(0);
+  fourbar.precomputePlots();
 
   // 03: Slider-Crank
   var sliderCrank = new SliderCrank(60, 130, 60);
   sliderCrank.buttonCanvas("03", 140, 210);
-  sliderCrank.limits = {
-    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
-    C: { dis: [0, 200], vel: [-85, 125], acc: [-200, 200] }
-  };
-  sliderCrank.initPlots();
-  sliderCrank.drawGround();
-  sliderCrank.draw(0);
+  sliderCrank.precomputePlots();
 
   // 04: Inverted Slider-Crank
   var invSlide = new InvSlide(60, 220, 70, 160, (70 * Math.PI) / 180, true);
   invSlide.buttonCanvas("04", 120, 250);
-  invSlide.limits = {
-    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
-    P: { dis: [-65, 75], vel: [-100, 100], acc: [-200, 200] }
-  };
-  invSlide.initPlots();
-  invSlide.drawGround();
-  invSlide.draw(0);
+  invSlide.precomputePlots();
 
   // 05: Geared Fivebar
   var fivebar = new Fivebar(
