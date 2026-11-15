@@ -58,10 +58,10 @@ function renderMechanismSection(config) {
             <!-- Added distinct line styles (solid vs dashed) alongside color -->
             <div class="d-flex align-items-center gap-3 small fw-semibold text-secondary" aria-label="Plot trace legend">
               <span class="d-flex align-items-center gap-1">
-                <span class="legend-indicator legend-trace-x" aria-hidden="true"></span> X (Solid)
+                <span class="legend-indicator legend-trace-x" aria-hidden="true"></span> X 
               </span>
               <span class="d-flex align-items-center gap-1">
-                <span class="legend-indicator legend-trace-y" aria-hidden="true"></span> Y (Dashed)
+                <span class="legend-indicator legend-trace-y" aria-hidden="true"></span> Y 
               </span>
             </div>
           </div>
