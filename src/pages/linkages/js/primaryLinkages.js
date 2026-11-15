@@ -66,38 +66,77 @@ mount.innerHTML = renderMechanismSet(sectionConfigs);
 
   // 3. Instantiate and initialize each mechanism
   // 01: Threebar
-  var threebar = new Threebar(60, 250, 160, 160);
+  var d = 160;               // ground
+  var a =  60;               // crank
+  var p = 250;               // length of slider
+  var g = 160;               // length of slot
+  var threebar = new Threebar(a, p, g, d);
   threebar.buttonCanvas("01", 120, 200);
   threebar.precomputePlots();
 
   // 02: Fourbar
-  var fourbar = new Fourbar(80, 170, 120, 160, 70, (40 * Math.PI) / 180, 2, true);
+  var d = 160;               // ground
+  var a =  80;               // crank
+  var b = 170;               // coupler
+  var c = 120;               // rocker
+  var p  = 70;               // coupler offset
+  var beta = 40*Math.PI/180; // coupler offset angle
+
+  var fourbar = new Fourbar(a,b,c,d,p,beta,2,true);
   fourbar.buttonCanvas("02", 120, 230);
   fourbar.precomputePlots();
 
   // 03: Slider-Crank
-  var sliderCrank = new SliderCrank(60, 130, 60);
+  var a = 60;                // crank
+  var b = 130;               // connecting rod
+  var c = 60;                // vertical distance to slot
+
+  var sliderCrank = new SliderCrank(a,b,c);
   sliderCrank.buttonCanvas("03", 140, 210);
   sliderCrank.precomputePlots();
 
   // 04: Inverted Slider-Crank
-  var invSlide = new InvSlide(60, 220, 70, 160, (70 * Math.PI) / 180, true);
+  a = 60;                     // crank
+  c = 70;                     // rocker
+  d = 160;                    // distance between ground pins
+  p = 220;                    // length of slider
+  var gamma = 70*Math.PI/180; // angle between slider and rocker
+  var hLink = 60;             // width of slider
+
+  var invSlide = new InvSlide(a,p,c,d,gamma,true);
   invSlide.buttonCanvas("04", 120, 250);
   invSlide.precomputePlots();
 
   // 05: Geared Fivebar
-  var fivebar = new Fivebar(
-    90, 150, 150, 120, 90, 180, 180,
-    (30 * Math.PI) / 180, (-30 * Math.PI) / 180,
-    100, 140
-  );
+   a = 90;                      // crank
+  b = 150;                     // first coupler
+  c = 150;                     // second coupler
+  var v = 90;                  // rocker
+  var u = 120;                 // distance between ground pins
+  p = 180;                     // distance to point p on coupler 1
+  var q = 180;                 // distance to point q on coupler 2
+  var gamma3 =  30*Math.PI/180;// internal angle of coupler 1
+  var gamma4 = -30*Math.PI/180;// internal angle of coupler 2
+  var D1 = 100;                // diameter of gear 1
+  var D2 = 140;                // diameter of gear 2
+
+  var fivebar = new Fivebar(a,b,c,u,v,p,q,gamma3,gamma4,D1,D2);
   fivebar.showPlots = false;
   fivebar.buttonCanvas("05", 190, 275);
   fivebar.drawGround();
   fivebar.draw(0);
 
   // 06: Cam-Follower
-  var camrock = new CamRock(3, 50, [10, 20, 40], [100, 40, 30], [60, 50, 80], 20, 150, 200);
+  var nDwell = 3;            // number of dwells on cam
+  var rb =  50;              // base radius of cam
+  var h = [10, 20, 40];        // dwell heights on cam
+  var betad = [100, 40, 30];   // dwell angles on cam (degrees)
+  var betar = [ 60, 50, 80];   // rise/fall angles on cam
+  var R = 20;                // radius of roller follower
+  var L = 150;                // length of bar on follower
+  var d = 200;                // distance between ground pins
+
+  var camrock = new CamRock(nDwell, rb, h, betad, betar, R, L, d);
   camrock.showPlots = false;
   camrock.showTrace = false;
   camrock.buttonCanvas("06", 160, 200);
