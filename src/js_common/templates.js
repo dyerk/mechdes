@@ -39,8 +39,16 @@ function renderMechanismSection(config) {
 
   var colClass = showPlots ? 'col-12 col-lg-6' : 'col-12';
 
+  var defaultPinDescriptions = {
+    B: "B - Crank Pin",
+    P: "P - Coupler Point",
+    C: "C - Rocker Pin"
+  };
+  var pinLabels = config.pinLabels || {};
+
   var pinOptions = pins.map(function (p) {
-    return `<option value="${p}">Point ${p}</option>`;
+    var label = pinLabels[p] || defaultPinDescriptions[p] || ("Point " + p);
+    return `<option value="${p}">${label}</option>`;
   }).join('');
 
   var plotColumn = showPlots ? `

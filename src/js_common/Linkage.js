@@ -101,6 +101,7 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     this.selPin.addEventListener("change", function () {
       linkage.pointSel = linkage.selPin.value;
       linkage.initPlots();
+      linkage.drawPinLabels();
       linkage.announceStatus("Plots updated for Point " + linkage.pointSel + ".");
     });
 
@@ -201,6 +202,7 @@ Linkage.prototype.precomputePlots = function () {
   } else {
     this.draw((this.crankMin + this.crankMax) / 2);
   }
+  this.drawPinLabels();
 };
 
 // Internal helper to push one angle step into a plot's trace arrays
@@ -266,6 +268,7 @@ Linkage.prototype.eventPlay = function () {
     }
 
     linkage.draw(crankAngle);
+    linkage.drawPinLabels();
 
     if (linkage.showTrace) {
       linkage.drawTrace();
@@ -312,6 +315,7 @@ Linkage.prototype.eventReset = function () {
   } else {
     this.draw((this.crankMin + this.crankMax) / 2);
   }
+  this.drawPinLabels();
 
   if (this.showPlots && this.plotDis) {
     this.plotDis.resetTraces();
@@ -466,4 +470,72 @@ Linkage.prototype.initPlots = function () {
     this.plotVel.setCursorIndex(idx);
     this.plotAcc.setCursorIndex(idx);
   }
+};
+
+// Draws high-contrast labels ("B", "P", "C") and highlights the currently selected point
+Linkage.prototype.drawPinLabels = function () {
+  if (!this.showPlots || !this.tracePoint || !this.ctx || !this.ctx[4]) return;
+
+  // Read the configured point keys directly from the <select> options (e.g., ["B", "C"])
+  var activeKeys = [];
+  if (this.selPin && this.selPin.options) {
+    for (var o = 0; o < this.selPin.options.length; o++) {
+      activeKeys.push(this.selPin.options[o].value);
+    }
+  } else {
+    activeKeys = ["B"];
+    if (this.dP !== undefined) activeKeys.push("P");
+    if (this.dC !== undefined) activeKeys.push("C");
+  }
+
+  var pointDefs = activeKeys.map(function (key, i) {
+    return {
+      key: key,
+      idx: i,
+      color: this.traceColor[i] || this.traceColor[0]
+    };
+  }, this);
+
+  // Use layer 4 (top layer) unless Instant Centers are currently occupying layer 4
+  var layerIdx = this.showIC ? 3 : 4;
+  var ctx = this.ctx[layerIdx];
+
+  if (!this.showIC) {
+    ctx.clearRect(0, 0, this.can[layerIdx].width, this.can[layerIdx].height);
+  }
+
+  ctx.save();
+  ctx.translate(this.x0, this.y0);
+  ctx.font = "bold 14px sans-serif";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "bottom";
+
+  for (var i = 0; i < pointDefs.length; i++) {
+    var def = pointDefs[i];
+    var pt = this.tracePoint[def.idx];
+
+    // Skip if this mechanism doesn't define that point (e.g., Threebar has no C, Slider-Crank has no P)
+    if (!pt || this["d" + def.key] === undefined) continue;
+
+    var isSelected = this.pointSel === def.key;
+
+    // 1. Draw colored ring around the pin (thicker & pulsing-style double ring when selected)
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, isSelected ? 10 : 7, 0, 2 * Math.PI);
+    ctx.lineWidth = isSelected ? 3 : 2;
+    ctx.strokeStyle = isSelected ? "#dc3545" : def.color;
+    ctx.stroke();
+
+    // 2. Draw crisp white halo behind dark text so it stays readable over moving bars
+    var labelX = pt.x + 10;
+    var labelY = pt.y - 8;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.strokeText(def.key, labelX, labelY);
+
+    ctx.fillStyle = isSelected ? "#dc3545" : "#000000";
+    ctx.fillText(def.key, labelX, labelY);
+  }
+
+  ctx.restore();
 };

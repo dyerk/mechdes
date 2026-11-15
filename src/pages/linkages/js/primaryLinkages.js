@@ -35,7 +35,10 @@ function init() {
       description: "This linkage consists of a crank, connecting rod, slider and ground.",
       ariaDiagram: "Animation of slider-crank mechanism in motion",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      pinLabels: {
+        C: "C - Slider Pin"  //override default
+      }
     },
     {
       id: "04",
