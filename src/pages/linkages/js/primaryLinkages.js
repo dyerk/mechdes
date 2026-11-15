@@ -65,7 +65,7 @@ function init() {
   ];
 
   // 2. Render HTML templates into DOM
-mount.innerHTML = renderMechanismSet(sectionConfigs);
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
 
   // 3. Instantiate and initialize each mechanism
   // 01: Threebar
