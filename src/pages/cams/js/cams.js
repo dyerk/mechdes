@@ -5,6 +5,45 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Knife-edge Follower",
+      description: "A knife-edge follower is one of the simplest followers.",
+      ariaDiagram: "Animation of knife-edge follower",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Flat-face Follower",
+      description: "A flat-faced follower may cause the follower to contact the cam in two places at the same time if it encounters a concave section of the cam.",
+      ariaDiagram: "Animation of flat-faced follower",
+      showPlots: false,
+    },
+    {
+      id: "03",
+      title: "Roller Follower",
+      description: "A roller follower is similar to the knife edge follower but decreases friction with the cam by introducing a bearing.",
+      ariaDiagram: "Animation of roller follower",
+      showPlots: false,
+    },
+    {
+      id: "04",
+      title: "Rocker Follower",
+      description: "The rocker follower translates the cam into angular displacement.",
+      ariaDiagram: "Animation of rocker follower",
+      showPlots: false,
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** dimensions of cam with knife-edged follower *****
 
   var nDwell = 3;            // number of dwells on cam
@@ -72,7 +111,7 @@ function init() {
   camrock.draw(0);
 	
 	// Start other page scripts
-	Select_Animation();
+	Select_Animation([camknife, camflat, camroll, camrock]);
 }
 
 
