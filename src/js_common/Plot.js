@@ -35,6 +35,7 @@ function Plot(hostElement, options) {
 
   this.plotColor = "#FAFAFA";
   this.gridColor = "#CCCCCC";
+  this.lineColor = "#000000";
 
   this.traces = [];
   this.activeTraceIndices = [0, 1];
@@ -59,13 +60,19 @@ function Plot(hostElement, options) {
   this.svg.appendChild(this.svgTitle);
   this.svg.appendChild(this.svgDesc);
 
+  var clipId = uid + "-clip";
+  var defs = this._createEl("defs");
+  this.clipPath = this._createEl("clipPath", { id: clipId });
+  this.clipRect = this._createEl("rect", { x: this.l, y: this.t, width: 10, height: 10 });
+  this.clipPath.appendChild(this.clipRect);
+  defs.appendChild(this.clipPath);
+  this.svg.appendChild(defs);
+
   this.gridGroup = this._createEl("g", { class: "plot-grid", "aria-hidden": "true" });
-
-  this.host.innerHTML = "";
-  this.host.appendChild(this.svg);
-
-  this.gridGroup = this._createEl("g", { class: "plot-grid" });
-  this.traceGroup = this._createEl("g", { class: "plot-traces" });
+  this.traceGroup = this._createEl("g", {
+    class: "plot-traces",
+    "clip-path": "url(#" + clipId + ")"
+  });
   this.cursorLine = this._createEl("line", {
     stroke: "#dc3545",
     "stroke-width": "1.5",
@@ -76,6 +83,9 @@ function Plot(hostElement, options) {
   this.svg.appendChild(this.gridGroup);
   this.svg.appendChild(this.traceGroup);
   this.svg.appendChild(this.cursorLine);
+
+  this.host.innerHTML = "";
+  this.host.appendChild(this.svg);
 
   this.polylines = [];
 
@@ -120,15 +130,19 @@ Plot.prototype.checkSize = function () {
 
   this.w = Math.max(10, this.width - this.l - this.r);
   this.h = Math.max(10, this.height - this.t - this.b);
+
+  if (this.clipRect) {
+    this.clipRect.setAttribute("x", this.l);
+    this.clipRect.setAttribute("y", this.t);
+    this.clipRect.setAttribute("width", this.w);
+    this.clipRect.setAttribute("height", this.h);
+  }
 };
 
 Plot.prototype.computeAutoBounds = function () {
   if (this.yBounds !== "auto" || !this.traces.length) return false;
 
-  var dataMin = Infinity;
-  var dataMax = -Infinity;
-  var hasPoints = false;
-
+  var allVals = [];
   for (var i = 0; i < this.activeTraceIndices.length; i++) {
     var idx = this.activeTraceIndices[i];
     var trace = this.traces[idx];
@@ -136,19 +150,27 @@ Plot.prototype.computeAutoBounds = function () {
 
     for (var p = 1; p < trace.yVals.length; p++) {
       var val = trace.yVals[p];
-      if (!isNaN(val) && isFinite(val)) {
-        hasPoints = true;
-        if (val < dataMin) dataMin = val;
-        if (val > dataMax) dataMax = val;
-      }
+      if (isFinite(val)) allVals.push(val);
     }
   }
 
-  if (!hasPoints) {
+  if (!allVals.length) {
     this.yMin = -10;
     this.yMax = 10;
     return false;
   }
+
+  allVals.sort(function (a, b) { return a - b; });
+  var rawMin = allVals[0];
+  var rawMax = allVals[allVals.length - 1];
+
+  // Cap extreme toggle spikes using 3rd/97th percentiles when outliers exceed 3x central spread
+  var pLow = allVals[Math.floor(allVals.length * 0.03)];
+  var pHigh = allVals[Math.ceil(allVals.length * 0.97) - 1];
+  var coreSpan = Math.max(1e-6, pHigh - pLow);
+
+  var dataMin = (pLow - rawMin > coreSpan * 3) ? pLow : rawMin;
+  var dataMax = (rawMax - pHigh > coreSpan * 3) ? pHigh : rawMax;
 
   var span = dataMax - dataMin;
   var pad = span > 0 ? span * 0.1 : Math.max(1, Math.abs(dataMax) * 0.15);
@@ -197,8 +219,11 @@ Plot.prototype.drawGrid = function () {
   }));
 
   var yTicks = this.generateYTicks();
+  var yStep = yTicks.length > 1 ? Math.abs(yTicks[1] - yTicks[0]) : 1;
+
   for (var j = 0; j < yTicks.length; j++) {
     var val = yTicks[j];
+    var isZero = Math.abs(val) < yStep * 1e-4;
     var yPos = Math.round(this.t + this.h - ((val - this.yMin) / (this.yMax - this.yMin)) * this.h) + 0.5;
 
     var label = this._createEl("text", {
@@ -210,18 +235,18 @@ Plot.prototype.drawGrid = function () {
       "text-anchor": "end",
       "dominant-baseline": "middle"
     });
-    label.textContent = Math.abs(val) < 1 && val !== 0 ? val.toFixed(1) : val.toFixed(0);
+    label.textContent = isZero ? "0" : (Math.abs(val) < 1 ? val.toFixed(1) : val.toFixed(0));
     this.gridGroup.appendChild(label);
 
-    if (val !== this.yMin && val !== this.yMax) {
+    if ((val !== this.yMin && val !== this.yMax) || isZero) {
       this.gridGroup.appendChild(this._createEl("line", {
         x1: this.l,
         y1: yPos,
         x2: this.l + this.w,
         y2: yPos,
-        stroke: val === 0 ? this.lineColor : this.gridColor,
-        "stroke-width": 1,
-        "stroke-dasharray": val === 0 ? "none" : "2,4"
+        stroke: isZero ? this.lineColor : this.gridColor,
+        "stroke-width": isZero ? 1.25 : 1,
+        "stroke-dasharray": isZero ? "none" : "2,4"
       }));
     }
   }
@@ -303,6 +328,7 @@ Plot.prototype.rebuildPolylines = function () {
     this.polylines.push({ traceIdx: traceIdx, el: poly });
   }
 };
+
 // Positions the red vertical cursor at a specific trace sample index
 Plot.prototype.setCursorIndex = function (index) {
   var firstTraceIdx = this.activeTraceIndices[0];
@@ -323,31 +349,23 @@ Plot.prototype.drawTraces = function (traceList, index, isCycleComplete) {
     this.activeTraceIndices = traceList;
   }
 
-  if (!isCycleComplete) {
-    var xVal = trace.xVals[index];
-    var yVal = trace.yVals[index];
-    if (isFinite(xVal) && isFinite(yVal)) {
-      var px = this.xZero + this.scaleToPlot("x", xVal);
-      var py = this.yZero - this.scaleToPlot("y", yVal);
-      if (isFinite(px) && isFinite(py)) {
-        var currentPts = item.el.getAttribute("points");
-        var nextPt = px.toFixed(1) + "," + py.toFixed(1);
-        item.el.setAttribute("points", currentPts ? currentPts + " " + nextPt : nextPt);
-      }
-    }
-  }
-
   for (var i = 0; i < this.polylines.length; i++) {
     var item = this.polylines[i];
     var trace = this.traces[item.traceIdx];
     if (!trace || index >= trace.xVals.length) continue;
 
     if (!isCycleComplete) {
-      var px = this.xZero + this.scaleToPlot("x", trace.xVals[index]);
-      var py = this.yZero - this.scaleToPlot("y", trace.yVals[index]);
-      var currentPts = item.el.getAttribute("points");
-      var nextPt = px.toFixed(1) + "," + py.toFixed(1);
-      item.el.setAttribute("points", currentPts ? currentPts + " " + nextPt : nextPt);
+      var xVal = trace.xVals[index];
+      var yVal = trace.yVals[index];
+      if (isFinite(xVal) && isFinite(yVal)) {
+        var px = this.xZero + this.scaleToPlot("x", xVal);
+        var py = this.yZero - this.scaleToPlot("y", yVal);
+        if (isFinite(px) && isFinite(py)) {
+          var currentPts = item.el.getAttribute("points");
+          var nextPt = px.toFixed(1) + "," + py.toFixed(1);
+          item.el.setAttribute("points", currentPts ? currentPts + " " + nextPt : nextPt);
+        }
+      }
     }
   }
 
@@ -445,8 +463,10 @@ Plot.prototype.updateAccessibleSummary = function () {
     var min = Infinity, max = -Infinity, minDeg = 0, maxDeg = 0;
     for (var p = 1; p < trace.yVals.length; p++) {
       var v = trace.yVals[p];
-      if (v < min) { min = v; minDeg = trace.xVals[p]; }
-      if (v > max) { max = v; maxDeg = trace.xVals[p]; }
+      if (isFinite(v)) {
+        if (v < min) { min = v; minDeg = trace.xVals[p]; }
+        if (v > max) { max = v; maxDeg = trace.xVals[p]; }
+      }
     }
     if (isFinite(min) && isFinite(max)) {
       parts.push(

@@ -460,6 +460,22 @@ Linkage.prototype.initPlots = function () {
   this.updateLimits(this.pointSel);
   var selectedIndices = [this[this.pointSel].x, this[this.pointSel].y];
 
+  var xMinDeg = 0;
+  var xMaxDeg = 360;
+
+  if (!this.isGrashof && isFinite(this.crankMin) && isFinite(this.crankMax)) {
+    var deg1 = (this.crankMin * 180) / Math.PI;
+    var deg2 = (this.crankMax * 180) / Math.PI;
+    xMinDeg = Math.floor(Math.min(deg1, deg2));
+    xMaxDeg = Math.ceil(Math.max(deg1, deg2));
+  }
+
+  [this.plotDis, this.plotVel, this.plotAcc].forEach(function (plot) {
+    if (!plot) return;
+    plot.xMin = xMinDeg;
+    plot.xMax = xMaxDeg;
+  });
+
   this.plotDis.drawPlot(selectedIndices);
   this.plotVel.drawPlot(selectedIndices);
   this.plotAcc.drawPlot(selectedIndices);
