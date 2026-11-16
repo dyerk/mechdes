@@ -38,7 +38,7 @@ function init() {
       id: "04",
       title: "Class 4",
       description: "The shortest link is the rocker, and only the rocker makes a complete revolution. In this it is analagous to the Class 2 linkage.",
-      ariaDiagram: "Animation of Grashof class 3 fourbar mechanism",
+      ariaDiagram: "Animation of Grashof class 4 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"]
     },
