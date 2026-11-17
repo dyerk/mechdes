@@ -5,21 +5,93 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
-	// ***** dimensions of slider-crank linkage *****
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Slider Crank (Aligned)",
+      description: "Most slider-cranks have the cylinder horizontally aligned with the ground pin.",
+      ariaDiagram: "Animation of aligned slider-crank mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+      pinLabels: {
+        C: "C - Slider Pin"  //override default
+      },
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Slider Crank (Offset)",
+      description: "This slider-crank has a vertical offset.",
+      ariaDiagram: "Animation of slider-crank mechanism with slider offest vertically from crank",
+      showPlots: true,
+      pins: ["B", "C"],
+      pinLabels: {
+        C: "C - Slider Pin"  //override default
+      },
+    },
+    {
+      id: "03",
+      title: "Fourbar (Open)",
+      description: "This fourbar linkage is in the open configuration.",
+      ariaDiagram: "Animation of an open configuration fourbar mechanism.",
+      showPlots: true,
+      pins: ["B", "P", "C"],
+    },
+    {
+      id: "04",
+      title: "Fourbar (Crossed)",
+      description: "This fourbar linkage is in the crossed configuration.",
+      ariaDiagram: "Animation of a crossed configuration fourbar mechanism.",
+      showPlots: true,
+      pins: ["B", "P", "C"],
+    },
+    {
+      id: "05",
+      title: "Inverted Slider (Open)",
+      description: "This inverted slider is in the open configuration.",
+      ariaDiagram: "Animation of a open configuration inverted slider mechanism.",
+      showPlots: true,
+      pins: ["B", "P"],
+    },
+    {
+      id: "06",
+      title: "Inverted Slider (Crossed)",
+      description: "This inverted slider is in the crossed configuration.",
+      ariaDiagram: "Animation of a crossed configuration inverted slider mechanism.",
+      showPlots: true,
+      pins: ["B", "P"],
+    },
+    {
+      id: "07",
+      title: "Geared Fivebar (Same Gears)",
+      description: "This geared fivebar has two gears with equal numbers of teeth.",
+      ariaDiagram: "Animation of geared fivebar mechanism with equal number of teeth.",
+      showPlots: false
+    },
+    {
+      id: "08",
+      title: "Geared Fivebar (Different Gears)",
+      tabTitle: "Geared Fivebar (Diff Gears)",
+      description: "The second gear has twice the number of teeth as the first gear. Note the cusps in the motion of the blue trace.",
+      ariaDiagram: "Animation of geared fivebar mechanism with inequal number of teeth.",
+      showPlots: false
+    }
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
   var a = 60;                // crank
   var b = 130;               // connecting rod
   var c = 0;                // vertical distance to slot
 
   var sliderCrankA = new SliderCrank(a,b,c);  // create slider-crank
   sliderCrankA.buttonCanvas("01", 140, 210, true, 0, true);
-	//sliderCrankA.setLims([[-65,195],[-65,105],[-105,150]]); //[[dL,dH],[vL,vH],[aL,aH]]
-  sliderCrankA.limits = {
-    B: { dis: [-65, 65], vel: [-85, 85], acc: [-80, 80] },
-    C: { dis: [0, 200], vel: [-100,100], acc: [-100,100]}
-  };
-  sliderCrankA.initPlots();
-  sliderCrankA.drawGround();
-  sliderCrankA.draw(0);
+	sliderCrankA.precomputePlots();
 	
 	// ***** dimensions of slider-crank linkage *****
   var a = 60;                // crank
@@ -28,9 +100,7 @@ function init() {
 
   var sliderCrankO = new SliderCrank(a,b,c);  // create slider-crank
   sliderCrankO.buttonCanvas("02", 140, 210, true, 0, true);
-	sliderCrankO.setLims([[-65,195],[-65,105],[-105,150]]); //[[dL,dH],[vL,vH],[aL,aH]]
-  sliderCrankO.drawGround();
-  sliderCrankO.draw(0);
+  sliderCrankO.precomputePlots();
 	
   // ***** these are the dimensions of each link *****
   var S = 50;  // short link
@@ -48,9 +118,7 @@ function init() {
 
   var fourbarO = new Fourbar(a,b,c,d,p,beta,12,true);  // create fourbar
   fourbarO.buttonCanvas("03", 150, 200, true, 3, true);
-	fourbarO.setLims([[-85,235],[-85,165],[-325,185]]); //[[dL,dH],[vL,vH],[aL,aH]]
-  fourbarO.drawGround();
-  fourbarO.draw(0);
+  fourbarO.precomputePlots();
 	
 	// ***** dimensions of fourbar linkage for special Grashof type 12 crossed *****
   var d = P;    // ground
@@ -62,9 +130,7 @@ function init() {
 	
 	var fourbarC = new Fourbar(a,b,c,d,p,beta,12,false);  // create fourbar
   fourbarC.buttonCanvas("04", 150, 200, true, 3, true);
-	fourbarC.setLims([[-150,235],[-85,165],[-325,185]]); //[[dL,dH],[vL,vH],[aL,aH]]
-  fourbarC.drawGround();
-  fourbarC.draw(0);
+  fourbarC.precomputePlots();
 	
 	// ***** dimensions of inverted slider-crank
   var a = 40;                     // crank
@@ -75,9 +141,7 @@ function init() {
 
   var invSlideO = new InvSlide(a,p,c,d,gamma,true); // create inverted slider-crank
   invSlideO.buttonCanvas("05", 120, 250, true, 1, true);
-	invSlideO.setLims([[-65,265],[-90,90],[-195,110]]); //[[dL,dH],[vL,vH],[aL,aH]]
-  invSlideO.drawGround();
-  invSlideO.draw(0);
+  invSlideO.precomputePlots();
 	
 	// ***** dimensions of inverted slider-crank
   var a = 40;                     // crank
@@ -88,9 +152,7 @@ function init() {
 	
 	var invSlideC = new InvSlide(a,p,c,d,gamma,false); // create inverted slider-crank
   invSlideC.buttonCanvas("06", 120, 200, true, 1, true);
-	invSlideC.setLims([[-170,200],[-90,90],[-195,110]]); //[[dL,dH],[vL,vH],[aL,aH]]
-  invSlideC.drawGround();
-  invSlideC.draw(0);
+  invSlideC.precomputePlots();
 
   // ***** dimensions of fivebar linkage
   var a = 60;                   // crank
@@ -128,8 +190,8 @@ function init() {
   fivebarD.drawGround();
   fivebarD.draw(0);
 	
-	// Start other page scripts
-	Select_Animation();
+  // 4. Initialize tab switcher and pass mechanism instances for plot resizing
+  Select_Animation([sliderCrankA, sliderCrankO, fourbarO, fourbarC, invSlideO, invSlideC, fivebarS, fivebarD]);
 }
 
 

@@ -5,9 +5,33 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
-	// Start other page scripts
-	Select_Animation();
-	
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Planetary Gearset",
+      tabTitle: "Traditional Planetary<br>(3 Lobe Balance)",
+      description: "The traditional sun-ring-planet gearset with three balancing lobes.",
+      ariaDiagram: "Animation of three lobed traditional planetary gearset",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Planetary Gearset",
+      tabTitle: "2 Suns & 2 Planets<br>(3 Lobe Balance)",
+      description: "The two-suns, two-planets gearset with three balancing lobes.",
+      ariaDiagram: "Animation of three lobed two-suns, two-planets planetary gearset",
+      showPlots: false,
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** numbers of teeth on gears *****
   var Ns = 32;   // number of teeth on sun
   var Np = 16;   // number of teeth on planet
@@ -29,6 +53,9 @@ function init() {
 	planS2P2.buttonCanvas("02", 210, 210);
   planS2P2.drawGround();
   planS2P2.draw(0);
+
+  // Start other page scripts
+	Select_Animation([planSrp, planS2P2]);
 }
 
 

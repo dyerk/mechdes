@@ -5,9 +5,33 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
-	// Start other page scripts
-	Select_Animation();
-	
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Planetary Gearset",
+      tabTitle: "2 Suns & 2 Planets",
+      description: "A very large reduction with two suns and two planets. The input is the arm and the output is the blue sun, which you can see rotating if you let the animation run long enough.",
+      ariaDiagram: "Animation of large readuction two suns and two planets planetary gearset",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Planetary Gearset",
+      tabTitle: "2 Rings & 2 Planets",
+      description: "A very large reduction with two rings and two planets. The input is the arm and the output is the blue ring gear.",
+      ariaDiagram: "Animation of large reduction two rings and two planets planetary gearset",
+      showPlots: false,
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** numbers of teeth on gears *****
   var Ns1 = 28;  // number of teeth on first sun
   var Ns2 = 32*13/15;  // number of teeth on second sun
@@ -33,6 +57,9 @@ function init() {
 	planRed2.buttonCanvas("02", 210, 210);
   planRed2.drawGround();
   planRed2.draw(0);
+
+  // Start other page scripts
+	Select_Animation([planRed1, planRed2]);
 }
 
 

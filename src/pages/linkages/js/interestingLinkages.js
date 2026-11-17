@@ -5,6 +5,41 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Peaucellier Straight-Line Linkage",
+      tabTitle: "Peaucellier Straight-Line",
+      description: "This linkage is one of the few to draw an exactly straight line. By changing the distance between ground pivots we can also draw circular arcs of very large radius.",
+      ariaDiagram: "Animation of Peaucellier straight-line linkage",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Chebyshev Paradoxical Mechanism",
+      tabTitle: "Chebyshev Paradoxical CW",
+      description: "If the flywheel is started in the clockwise direction, it will spin four times for every revolution of the crank.",
+      ariaDiagram: "Animation of Chebyshev paradoxical mechanism with a clockwise spinning flywheel.",
+      showPlots: false,
+    },
+    {
+      id: "03",
+      title: "Chebyshev Paradoxical Mechanism",
+      tabTitle: "Chebyshev Paradoxical CCW",
+      description: "If the flywheel is started in the counterclockwise direction, it will spin only twice for every revolution of the crank!",
+      ariaDiagram: "Animation of Chebyshev paradoxical mechanism with a counter-clockwise spinning flywheel.",
+      showPlots: false,
+    }
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** dimensions of Peaucellier linkage *****
   var a =  80;             // short links
   var b = 100;             // medium links
@@ -50,7 +85,7 @@ function init() {
   chebyshevr.draw(0);                // calculate the Chebyshev geometry and draw
 	
 	// Start other page scripts
-	Select_Animation();
+	Select_Animation([peaucellier,chebyshevf,chebyshevr]);
 }
 
 

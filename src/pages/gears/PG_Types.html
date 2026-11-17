@@ -9,16 +9,17 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-		<!-- Shared Components Loader Script -->
-		<script src="../../js_common/load_components.js" defer></script>
-
 		<!-- Custom Stylesheet & Favicon -->
 		<link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon/favicon-32x32.png">
 		<link rel="stylesheet" href="../../css/main.css">
 
+		<!-- Shared Components Loader Script -->
+		<script src="../../js_common/load_components.js" defer></script>
+
 		<!-- Common JavaScript links -->
         <script src="../../js_common/Linkage.js" defer></script>
         <script src="../../js_common/Common_Shapes.js" defer></script>
+		<script src="../../js_common/templates.js" defer></script>
 
 		<!-- Page Specific JavaScript Links -->
 		<script src="../../js_common/Common_Shapes_Planetary.js" defer></script>
@@ -37,9 +38,7 @@
 
 		<!-- PAGE CONTENT -->
 		<main id="main-content" class="container my-4 flex-grow-1 bg-white text-dark p-4 rounded-3 shadow-sm" tabindex="-1">
-			<header class="mb-2 pb-2">
-				<h1 class="h2">Planetary Gearsets</h1>
-			</header>
+			<h1 class="h2">Planetary Gearsets</h1>
 
 			<article>
         		<h2 class="h4 text-muted border-bottom pb-2 mb-2">Types of Planetary Gearsets</h2>
@@ -119,72 +118,15 @@
 							</figcaption>
 						</figure>
 						</div>
-					</div>
-				</section>	
+					</div>	
 
-				<!-- SECTION 3: Carrier Fixed Animations -->
-				<section class="mt-4" aria-labelledby="carrier-fixed-heading">
-					<h3 id="carrier-fixed-heading" class="h5 border-bottom text-secondary pb-2 mb-2">Carrier Fixed Animations</h3>
-					<p class="mt-2">
-						In the animations below, the carrier is fixed and no epicyclic motion results. Both gearsets behave like ordinary gearsets - they are not really planetary at all! In both animations. The planet makes two rotations and the ring makes half a rotation, as would be expected in an ordinary gearset. The difference is the speed due to the varied system input. 
-					</p>
 					<p>	
 						The animations below show the "two suns — two planets" gearset with one sun as input and the other sun fixed. Note that the carrier rotates clockwise in the animation with the large sun fixed and counterclockwise in the animation with the small sun fixed — despite the fact that the input sun rotates counterclockwise in both cases.
 					</p>
-					<div class="row g-4 align-items-start">
-		
-						<!-- Left Column: Canvas Animation & Controls -->
-						<div class="col-12 col-md-6">
-							<figure class="figure w-100 m-0">
-								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-									<figcaption class="h6 fw-bold text-dark text-center mb-3">Small Sun Input - Large Sun Fixed</figcaption>
-									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-										<canvas class="canTrace" id="01canTr" width="500" height="400"></canvas>
-										<canvas class="canDraw z_2" id="01canM1" width="500" height="400"></canvas>
-										<canvas class="canDraw z_3" id="01canM2" width="500" height="400"></canvas>
-										<canvas class="canDraw z_4" id="01canM3" width="500" height="400"></canvas>
-										<canvas class="canDraw z_5" id="01canGr" width="500" height="400"></canvas>
-									</div>
 
-									<!-- Animation Controls -->
-									<div class="d-flex justify-content-center gap-3 mt-3">
-										<button type="button" class="btn btn-outline-primary" id="01btnPlay" aria-label="Play animation">
-											<i class="fa-solid fa-circle-play fa-2xl" id="01butPlay" aria-hidden="true"></i>
-										</button>
-										<button type="button" class="btn btn-outline-secondary" id="01btnReset" aria-label="Reset animation">
-											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="01butReset" aria-hidden="true"></i>
-										</button>
-									</div>
-								</div>
-							</figure>
-						</div>
+					<!-- DYNAMICALLY RENDERED ANIMATIONS -->
+					<div id="2suns-2planets-mount"></div>
 
-						<!-- Right Column: Canvas Animation & Controls -->
-						<div class="col-12 col-md-6">
-							<figure class="figure w-100 m-0">
-								<div class="animationCanvas border rounded p-3 shadow-sm bg-light">
-									<figcaption class="h6 fw-bold text-dark text-center mb-3">Large Sun Input - Small Sun Fixed</figcaption>
-									<div class="canvas-wrapper bg-white border rounded p-2 mb-3 position-relative">
-										<canvas class="canTrace" id="02canTr" width="500" height="400"></canvas>
-										<canvas class="canDraw z_2" id="02canM1" width="500" height="400"></canvas>
-										<canvas class="canDraw z_3" id="02canM2" width="500" height="400"></canvas>
-										<canvas class="canDraw z_4" id="02canM3" width="500" height="400"></canvas>
-										<canvas class="canDraw z_5" id="02canGr" width="500" height="400"></canvas>
-									</div>
-
-									<!-- Animation Controls -->
-									<div class="d-flex justify-content-center gap-3 mt-3">
-										<button type="button" class="btn btn-outline-primary" id="02btnPlay" aria-label="Play animation">
-											<i class="fa-solid fa-circle-play fa-2xl" id="02butPlay" aria-hidden="true"></i>
-										</button>
-										<button type="button" class="btn btn-outline-secondary" id="02btnReset" aria-label="Reset animation">
-											<i class="fa-solid fa-rotate-right fa-2xl button-disabled" id="02butReset" aria-hidden="true"></i>
-										</button>
-									</div>
-								</div>
-							</figure>
-						</div>
-					</div>
 				</section>
 
 				<!-- SECTION 4: The Differential -->

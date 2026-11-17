@@ -1,552 +1,557 @@
-// ***************************************************************************************
-// The Linkage object is the base object for all linkages
-// ***************************************************************************************
 function Linkage() {
-  this.isPlaying = false; // is the animation playing?
-  this.isGrashof = true;  // does the crank make a full revolution?
-  this.showPlots = true;	// show Disp, Vel, Acc plots
-  this.showIC = false;		// show instant centers?
-  this.showTrace = true;  // show traces?
-  this.calcLengths = true; // calculate link lentghs - turn off for geared canvases
-	
-  this.crankMin = 0;    // starting value for crank (only for non-Grashof linkages)
-  this.crankMax = 0;    // ending value for crank (only for non-Grashof linkages)
-  this.deltaT = 1.5;    // timestep in animation
-  this.timeStep = 0;    // current value of time in animation
+  this.isPlaying = false;
+  this.isGrashof = true;
+  this.showPlots = true;
+  this.showIC = false;
+  this.showTrace = true;
+  this.calcLengths = true;
 
-  // These are the colors for the links, pins, etc.
-  // This color scheme is tetrad on paletton.com with base color 006DC7
-  this.color = ["#FFFFFF",  // [0]  white
-                "#DDDDDD",  // [1]  light gray
-                "#AAAAAA",  // [2]  medium gray
-				"#333333",  // [3]  dark gray
-				"#000000",  // [4]  black
-                "#B0A1BA",  // [5]  Main Primary color (Rose Quartz)
-                "#F4F3F5",  // [6]  light
-                "#D5CEDA",  // [7]  med light
-                "#8E779E",  // [8]  med dark
-                "#705285",  // [9]  dark
-                "#1B998B",  // [10] Main Secondary color (Perisan Green)
-                "#5FC1B7",  // [11] light
-                "#37A69B",  // [12] med light
-                "#068376",  // [13] med dark
-                "#00675C",  // [14] dark
-                "#C5D86D",  // [15] Main Secondary color (Mindaro)
-                "#F1FACA",  // [16] light
-                "#E7F7A3",  // [17] med light
-                "#9CB13E",  // [18] med dark
-                "#778B1C",  // [19] dark
-                "#99621E",  // [20] Main Complement color (Golden Brown)
-                "#E2AE6E",  // [21] light
-                "#B9813D",  // [22] med light
-                "#724105",  // [23] med dark
-                "#482800"]; // [24] dark
+  this.crankMin = 0;
+  this.crankMax = 0;
+  this.deltaT = 1.5;
+  this.timeStep = 0;
 
-  // The geom object gives the dimensions of common shapes such as pins, pivots, etc.
-  this.geom = {pinRadius: 4,                  // radius of all pins
-               pinLineColor: this.color[3],   // line color for pins
-			   pinFillColor: this.color[2],   // fill color for pins
-               barWidth: 15,                  // width of bars
-               barDiam: 20,                   // diameter of end knob on bar
-               couplerRadius: 10,             // coupler fillet radius
-               pivotWidth: 30,                // width of bottom of pivot
-               pivotHeight: 20,               // vertical distance from pivot pin to bottom
-               pivotRadius: 10,               // radius of top end of pivot
-			   pivotLineColor: this.color[3], // line color for pivot
-			   pivotFillColor: this.color[1], // pivot fill color
-               pistonWidth: 40,               // width of piston
-               pistonHeight: 50,              // height of piston
-               rockerWidth: 60,               // width of top of rocker
-               groundHeight: 20,              // height of ground slider rectangle
-			   groundFillColor: this.color[1],// ground rectangle fill color
-			   groundLineColor: this.color[4],// ground line color
-               motorWidth1: 20,               // upper width of motor quadrilateral
-               motorWidth2: 40,               // lower width of motor quadrilateral
-               motorHeight: 25,               // height of motor quadrilateral
-			   motorRadius: 20,               // radius of motor circle	
-			   pitch: 1/3}                    // gear pitch in pixels per tooth
+  this.color = [
+    "#FFFFFF", "#DDDDDD", "#AAAAAA", "#333333", "#000000",
+    "#B0A1BA", "#F4F3F5", "#D5CEDA", "#8E779E", "#705285",
+    "#1B998B", "#5FC1B7", "#37A69B", "#068376", "#00675C",
+    "#C5D86D", "#F1FACA", "#E7F7A3", "#9CB13E", "#778B1C",
+    "#99621E", "#E2AE6E", "#B9813D", "#724105", "#482800"
+  ];
+
+  this.geom = {
+    pinRadius: 4,
+    pinLineColor: this.color[3],
+    pinFillColor: this.color[2],
+    barWidth: 15,
+    barDiam: 20,
+    couplerRadius: 10,
+    pivotWidth: 30,
+    pivotHeight: 20,
+    pivotRadius: 10,
+    pivotLineColor: this.color[3],
+    pivotFillColor: this.color[1],
+    pistonWidth: 40,
+    pistonHeight: 50,
+    rockerWidth: 60,
+    groundHeight: 20,
+    groundFillColor: this.color[1],
+    groundLineColor: this.color[4],
+    motorWidth1: 20,
+    motorWidth2: 40,
+    motorHeight: 25,
+    motorRadius: 20,
+    pitch: 1 / 3
+  };
 }
 
-// ****************************************************************************************
-// Linkage.buttonCanvas initializes the buttons and canvases for the linkage
-// ****************************************************************************************
 Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
-	
- 	 var linkage = this;                     // make an explicit linkage object so buttons will work
-	
-	// Target the parent <button> tags:
-	this.btnPlay  = document.getElementById(pageID + 'btnPlay');  // The <button> wrapper
-	this.btnReset = document.getElementById(pageID + 'btnReset'); // The <button> wrapper
+  var linkage = this;
+  this.root = document.querySelector('[data-mechanism-id="' + pageID + '"]');
 
-	// Target the inner <i> icons for class swapping:
-	this.iconPlay  = document.getElementById(pageID + 'butPlay');  // The <i> tag inside play button
-	this.iconReset = document.getElementById(pageID + 'butReset'); // The <i> tag inside reset button
+  if (!this.root) {
+    console.error("Mechanism container not found for ID:", pageID);
+    return;
+  }
 
-	// Attach click listeners to the BUTTONS, not the icons:
-	this.btnPlay.addEventListener('click', function () { linkage.eventPlay(linkage); }, false);
-	this.btnReset.addEventListener('click', function () {linkage.eventReset(linkage)}, false);
-	
-	// capture canvas html id tags for animation into script
-	this.can = [];
-	this.ctx = [];
-  	this.can[0] = document.getElementById(pageID + 'canTr');  // tracing canvas for the linkage
-  	this.ctx[0] = this.can[0].getContext('2d');               // tracing context for the linkage
-	this.can[1] = document.getElementById(pageID + 'canM1');  // moving link 1 canvas for linkage
-	this.ctx[1] = this.can[1].getContext('2d');               // moving link 1 context for the linkage
-	this.can[2] = document.getElementById(pageID + 'canM2');	// moving link 2 canvas for linkage
-	this.ctx[2] = this.can[2].getContext('2d');               // moving link 2 context for the linkage
-	this.can[3] = document.getElementById(pageID + 'canM3');	// moving link 3 canvas for linkage
-	this.ctx[3] = this.can[3].getContext('2d');               // moving link 3 context for the linkage
-	this.can[4] = document.getElementById(pageID + 'canGr');  // ground canvas for the linkage
-  	this.ctx[4] = this.can[4].getContext('2d');               // ground context for the linkage
+  this.btnPlay = this.root.querySelector('[data-role="btn-play"]');
+  this.btnReset = this.root.querySelector('[data-role="btn-reset"]');
+  this.iconPlay = this.root.querySelector('[data-role="icon-play"]');
+  this.iconReset = this.root.querySelector('[data-role="icon-reset"]');
+  this.srStatus = this.root.querySelector('[data-role="sr-status"]');
 
-	// set canvas size
+  if (!this.btnPlay || !this.btnReset) {
+    console.error("Play/Reset buttons not found inside [data-mechanism-id='" + pageID + "']");
+    return;
+  }
+
+  // Store initial accessible labels so pause/reset restore mechanism-specific names
+  this.playLabelDefault = this.btnPlay.getAttribute("aria-label") || "Play animation";
+  this.pauseLabelDefault = this.playLabelDefault.replace(/^Play\b/i, "Pause");
+
+  this.btnPlay.addEventListener("click", function () {
+    linkage.eventPlay();
+  });
+  this.btnReset.addEventListener("click", function () {
+    linkage.eventReset();
+  });
+
+  this.can = [];
+  this.ctx = [];
   for (var i = 0; i < 5; i++) {
-    this.can[i].width = 500;                                 // set width of drawing canvas
-    this.can[i].height = 400;                                // set height of drawing canvas
+    this.can[i] = this.root.querySelector('canvas[data-layer="' + i + '"]');
+    this.ctx[i] = this.can[i].getContext("2d");
+    this.can[i].width = 500;
+    this.can[i].height = 400;
   }
 
-	// set orgin
-  this.x0 = x0;                                              // x coordinate of origin on canvas
-  this.y0 = y0;                                              // y coordinate of origin on canvas
-  
-	// trace setup
-  this.traceColor = [this.color[9],this.color[19],this.color[14]];// colors of the tracing points
-	
-	// Generate plot functionality if turned on in instance of linkage
-	if (this.showPlots) {
-		// capture canvas html id tags for plots into script
-		this.canAcc = document.getElementById(pageID+'canAcc');   // accel plot canvas
-		this.ctxAcc = this.canAcc.getContext('2d');								// accel plot context
-		this.canVel = document.getElementById(pageID+'canVel');   // vel plot canvas
-		this.ctxVel = this.canVel.getContext('2d');								// vel plot context
-		this.canDis = document.getElementById(pageID+'canDis');   // dis plot canvas
-		this.ctxDis = this.canDis.getContext('2d');								// dis plot context
+  this.x0 = x0;
+  this.y0 = y0;
+  this.traceColor = [this.color[9], this.color[19], this.color[14]];
 
-		const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
-		if (plotControl) {
-			plotControl.classList.remove('d-none');
-		}
-		
-		// Get variables from page
-		var selPin   = pageID + 'selPin';
-		var butAcc   = pageID + 'butAcc';
-		var butVel   = pageID + 'butVel';
-		var butDis   = pageID + 'butDis';
-		var sizeAcc  = pageID + 'sizeAcc';
-		var sizeVel  = pageID + 'sizeVel';
-		var sizeDis  = pageID + 'sizeDis';
-		var caption  = pageID + 'cap';
-		
-		// capture html id tags into script
-		this.selPin   = document.getElementById(selPin);			// pin selection for T,A,V,D plots
-		this.butAcc   = document.getElementById(butAcc);	  		// button show/hide acceleration plot
-		this.butVel   = document.getElementById(butVel);    		// button show/hide velocity plot
-		this.butDis   = document.getElementById(butDis);			// button show/hide displacement plot
-		this.sizeAcc = document.getElementById(sizeAcc);			// size acceleration plot
-		this.sizeVel = document.getElementById(sizeVel);			// size velocity plot
-		this.sizeDis = document.getElementById(sizeDis);			// size displacemnt plot
-		this.butMon = [this.butAcc,this.butVel,this.butDis]; // make button array
-		
-		// add event listeners for plot buttons
-		this.butAcc.addEventListener('click',function(){linkage.eventPlotToggle(linkage,butAcc)},false);
-		this.butVel.addEventListener('click',function(){linkage.eventPlotToggle(linkage,butVel)},false);
-		this.butDis.addEventListener('click',function(){linkage.eventPlotToggle(linkage,butDis)},false);
-		this.sizeAcc.addEventListener('click',function(){linkage.eventPlotResize(linkage,sizeAcc)},false);
-		this.sizeVel.addEventListener('click',function(){linkage.eventPlotResize(linkage,sizeVel)},false);
-		this.sizeDis.addEventListener('click',function(){linkage.eventPlotResize(linkage,sizeDis)},false);
-	
-		//Determine desired plot point
-		this.pointSel = this.selPin.value || 'B';			//string value from dropdown
-		this.B = {x:0,y:1};		//index of the traces in the plot object
-		this.P = {x:2,y:3};		//index of the traces in the plot object
-		this.C = {x:4,y:5};		//index of the traces in the plot object
+  var plotControl = this.root.querySelector(".plotControl");
+  if (this.showPlots && plotControl) {
+    this.selPin = this.root.querySelector('[data-role="sel-pin"]');
+    this.pointSel = this.selPin.value || "B";
 
-		this.limits = {
-			B: { dis: [-100, 150], vel: [-200, 200], acc: [-500, 500] },
-			P: { dis: [-50, 200],  vel: [-150, 150], acc: [-400, 400] },
-			C: { dis: [0, 300],    vel: [-300, 300], acc: [-600, 600] }
-		};
-		
-		//Create displacement plot
-		this.plotDis = new Plot(this.canDis,this.ctxDis); 				// initialize plot
-		this.setPlotAttr('plotDis',this.color[24],this.color[14], // set plot parameters
-		"DISPLACEMENT PLOT","Disp [mm]",-100,150);								// set plot parameters
+    this.B = { x: 0, y: 1 };
+    this.P = { x: 2, y: 3 };
+    this.C = { x: 4, y: 5 };
 
-		//Create velocity plot
-		this.plotVel = new Plot(this.canVel,this.ctxVel);					// initialize plot
-		this.setPlotAttr('plotVel',this.color[24],this.color[14], // set plot parameters
-		"VELOCITY PLOT","Velocity [mm/s]",-100,150);
+    this.selPin.addEventListener("change", function () {
+      linkage.pointSel = linkage.selPin.value;
+      linkage.initPlots();
+      linkage.drawPinLabels();
+      linkage.announceStatus("Plots updated for Point " + linkage.pointSel + ".");
+    });
 
-		//Create acceleration plot
-		this.plotAcc = new Plot(this.canAcc,this.ctxAcc);					// initialize plot
-		this.setPlotAttr('plotAcc',this.color[24],this.color[14], // set plot parameters
-		"ACCELERATION PLOT","Accel [mm/s"+String.fromCharCode(0x22C5)+"s]",
-		-100,150);
-	}
+    // Plot height expand/collapse chevron buttons
+    var resizeBtns = this.root.querySelectorAll("[data-plot-resize]");
+    resizeBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var type = btn.getAttribute("data-plot-resize");
+        linkage.eventPlotResize(type, btn);
+      });
+    });
 
-	if (this.calcLengths) {
-		// Create caption strings from linkage dimensions
-		this.cap = document.getElementById(caption);
-		this.capDescrip = this.cap?.innerHTML ?? "No description available";
-		this.capLengths = " Link Lengths [mm]: ";
-		
-		// iterate through all bars and display lengths
-		for (i in this.bar) { 
-			switch (this.type) {
-			
-				case "threebar":
-				case "fourbar":
-					if (this.bar[i].L) {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-					}
-					break;
-					
-				case "slider":
-					if (this.bar[i].L) {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-					} else {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+-this.bar[i].y;
-					}
-					break;
-				
-				case "invSlider":
-					if ((this.bar[i].L) && (i!=1)) {
-						this.capLengths = this.capLengths+String.fromCharCode(65+parseInt(i))+" = "+this.bar[i].L+", ";
-					} 
-					break;
-			}
-		}			
+    // Instantiate SVG Plots (bottom plot 'acc' permanently owns the shared X-axis ticks)
+    this.plotDis = new Plot(this.root.querySelector('[data-plot-host="dis"]'), { showXAxis: false });
+    this.setPlotAttr("plotDis", this.color[24], this.color[14], "DISPLACEMENT PLOT", "Disp [mm]", -10, 10);
 
-		// Get length between grounds
-		if (this.pivot[1]){
-			this.capLengths = this.capLengths+"D = "+this.pivot[1].x; //get ground from 2nd pivot
-		}
-		
-		//TODO: Fix P and innerHTML
-		
-		// Check for P 
-		// if ((this.bar[1].p) && (this.bar[1].p != this.bar[1].L)){
-		// 	if (isNaN(this.bar[1].beta)) {
-		// 		var angle = "0";
-		// 	} else {
-		// 		var angle = this.bar[1].beta*180/Math.PI;
-		// 	}
-		// 	this.capLengths = this.capLengths+", P = "+this.bar[1].p+" @ "+angle+String.fromCharCode(176);
-		// }
+    this.plotVel = new Plot(this.root.querySelector('[data-plot-host="vel"]'), { showXAxis: false });
+    this.setPlotAttr("plotVel", this.color[24], this.color[14], "VELOCITY PLOT", "Velocity [mm/s]", -10, 10);
 
-		//this.cap.innerHTML = this.capDescrip + this.capLengths;
-
-
-		// } else {
-		// 	const plotControl = document.getElementById("item" + pageID).querySelector('.plotControl');
-		// 	if (plotControl) {
-		// 		plotControl.classList.add('d-none');
-		// 	}
-		// }
-	}
-}
-
-// ************************************************************************************** 
-// Linkage.eventPlay - handles play button clicks for linkages
-// **************************************************************************************
-Linkage.prototype.eventPlay = function(linkage) {
-  linkage.isPlaying = !linkage.isPlaying;            			// toggle play state
-  if (linkage.isPlaying) {  // is the animation playing?  then enable the stop button
-	// Switch play icon to stop/pause icon
-    linkage.iconPlay.classList.remove("fa-circle-play");    
-    linkage.iconPlay.classList.add("fa-circle-stop");       
-  } else {      
-    // Switch back to play icon
-    linkage.iconPlay.classList.remove("fa-circle-stop");    
-    linkage.iconPlay.classList.add("fa-circle-play");       
+    this.plotAcc = new Plot(this.root.querySelector('[data-plot-host="acc"]'), { showXAxis: true });
+    this.setPlotAttr("plotAcc", this.color[24], this.color[14], "ACCELERATION PLOT", "Accel [mm/s²]", -10, 10);
   }
+};
 
-	// ******* drawFrame updates all plots and animations ********
-  function drawFrame () {
-    var anim = requestAnimationFrame(drawFrame);	// setup animation frame call
-		linkage.timeStep += 1;                     		// increment the current time step
-
-		// calculate the crank angle of the linkage
-    if (linkage.isGrashof) {   // for the Grashof linkage, the crank rotates continuously
-      var crankAngle = linkage.deltaT * linkage.timeStep * Math.PI/180;
-    } else {                   // for non-Grashof linkage the crank angle varies sinusoidally
-      var amp = 0.999*(linkage.crankMax - linkage.crankMin)/2;  // amplitude of sine wave
-      var off = (linkage.crankMax + linkage.crankMin)/2;        // offset of sine wave from zero
-      var crankAngle = -amp*Math.cos(Math.PI*linkage.timeStep*linkage.deltaT/180) + off;
-    }
-
-		// draw the linkage at the calculated crank angle
-    linkage.draw(crankAngle);
-    if (linkage.showTrace) {                                // should we draw the traced points?
-      linkage.drawTrace(linkage.canTr, linkage.ctxTr);
-    } 
-		
-		// draw instant centers of linkage
-		if (linkage.showIC) {
-			linkage.drawIC();
-		}
-		
-		// stop animation if the stop button has been pressed
-		if (linkage.isPlaying == false) {                       // has the stop button been pressed?
-      cancelAnimationFrame(anim);
-    }
-		
-		// update Dis, Vel, Acc plots if they are enabled in this instance of linkage class
-		if (linkage.showPlots) {
-			linkage.updatePlot("plotDis",crankAngle);
-			linkage.updatePlot("plotVel",crankAngle);
-			linkage.updatePlot("plotAcc",crankAngle);
-		}   
-  }
-	drawFrame();
-}
+// Helper to update the polite screen-reader live region
+Linkage.prototype.announceStatus = function (message) {
+  if (!this.srStatus) return;
+  this.srStatus.textContent = "";
+  var srEl = this.srStatus;
+  setTimeout(function () {
+    srEl.textContent = message;
+  }, 50);
+};
 
 // ****************************************************************************************
-// Linkage.eventReset - handles reset button for linkages
+// Linkage.precomputePlots - computes the full 360-deg cycle on load, tunes Y-axis limits,
+// draws the complete curves immediately, and resets the mechanism back to t = 0.
 // ****************************************************************************************
-Linkage.prototype.eventReset = function(linkage) {
-  
-  linkage.btnReset.classList.remove("button-enabled");  // change from enabled "reset" button
-  linkage.btnReset.classList.add("button-disabled");    // to disabled "reset" button
-  linkage.btnReset.removeEventListener('click', function () {linkage.eventReset(linkage)},false);
-  
-  for (var i = 0; i < 5; i++) {  
-    this.ctx[i].clearRect(0, 0, this.can[i].width, this.can[i].height);  // clear the drawing canvas
+Linkage.prototype.precomputePlots = function () {
+  if (!this.showPlots || !this.plotDis) return;
+
+  var maxSteps = Math.round((this.plotDis.xMax - this.plotDis.xMin) / this.deltaT);
+
+  // Clear any prior trace arrays
+  var plots = [this.plotDis, this.plotVel, this.plotAcc];
+  for (var p = 0; p < plots.length; p++) {
+    plots[p].isPrecomputed = false;
+    for (var t = 0; t < plots[p].traces.length; t++) {
+      plots[p].traces[t].xVals = [0];
+      plots[p].traces[t].yVals = [0];
+    }
   }
-  if (this.showIC){
-		this.drawIC();
-	} else {
-	this.drawGround();
-	}
-	
-	this.timeStep = 0;
+
+  // Silently step through 0 -> 360 deg to populate all kinematic arrays
+  for (var s = 1; s <= maxSteps; s++) {
+    this.timeStep = s;
+    var crankAngle;
+    if (this.isGrashof) {
+      crankAngle = (this.deltaT * this.timeStep * Math.PI) / 180;
+    } else {
+      var amp = (0.999 * (this.crankMax - this.crankMin)) / 2;
+      var off = (this.crankMax + this.crankMin) / 2;
+      crankAngle = -amp * Math.cos((Math.PI * this.timeStep * this.deltaT) / 180) + off;
+    }
+
+    if (typeof this.calcKinematics === "function") {
+      this.calcKinematics(crankAngle);
+    } else {
+      this.draw(crankAngle);
+    }
+
+    this._recordStepData("plotDis", crankAngle);
+    this._recordStepData("plotVel", crankAngle);
+    this._recordStepData("plotAcc", crankAngle);
+  }
+
+  // Mark plots as precomputed, auto-fit Y bounds, and render full polylines immediately
+  var selectedIndices = [this[this.pointSel].x, this[this.pointSel].y];
+  for (var k = 0; k < plots.length; k++) {
+    plots[k].stopIndex = maxSteps;
+    plots[k].isPrecomputed = true;
+    plots[k].drawPlot(selectedIndices);
+    plots[k].setCursorIndex(1);
+  }
+
+  // Reset mechanism canvases & timeStep back to 0 without wiping the precomputed plots
+  for (var c = 0; c < 5; c++) {
+    this.ctx[c].clearRect(0, 0, this.can[c].width, this.can[c].height);
+  }
+  if (this.showIC) {
+    this.drawIC();
+  } else {
+    this.drawGround();
+  }
+  this.timeStep = 0;
   if (this.isGrashof) {
     this.draw(0);
   } else {
-    this.draw((this.crankMin + this.crankMax)/2);
+    this.draw((this.crankMin + this.crankMax) / 2);
   }
-	
-	// redraw plot background without traces
-	if (this.showPlots) {
-		this.plotDis.drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
-		this.plotVel.drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
-		this.plotAcc.drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
-	}
-}
-
-// ****************************************************************************************
-// Linkage.eventPlotToggle - toggles visibility of plot using Bootstrap 5 classes
-// ****************************************************************************************
-Linkage.prototype.eventPlotToggle = function(linkage, plotSelection) {
-	const conName = document.getElementById(plotSelection.replace('but', 'con'));
-	const butName = document.getElementById(plotSelection);
-	
-	// Toggle visibility using Bootstrap's d-none
-	const isHidden = conName.classList.contains("d-none");
-	
-	if (isHidden) {
-		conName.classList.remove("d-none");
-		butName.classList.remove("btn-outline-secondary");
-		butName.classList.add("btn-secondary", "active");
-		butName.setAttribute("aria-pressed", "true");
-	} else {
-		conName.classList.add("d-none");
-		butName.classList.remove("btn-secondary", "active");
-		butName.classList.add("btn-outline-secondary");
-		butName.setAttribute("aria-pressed", "false");
-	}
-	
-	// if (this.showPlots) {
-	// 	const anyActive = this.butMon.some(btn => btn.classList.contains("active"));
-	// 	this.cap.innerHTML = anyActive ? this.capLengths : this.capDescrip;
-	// }
+  this.drawPinLabels();
 };
 
-// **************************************************************************************
-// Linkage.eventPlotResize - toggles height of plot using FontAwesome 6 icons
-// **************************************************************************************
-Linkage.prototype.eventPlotResize = function(linkage, plotSelection) {
-    var sizeName = document.getElementById(plotSelection); 							
-    var canName = document.getElementById(plotSelection.replace('size','can'));	
-    var plotName = "plot".concat(plotSelection.substr(plotSelection.length-3));
-    
-    if (canName.classList.contains("plot-short")) { 
-        canName.classList.remove("plot-short");				
-        canName.classList.add("plot-tall");						
-        sizeName.classList.remove("fa-toggle-down"); 		
-        sizeName.classList.add("fa-toggle-up"); 			
-        canName.height = 250;
+// Internal helper to push one angle step into a plot's trace arrays
+Linkage.prototype._recordStepData = function (plotName, crankAngle) {
+  var prefix = plotName.substr(4, 1).toLowerCase();
+  var deg = (crankAngle * 180) / Math.PI;
+  var plot = this[plotName];
+
+  plot.traces[this.B.x].xVals.push(deg);
+  plot.traces[this.B.x].yVals.push(this[prefix + "B"].x);
+  plot.traces[this.B.y].xVals.push(deg);
+  plot.traces[this.B.y].yVals.push(this[prefix + "B"].y);
+
+  if (this.dP !== undefined) {
+    plot.traces[this.P.x].xVals.push(deg);
+    plot.traces[this.P.x].yVals.push(this[prefix + "P"].x);
+    plot.traces[this.P.y].xVals.push(deg);
+    plot.traces[this.P.y].yVals.push(this[prefix + "P"].y);
+  }
+
+  if (this.dC !== undefined) {
+    plot.traces[this.C.x].xVals.push(deg);
+    plot.traces[this.C.x].yVals.push(this[prefix + "C"].x);
+    plot.traces[this.C.y].xVals.push(deg);
+    plot.traces[this.C.y].yVals.push(this[prefix + "C"].y);
+  }
+};
+
+Linkage.prototype.eventPlay = function () {
+  var linkage = this;
+  this.isPlaying = !this.isPlaying;
+
+  if (this.isPlaying) {
+    this.iconPlay.classList.remove("fa-circle-play");
+    this.iconPlay.classList.add("fa-circle-stop");
+    this.btnPlay.setAttribute("aria-pressed", "true");
+    this.btnPlay.setAttribute("aria-label", this.pauseLabelDefault);
+    this.btnReset.disabled = false;
+    this.iconReset.classList.remove("button-disabled");
+    this.announceStatus("Animation playing.");
+  } else {
+    this.iconPlay.classList.remove("fa-circle-stop");
+    this.iconPlay.classList.add("fa-circle-play");
+    this.btnPlay.setAttribute("aria-pressed", "false");
+    this.btnPlay.setAttribute("aria-label", this.playLabelDefault);
+    this.announceStatus("Animation paused.");
+    return;
+  }
+
+  function drawFrame() {
+    if (!linkage.isPlaying) return;
+    requestAnimationFrame(drawFrame);
+
+    linkage.timeStep += 1;
+
+    var crankAngle;
+    if (linkage.isGrashof) {
+      crankAngle = (linkage.deltaT * linkage.timeStep * Math.PI) / 180;
     } else {
-        canName.classList.remove("plot-tall");				
-        canName.classList.add("plot-short");					
-        sizeName.classList.remove("fa-toggle-up"); 	
-        sizeName.classList.add("fa-toggle-down"); 			  
-        canName.height = 125;
+      var amp = (0.999 * (linkage.crankMax - linkage.crankMin)) / 2;
+      var off = (linkage.crankMax + linkage.crankMin) / 2;
+      crankAngle = -amp * Math.cos((Math.PI * linkage.timeStep * linkage.deltaT) / 180) + off;
     }
 
-    // Force canvas width synchronization with container
-    canName.width = canName.parentElement.clientWidth || 500;
+    linkage.draw(crankAngle);
+    linkage.drawPinLabels();
 
-    // Redraw the plot axis and traces
-    this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
-}
+    if (linkage.showTrace) {
+      linkage.drawTrace();
+    }
+    if (linkage.showIC) {
+      linkage.drawIC();
+    }
+    if (linkage.showPlots && linkage.plotDis) {
+      linkage.updatePlot("plotDis", crankAngle);
+      linkage.updatePlot("plotVel", crankAngle);
+      linkage.updatePlot("plotAcc", crankAngle);
+    }
+  }
 
-// ***************************************************************************************
-// Linkage.drawIC - draws instant centers
-// ***************************************************************************************
-Linkage.prototype.drawIC = function() {
-	//clear ground canvas
-	this.ctx[4].clearRect(0, 0, this.can[4].width, this.can[4].height);
-	this.drawGround(0);
-	
-	this.ctx[4].lineWidth = 1;                       // all circles have linewidth 1
-	this.ctx[4].save();
-	this.ctx[4].translate(this.x0, this.y0);         // move to origin of linkage
-	
-	// Draw lines from linkage to "floating" instant centers
-	for (j in this.connect) {
-		this.ctx[4].strokeStyle = this.IC[this.connect[j][1]].pin.fillColor;
-		this.ctx[4].beginPath();
-		this.ctx[4].moveTo(this.IC[this.connect[j][0]].x,this.IC[this.connect[j][0]].y);
-		this.ctx[4].lineTo(this.IC[this.connect[j][1]].x,this.IC[this.connect[j][1]].y);
-		this.ctx[4].lineTo(this.IC[this.connect[j][2]].x,this.IC[this.connect[j][2]].y);
-		this.ctx[4].stroke();
-	}
-	
-	// Draw dots at each instant center
-	for (i in this.IC) {
-		this.IC[i].draw(this.ctx[4]);
-	}
-	
-	this.ctx[4].restore();                           // move back to global origin
-}
+  drawFrame();
+};
 
-// ***************************************************************************************
-// Linkage.drawTrace - traces the paths of selected pins on the linkage
-// ***************************************************************************************
-Linkage.prototype.drawTrace = function() {
-  this.ctx[0].lineWidth = 1;                       // all circles have linewidth 1
+Linkage.prototype.eventReset = function () {
+  if (this.isPlaying) {
+    this.isPlaying = false;
+    this.iconPlay.classList.remove("fa-circle-stop");
+    this.iconPlay.classList.add("fa-circle-play");
+  }
+
+  this.btnPlay.setAttribute("aria-pressed", "false");
+  this.btnPlay.setAttribute("aria-label", this.playLabelDefault);
+  this.btnReset.disabled = true;
+  this.iconReset.classList.add("button-disabled");
+  this.announceStatus("Animation reset to initial position.");
+
+  for (var i = 0; i < 5; i++) {
+    this.ctx[i].clearRect(0, 0, this.can[i].width, this.can[i].height);
+  }
+
+  if (this.showIC) {
+    this.drawIC();
+  } else {
+    this.drawGround();
+  }
+
+  this.timeStep = 0;
+  if (this.isGrashof) {
+    this.draw(0);
+  } else {
+    this.draw((this.crankMin + this.crankMax) / 2);
+  }
+  this.drawPinLabels();
+
+  if (this.showPlots && this.plotDis) {
+    this.plotDis.resetTraces();
+    this.plotVel.resetTraces();
+    this.plotAcc.resetTraces();
+  }
+};
+
+Linkage.prototype.eventPlotResize = function (type, btn) {
+  var host = this.root.querySelector('[data-plot-host="' + type + '"]');
+  var icon = btn.querySelector("i");
+  var plotKey = "plot" + type.charAt(0).toUpperCase() + type.slice(1);
+  var extraBottom = type === "acc" ? 16 : 0;
+  var currentLabel = btn.getAttribute("aria-label") || "Expand plot";
+
+  if (host.classList.contains("plot-short")) {
+    host.classList.remove("plot-short");
+    host.classList.add("plot-tall");
+    host.style.height = (200 + extraBottom) + "px";
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", currentLabel.replace(/^Expand\b/i, "Collapse"));
+    if (icon) {
+      icon.classList.remove("fa-chevron-down");
+      icon.classList.add("fa-chevron-up");
+    }
+  } else {
+    host.classList.remove("plot-tall");
+    host.classList.add("plot-short");
+    host.style.height = (100 + extraBottom) + "px";
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", currentLabel.replace(/^Collapse\b/i, "Expand"));
+    if (icon) {
+      icon.classList.remove("fa-chevron-up");
+      icon.classList.add("fa-chevron-down");
+    }
+  }
+
+  if (this[plotKey]) {
+    this[plotKey].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
+  }
+};
+
+Linkage.prototype.drawIC = function () {
+  this.ctx[4].clearRect(0, 0, this.can[4].width, this.can[4].height);
+  this.drawGround(0);
+
+  this.ctx[4].lineWidth = 1;
+  this.ctx[4].save();
+  this.ctx[4].translate(this.x0, this.y0);
+
+  for (var j in this.connect) {
+    this.ctx[4].strokeStyle = this.IC[this.connect[j][1]].pin.fillColor;
+    this.ctx[4].beginPath();
+    this.ctx[4].moveTo(this.IC[this.connect[j][0]].x, this.IC[this.connect[j][0]].y);
+    this.ctx[4].lineTo(this.IC[this.connect[j][1]].x, this.IC[this.connect[j][1]].y);
+    this.ctx[4].lineTo(this.IC[this.connect[j][2]].x, this.IC[this.connect[j][2]].y);
+    this.ctx[4].stroke();
+  }
+
+  for (var i in this.IC) {
+    this.IC[i].draw(this.ctx[4]);
+  }
+
+  this.ctx[4].restore();
+};
+
+Linkage.prototype.drawTrace = function () {
+  this.ctx[0].lineWidth = 1;
   this.ctx[0].save();
-  this.ctx[0].translate(this.x0, this.y0);         // move to origin of linkage
+  this.ctx[0].translate(this.x0, this.y0);
 
-  for (i in this.tracePoint) {
-    this.ctx[0].strokeStyle = this.traceColor[i];  // color of tracing point
-    this.ctx[0].beginPath();                       // start drawing
-    this.ctx[0].arc(this.tracePoint[i].x, this.tracePoint[i].y, 1, 0, 2*Math.PI,true);
+  for (var i in this.tracePoint) {
+    this.ctx[0].strokeStyle = this.traceColor[i];
+    this.ctx[0].beginPath();
+    this.ctx[0].arc(this.tracePoint[i].x, this.tracePoint[i].y, 1, 0, 2 * Math.PI, true);
     this.ctx[0].closePath();
     this.ctx[0].stroke();
   }
-  this.ctx[0].restore();                           // move back to global origin
-}
+  this.ctx[0].restore();
+};
 
-// **************************************************************************************
-// Linkage.setPlotAttr - initialize a plot
-// **************************************************************************************
-Linkage.prototype.setPlotAttr = function(plotName,xColor,yColor,title,yLabel,yMin,yMax){	
-	this[plotName].traces[0] = new Trace("x",xColor);
-	this[plotName].traces[1] = new Trace("y",yColor);
-	this[plotName].traces[2] = new Trace("x",xColor);
-	this[plotName].traces[3] = new Trace("y",yColor);
-	this[plotName].traces[4] = new Trace("x",xColor);
-	this[plotName].traces[5] = new Trace("y",yColor);
-	this[plotName].yMin = yMin;
-	this[plotName].yMax = yMax;
-	this[plotName].title = title;
-	this[plotName].yLabel = yLabel;
-	this[plotName].drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
-}
+Linkage.prototype.setPlotAttr = function (plotName, xColor, yColor, title, yLabel, yMin, yMax) {
+  this[plotName].traces[0] = new Trace("x", xColor);
+  this[plotName].traces[1] = new Trace("y", yColor);
+  this[plotName].traces[2] = new Trace("x", xColor);
+  this[plotName].traces[3] = new Trace("y", yColor);
+  this[plotName].traces[4] = new Trace("x", xColor);
+  this[plotName].traces[5] = new Trace("y", yColor);
+  this[plotName].yMin = yMin;
+  this[plotName].yMax = yMax;
+  this[plotName].title = title;
+  this[plotName].yLabel = yLabel;
+  this[plotName].drawPlot([this[this.pointSel].x, this[this.pointSel].y]);
+};
 
-// *************************************************************************************
-// Linkage.updatePlot - updates the p,v,a plots while the animation runs
-// *************************************************************************************
-Linkage.prototype.updatePlot = function(plotName,crankAngle){
-	if (this.pointSel != this.selPin.value){ 						 // if point selection changes
-		this.pointSel = this.selPin.value;								 // update the selection 
-		
-		//TODO: insert plot limit update based on pin selected
-		// Update Y limits for the newly selected point
-        this.updateLimits(this.pointSel);
-		
-		this.plotDis.drawPlot([this[this.pointSel].x,this[this.pointSel].y]); // and redraw plots
-		this.plotVel.drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
-		this.plotAcc.drawPlot([this[this.pointSel].x,this[this.pointSel].y]);
-	}
-	
-	var tempPoint = plotName.substr(4,1).toLowerCase()+this.pointSel;
-	
-	// if on first pass through animation capture values into traces of plot object
-	// each component of a point e.g. Bx has x component crank angle and y component x-pos value
-	if (this.timeStep*this.deltaT < (this[plotName].xMax-this[plotName].xMin)) {
-		//Point B
-		this[plotName].traces[this.B.x].xVals.push(crankAngle*180/Math.PI);
-		this[plotName].traces[this.B.x].yVals.push(this[plotName.substr(4,1).toLowerCase()+"B"].x);
-		this[plotName].traces[this.B.y].xVals.push(crankAngle*180/Math.PI);
-		this[plotName].traces[this.B.y].yVals.push(this[plotName.substr(4,1).toLowerCase()+"B"].y);
-		//Point P
-		if (this.dP != undefined) {
-			this[plotName].traces[this.P.x].xVals.push(crankAngle*180/Math.PI);
-			this[plotName].traces[this.P.x].yVals.push(this[plotName.substr(4,1).toLowerCase()+"P"].x);
-			this[plotName].traces[this.P.y].xVals.push(crankAngle*180/Math.PI);
-			this[plotName].traces[this.P.y].yVals.push(this[plotName.substr(4,1).toLowerCase()+"P"].y);
-		}
-		//Point C
-		if (this.dC != undefined) {
-			this[plotName].traces[this.C.x].xVals.push(crankAngle*180/Math.PI);
-			this[plotName].traces[this.C.x].yVals.push(this[plotName.substr(4,1).toLowerCase()+"C"].x);
-			this[plotName].traces[this.C.y].xVals.push(crankAngle*180/Math.PI);
-			this[plotName].traces[this.C.y].yVals.push(this[plotName.substr(4,1).toLowerCase()+"C"].y);
-		}
-	
-		if (this[plotName].stopIndex > 0){ //only start plotting if you have two values
-			this[plotName].drawTraces([this[this.pointSel].x,this[this.pointSel].y],this.timeStep);
-		}
-		this[plotName].stopIndex = this.timeStep;
-		
-	} else { // on subsequent passes through animation
-		if (this.timeStep % this[plotName].stopIndex == 1){ 							//if 360 degrees is hit
-			this[plotName].drawPlot([this[this.pointSel].x,this[this.pointSel].y]);	//redraw plot from scratch
-		}
-		if (this.timeStep % this[plotName].stopIndex > 1){					
-			this[plotName].drawTraces([this[this.pointSel].x,this[this.pointSel].y],this.timeStep % this[plotName].stopIndex); // cycle thru populated arrays
-		}
-	}
-}
+Linkage.prototype.updatePlot = function (plotName, crankAngle) {
+  var plot = this[plotName];
+  var activeIndices = [this[this.pointSel].x, this[this.pointSel].y];
 
-// *************************************************************************************
-// Linkage.setLims - sets y limits of the p,v,a plots
-// *************************************************************************************
-// input structure -> {{dLow,dHigh},{vLow,vHigh},{aLow,aHigh},{xMin,xMax}}
-Linkage.prototype.setLims = function(input) {
-	var plotName = ['plotDis','plotVel','plotAcc','x'];
-	for (var i = 0; i < 3; i++){
-		if (input[i] != undefined) {
-			if (input[3] != undefined) {
-				this[plotName[i]].xMin = parseInt(input[3][0]);
-				this[plotName[i]].xMax = parseInt(input[3][1]);
-			}
-			this[plotName[i]].yMin = parseInt(input[i][0]);
-			this[plotName[i]].yMax = parseInt(input[i][1]);
-			this[plotName[i]].drawPlot([0,1]);
-		}
-	}
-}
+  // If precomputed on load, simply move the vertical cursor along the existing curve
+  if (plot.isPrecomputed && plot.stopIndex > 0) {
+    var cycleIdx = ((this.timeStep - 1) % plot.stopIndex) + 1;
+    plot.drawTraces(activeIndices, cycleIdx, true);
+    return;
+  }
 
-// *************************************************************************************
-// Linkage.initPlots - refreshes and redraws all plots for the current point selection
-// *************************************************************************************
-Linkage.prototype.initPlots = function() {
-    if (!this.showPlots) return; // Guard clause if plots are disabled
+  // Fallback live-recording path if precomputePlots() wasn't called
+  if (this.timeStep * this.deltaT <= plot.xMax - plot.xMin) {
+    this._recordStepData(plotName, crankAngle);
+    plot.stopIndex = this.timeStep;
+    plot.drawTraces(activeIndices, this.timeStep, false);
+  } else if (plot.stopIndex > 0) {
+    var loopIdx = ((this.timeStep - 1) % plot.stopIndex) + 1;
+    plot.drawTraces(activeIndices, loopIdx, true);
+  }
+};
 
-    // If updateLimits exists on the instance/class, call it
-    if (typeof this.updateLimits === 'function') {
-        this.updateLimits(this.pointSel);
+Linkage.prototype.updateLimits = function (point) {
+  if (this.limits && this.limits[point]) {
+    var lim = this.limits[point];
+    if (lim.dis && this.plotDis) {
+      this.plotDis.yBounds = "manual";
+      this.plotDis.yMin = lim.dis[0];
+      this.plotDis.yMax = lim.dis[1];
     }
+    if (lim.vel && this.plotVel) {
+      this.plotVel.yBounds = "manual";
+      this.plotVel.yMin = lim.vel[0];
+      this.plotVel.yMax = lim.vel[1];
+    }
+    if (lim.acc && this.plotAcc) {
+      this.plotAcc.yBounds = "manual";
+      this.plotAcc.yMin = lim.acc[0];
+      this.plotAcc.yMax = lim.acc[1];
+    }
+  }
+};
 
-    var selectedIndices = [this[this.pointSel].x, this[this.pointSel].y];
+Linkage.prototype.initPlots = function () {
+  if (!this.showPlots || !this.plotDis) return;
 
-    // Force all three plots to redraw with current dimensions and traces
-    this.plotDis.drawPlot(selectedIndices);
-    this.plotVel.drawPlot(selectedIndices);
-    this.plotAcc.drawPlot(selectedIndices);
+  this.updateLimits(this.pointSel);
+  var selectedIndices = [this[this.pointSel].x, this[this.pointSel].y];
+
+  var xMinDeg = 0;
+  var xMaxDeg = 360;
+
+  if (!this.isGrashof && isFinite(this.crankMin) && isFinite(this.crankMax)) {
+    var deg1 = (this.crankMin * 180) / Math.PI;
+    var deg2 = (this.crankMax * 180) / Math.PI;
+    xMinDeg = Math.floor(Math.min(deg1, deg2));
+    xMaxDeg = Math.ceil(Math.max(deg1, deg2));
+  }
+
+  [this.plotDis, this.plotVel, this.plotAcc].forEach(function (plot) {
+    if (!plot) return;
+    plot.xMin = xMinDeg;
+    plot.xMax = xMaxDeg;
+  });
+
+  this.plotDis.drawPlot(selectedIndices);
+  this.plotVel.drawPlot(selectedIndices);
+  this.plotAcc.drawPlot(selectedIndices);
+
+  if (this.plotDis.isPrecomputed) {
+    var idx = this.timeStep > 0 ? ((this.timeStep - 1) % this.plotDis.stopIndex) + 1 : 1;
+    this.plotDis.setCursorIndex(idx);
+    this.plotVel.setCursorIndex(idx);
+    this.plotAcc.setCursorIndex(idx);
+  }
+};
+
+// Draws high-contrast labels ("B", "P", "C") and highlights the currently selected point
+Linkage.prototype.drawPinLabels = function () {
+  if (!this.showPlots || !this.tracePoint || !this.ctx || !this.ctx[4]) return;
+
+  // Read the configured point keys directly from the <select> options (e.g., ["B", "C"])
+  var activeKeys = [];
+  if (this.selPin && this.selPin.options) {
+    for (var o = 0; o < this.selPin.options.length; o++) {
+      activeKeys.push(this.selPin.options[o].value);
+    }
+  } else {
+    activeKeys = ["B"];
+    if (this.dP !== undefined) activeKeys.push("P");
+    if (this.dC !== undefined) activeKeys.push("C");
+  }
+
+  var pointDefs = activeKeys.map(function (key, i) {
+    return {
+      key: key,
+      idx: i,
+      color: this.traceColor[i] || this.traceColor[0]
+    };
+  }, this);
+
+  // Use layer 4 (top layer) unless Instant Centers are currently occupying layer 4
+  var layerIdx = this.showIC ? 3 : 4;
+  var ctx = this.ctx[layerIdx];
+
+  if (!this.showIC) {
+    ctx.clearRect(0, 0, this.can[layerIdx].width, this.can[layerIdx].height);
+  }
+
+  ctx.save();
+  ctx.translate(this.x0, this.y0);
+  ctx.font = "bold 14px sans-serif";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "bottom";
+
+  for (var i = 0; i < pointDefs.length; i++) {
+    var def = pointDefs[i];
+    var pt = this.tracePoint[def.idx];
+
+    // Skip if this mechanism doesn't define that point (e.g., Threebar has no C, Slider-Crank has no P)
+    if (!pt || this["d" + def.key] === undefined) continue;
+
+    var isSelected = this.pointSel === def.key;
+
+    // 1. Draw colored ring around the pin (thicker & pulsing-style double ring when selected)
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, isSelected ? 10 : 7, 0, 2 * Math.PI);
+    ctx.lineWidth = isSelected ? 3 : 2;
+    ctx.strokeStyle = isSelected ? "#dc3545" : def.color;
+    ctx.stroke();
+
+    // 2. Draw crisp white halo behind dark text so it stays readable over moving bars
+    var labelX = pt.x + 10;
+    var labelY = pt.y - 8;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.strokeText(def.key, labelX, labelY);
+
+    ctx.fillStyle = isSelected ? "#dc3545" : "#000000";
+    ctx.fillText(def.key, labelX, labelY);
+  }
+
+  ctx.restore();
 };

@@ -1,29 +1,25 @@
-// *****************************************************************************************
-// function Select_Animation - toggles between multiple animations on same page
-// *****************************************************************************************
+// js_common/Select_Animation.js
+function Select_Animation(mechanisms) {
+  var links = document.querySelectorAll(".itemLinks");
+  var animations = document.querySelectorAll(".animationContainer");
+  var numCanvas = links.length;
 
-function Select_Animation() {
-  const links = document.querySelectorAll(".itemLinks");         // selector tabs
-  const animations = document.querySelectorAll(".animationContainer"); // animation containers
-  const numCanvas = links.length;
+  if (!numCanvas) return;
 
-  // Add click event listeners to tabs
-  for (let i = 0; i < numCanvas; i++) {
-    links[i].addEventListener('click', setClickedItem, false);
+  for (var i = 0; i < numCanvas; i++) {
+    links[i].addEventListener("click", setClickedItem, false);
   }
 
-  // Determine active tab from URL query params or default to index 0
-  const urlParams = new URLSearchParams(window.location.search);
-  let activeIndex = parseInt(urlParams.get("sel"), 10);
+  var urlParams = new URLSearchParams(window.location.search);
+  var activeIndex = parseInt(urlParams.get("sel"), 10);
   if (isNaN(activeIndex) || activeIndex < 0 || activeIndex >= numCanvas) {
     activeIndex = 0;
   }
 
-  // Set initial Bootstrap & ARIA state
   setActiveTab(activeIndex);
 
   function setActiveTab(index) {
-    for (let i = 0; i < numCanvas; i++) {
+    for (var i = 0; i < numCanvas; i++) {
       links[i].classList.remove("active");
       links[i].setAttribute("aria-selected", "false");
       animations[i].classList.add("d-none");
@@ -31,12 +27,15 @@ function Select_Animation() {
     links[index].classList.add("active");
     links[index].setAttribute("aria-selected", "true");
     animations[index].classList.remove("d-none");
+
+    // Refresh plots when tab becomes visible so SVG viewBox matches live width
+    if (mechanisms && mechanisms[index] && typeof mechanisms[index].initPlots === "function") {
+      mechanisms[index].initPlots();
+    }
   }
 
   function setClickedItem(e) {
-    const clickedLink = e.currentTarget;
-    const canvasPos = parseInt(clickedLink.getAttribute("data-pos"), 10);
+    var canvasPos = parseInt(e.currentTarget.getAttribute("data-pos"), 10);
     setActiveTab(canvasPos);
   }
 }
-

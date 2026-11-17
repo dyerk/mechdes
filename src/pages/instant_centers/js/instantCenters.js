@@ -5,9 +5,59 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
-	// Start other page scripts
-	Select_Animation();
-	
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Threebar",
+      description: "Instant Centers of general threebar linkages.",
+      ariaDiagram: "Animation of threebar mechanism with instant centers highlighted",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Fourbar",
+      description: "Instant Centers of general fourbar linkages.",
+      ariaDiagram: "Animation of open configuration fourbar mechanism with instant centers highlighted",
+      showPlots: false,
+    },
+    {
+      id: "03",
+      title: "Slider-Crank",
+      description: "Instant Centers of general slider-crank linkages.",
+      ariaDiagram: "Animation of slider-crank mechanism with instant centers highlighted",
+      showPlots: false,
+    },
+    {
+      id: "04",
+      title: "Inverted Slider-Crank",
+      description: "Instant Centers of general inverted slider-crank linkages.",
+      ariaDiagram: "Animation of inverted slider-crank mechanism with instant centers highlighted",
+      showPlots: false,
+    },
+    {
+      id: "05",
+      title: "Geared Fivebar",
+      description: "Instant Centers of general slider-crank linkages.",
+      ariaDiagram: "Animation of geared fivebar mechanism with instant centers highlighted",
+      showPlots: false
+    },
+    {
+      id: "06",
+      title: "Cam Follower",
+      description: "Instant Centers of general cam followers.",
+      ariaDiagram: "Animation of cam follower with instant centers highlighted",
+      showPlots: false
+    }
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** dimensions of threebar linkage *****
   var d = 160;               // ground
   var a =  60;               // crank
@@ -105,4 +155,7 @@ function init() {
 	camrock.buttonCanvas("06", 160, 200);
   camrock.draw(0);
 	camrock.drawIC();
+  
+  // 4. Initialize tab switcher and pass mechanism instances for plot resizing
+  Select_Animation([threebar, fourbar, sliderCrank, invSlide, fivebar, camrock]);
 }

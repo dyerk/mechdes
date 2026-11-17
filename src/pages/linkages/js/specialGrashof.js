@@ -5,6 +5,49 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Class 11",
+      description: "The shortest link is ground, and each link makes a full revolution. This is the Special Case version of the Class 1 Grashof linkage.",
+      ariaDiagram: "Animation of Grashof class 11 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Class 12",
+      description: "The shortest link is the crank, and only the crank makes a full revolution. This is the Special Case version of the Class 2 Grashof linkage.",
+      ariaDiagram: "Animation of Grashof class 12 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+    {
+      id: "03",
+      title: "Class 13",
+      description: "The shortest link is the coupler, and only the coupler makes a full revolution. This is the Special Case version of the Class 3 Grashof linkage.",
+      ariaDiagram: "Animation of Grashof class 13 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+    },
+    {
+      id: "04",
+      title: "Class 14",
+      description: "The shortest link is the rocker, and only the rocker makes a full revolution. This is the Special Case version of the Class 4 Grashof linkage.",
+      ariaDiagram: "Animation of Grashof class 14 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** these are the dimensions of each link *****
   var S = 70;  // short link
   var L = 160; // long link
@@ -21,9 +64,7 @@ function init() {
 
   var spgras11 = new Fourbar(a, b, c, d, p, beta, 11, false);  // create special Grashof type 11 linkage
   spgras11.buttonCanvas("01", 180, 210);
-	spgras11.setLims([[-125,185],[-510,395],[-500,500],[0,360]]);
-  spgras11.drawGround();
-  spgras11.draw(0);
+	spgras11.precomputePlots();
 
 
 	// ***** dimensions of fourbar linkage for special Grashof type 12 *****
@@ -36,9 +77,7 @@ function init() {
 
   var spgras12 = new Fourbar(a, b, c, d, p, beta, 12, true);  // create special Grashof type 12 linkage
   spgras12.buttonCanvas("02", 130, 210);
-	spgras12.setLims([[-75,235],[-400,255],[-300,365],[0,360]]);
-  spgras12.drawGround();
-  spgras12.draw(0);
+	spgras12.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 13 *****
   var d = P;    // ground
@@ -50,9 +89,7 @@ function init() {
 
   var spgras13 = new Fourbar(a, b, c, d, p, beta, 13, true);  // create special Grashof type 13 linkage
   spgras13.buttonCanvas("03", 120, 210);
-	spgras13.setLims([[0,235],[-500,500],[-300,300],[0,360]]);
-  spgras13.drawGround();
-  spgras13.draw(0);
+	spgras13.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 14 *****
   var d = P;    // ground
@@ -64,12 +101,10 @@ function init() {
 
   var spgras14 = new Fourbar(a, b, c, d, p, beta, 14, false);  // create special Grashof type 14 linkage
   spgras14.buttonCanvas("04", 170, 210);
-	spgras14.setLims([[-115,195],[-300,300],[-300,300],[0,360]]);
-  spgras14.drawGround();
-  spgras14.draw(0);
+	spgras14.precomputePlots();
 	
 	// Start other page scripts
-	Select_Animation();
+	Select_Animation([spgras11, spgras12, spgras13, spgras14]);
 }
 
 

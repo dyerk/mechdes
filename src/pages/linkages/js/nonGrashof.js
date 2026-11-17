@@ -5,6 +5,65 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Class 5",
+      description: "The longest link is ground and the crank is shorter than the rocker. No link makes a complete revolution, and the linkage is driven by the crank.",
+      ariaDiagram: "Animation of Grashof class 5 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Class 6",
+      description: "The longest link is ground and the crank is longer than the rocker. No link makes a complete revolution, and the linkage is driven by the rocker.",
+      ariaDiagram: "Animation of Grashof class 6 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+    {
+      id: "03",
+      title: "Class 7",
+      description: "The longest link is the crank. No link makes a complete revolution, and the linkage is driven by the rocker.",
+      ariaDiagram: "Animation of Grashof class 7 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+    },
+    {
+      id: "04",
+      title: "Class 8",
+      description: "The longest link is the coupler and the crank is shorter than the rocker. No link makes a complete revolution and the linkage is driven by the crank.",
+      ariaDiagram: "Animation of Grashof class 8 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+    {
+      id: "05",
+      title: "Class 9",
+      description: "The longest link is the coupler and the crank is shorter than the rocker. No link makes a complete revolution and the linkage is driven by the rocker. The limiting angles are the same as for Class 7.",
+      ariaDiagram: "Animation of Grashof class 9 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+    {
+      id: "06",
+      title: "Class 10",
+      description: "The longest link is the rocker. No link makes a complete revolution, and the linkage is driven by the crank. The limiting angles are the same as for Class 8.",
+      ariaDiagram: "Animation of Grashof class 10 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** these are the dimensions of each link *****
   var S = 80;  // short link
   var L = 170; // long link
@@ -22,9 +81,7 @@ function init() {
   var nongras5 = new Fourbar(a, b, c, d, p, beta, 5, true);  // create non-Grashof type 5 linkage
 	nongras5.isGrashof = false;
   nongras5.buttonCanvas("01", 120, 210);
-	nongras5.setLims([[-85,190],[-150,150],[-200,150],[-180,180]]);
-  nongras5.drawGround();
-  nongras5.draw((nongras5.crankMax + nongras5.crankMin)/2);
+	nongras5.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type 6 *****
   var d = L;    // ground
@@ -37,9 +94,7 @@ function init() {
   var nongras6 = new Fourbar(a, b, c, d, p, beta, 6, false);  // create non-Grashof type 6 linkage
   nongras6.isGrashof = false;
 	nongras6.buttonCanvas("02", 120, 210);
-  nongras6.setLims([[-85,225],[-200,150],[-250,355],[-360,0]]);
-	nongras6.drawGround();
-  nongras6.draw((nongras6.crankMax + nongras6.crankMin)/2);
+  nongras6.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type 7 *****
   var d = S;    // ground
@@ -52,9 +107,7 @@ function init() {
   var nongras7 = new Fourbar(a, b, c, d, p, beta, 7, false);  // create non-Grashof type 7 linkage
   nongras7.isGrashof = false;
 	nongras7.buttonCanvas("03", 150, 210);
-	nongras7.setLims([[-175,185],[-175,300],[-400,450],[-180,180]]); 
-  nongras7.drawGround();
-  nongras7.draw((nongras7.crankMax + nongras7.crankMin)/2);
+	nongras7.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type	 8 *****
   var d = P;    // ground
@@ -67,9 +120,7 @@ function init() {
   var nongras8 = new Fourbar(a, b, c, d, p, beta, 8, true);  // create non-Grashof type 8 linkage
   nongras8.isGrashof = false;
 	nongras8.buttonCanvas("04", 150, 210);
-  nongras8.setLims([[-85,235],[-150,150],[-150,150],[-360,0]]);
-	nongras8.drawGround();
-  nongras8.draw((nongras8.crankMax + nongras8.crankMin)/2);
+  nongras8.precomputePlots();
 
   // ***** dimensions of fourbar linkage for non-Grashof type 9 *****
   var d = P;    // ground
@@ -82,9 +133,7 @@ function init() {
   var nongras9 = new Fourbar(a, b, c, d, p, beta, 9, false);  // create non-Grashof type 9 linkage
 	nongras9.isGrashof = false;
   nongras9.buttonCanvas("05", 150, 210);
-  nongras9.setLims([[-105,215],[-300,300],[-300,300],[-180,180]]);
-	nongras9.drawGround();
-  nongras9.draw((nongras9.crankMax + nongras9.crankMin)/2);
+  nongras9.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type 10 *****
   var d = S;    // ground
@@ -97,12 +146,10 @@ function init() {
   var nongras10 = new Fourbar(a, b, c, d, p, beta, 10, true);  // create non-Grashof type 10 linkage
   nongras10.isGrashof = false;
 	nongras10.buttonCanvas("06", 180, 210);
-  nongras10.setLims([[-175,195],[-150,150],[-150,150],[-360,0]]);
-	nongras10.drawGround();
-  nongras10.draw((nongras10.crankMax + nongras10.crankMin)/2);
+  nongras10.precomputePlots();
 	
 	// Start other page scripts
-	Select_Animation();
+	Select_Animation([nongras5, nongras6, nongras7, nongras8, nongras9, nongras10]);
 }
 
 

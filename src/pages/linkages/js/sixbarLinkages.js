@@ -5,6 +5,57 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Stephenson's Type I Sixbar Linkage",
+      tabTitle: "Stephenson's<br>Type I",
+      description: "Ground is one of the two-pin links connecting both three-pin links and the crank is a three-pin link.",
+      ariaDiagram: "Animation of Stephenson's Type I sixbar linkage",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Stephenson's Type II Sixbar Linkage",
+      tabTitle: "Stephenson's<br>Type II",
+      description: "The five-bar chain on the left prevents an algebraic solution to this linkage. This animation was created using a Newton-Raphson solution.",
+      ariaDiagram: "Animation of Stephenson's Type II sixbar linkage",
+      showPlots: false
+    },
+    {
+      id: "03",
+      title: "Stephenson's Type III Sixbar Linkage",
+      tabTitle: "Stephenson's<br>Type III",
+      description: "Ground is one of the three-pin links and the crank is a two-pin link.",
+      ariaDiagram: "Animation of Stephenson's Type III sixbar linkage",
+      showPlots: false
+    },
+    {
+      id: "04",
+      title: "Watt's Type I Sixbar Linkage",
+      tabTitle: "Watt's<br>Type I",
+      description: "Ground is one of the two-pin links and the crank is another two-pin link.",
+      ariaDiagram: "Animation of Watt's Type I sixbar linkage",
+      showPlots: false
+    },
+    {
+      id: "05",
+      title: "Watt's Type II Sixbar Linkage",
+      tabTitle: "Watt's<br>Type II",
+      description: "Ground is one of the three-pin links and the crank is a two-pin link.",
+      ariaDiagram: "Animation of Watt's Type II sixbar linkage",
+      showPlots: false
+    }
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+  
+  // 3. Instantiate and initialize each mechanism
 	// ***** dimensions of Stephenson sixbar type 1 linkage *****
   var a =  70;                  // crank (left triangle link)
   var b = 100;                  // coupler
@@ -100,8 +151,8 @@ function init() {
   sixbarW2.drawGround();
   sixbarW2.draw(0);                // calculate the sixbar geometry and draw 
 	
-	// Start other page scripts
-	Select_Animation();
+	// 4. Initialize tab switcher and pass mechanism instances for plot resizing
+	Select_Animation([sixbarS1, sixbarS2, sixbarS3, sixbarW1, sixbarW2]);
 }
 
 

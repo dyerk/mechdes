@@ -5,6 +5,78 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  // 1. Render stacked image + animation grids per section
+  document.getElementById("sr2p-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "01",
+      title: "Sun, Ring and Two Planets — Type 1",
+      image: { src: "../../images/gears/C8_IN_bSR2P.jpg", alt: "Sun, ring and two planets - 1" }
+    },
+    {
+      id: "02",
+      title: "Sun, Ring and Two Planets — Type 2",
+      image: { src: "../../images/gears/C8_IN_iSR2P.jpg", alt: "Sun, ring and two planets - 2" }
+    }
+  ]);
+
+  document.getElementById("sr3p-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "03",
+      title: "Sun, Ring and Three Planets — Type 1",
+      image: { src: "../../images/gears/C8_IN_kSR3P.jpg", alt: "Sun, ring and three planets - 1" }
+    },
+    {
+      id: "04",
+      title: "Sun, Ring and Three Planets — Type 2",
+      image: { src: "../../images/gears/C8_IN_lSR3P.jpg", alt: "Sun, ring and three planets - 2" }
+    }
+  ]);
+
+  document.getElementById("sr4p-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "05",
+      colClass: "col-12 col-md-8 col-lg-6",
+      title: "Sun, Ring and Four Planets",
+      image: { src: "../../images/gears/C8_IN_jSR4P.jpg", alt: "Sun, ring and four planets - 1" }
+    }
+  ], "row g-4 justify-content-center");
+
+  document.getElementById("2r-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "06",
+      title: "Two Rings, Two Planets",
+      image: { src: "../../images/gears/C8_IN_h2R2P.jpg", alt: "Two rings, two planets" }
+    },
+    {
+      id: "07",
+      title: "Two Rings, Three Planets",
+      image: { src: "../../images/gears/C8_IN_e2R3P.jpg", alt: "Two rings, three planets" }
+    }
+  ]);
+
+  document.getElementById("2r4p-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "08",
+      colClass: "col-12 col-md-8 col-lg-6",
+      title: "Two Rings, Four Planets",
+      image: { src: "../../images/gears/C8_IN_d2R4P.jpg", alt: "Two rings, four planets" }
+    }
+  ], "row g-4 justify-content-center");
+
+  document.getElementById("2s-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "09",
+      title: "Two Suns, Three Planets",
+      image: { src: "../../images/gears/C8_IN_f2S3P.jpg", alt: "Two suns, three planets" }
+    },
+    {
+      id: "10",
+      title: "Two Suns, Four Planets",
+      image: { src: "../../images/gears/C8_IN_c2S4P.jpg", alt: "Two suns, four planets" }
+    }
+  ]);
+
+  // 2. Initiate animaitons
 	// ***** numbers of teeth on gears *****
   var Ns = 32;    // number of teeth on sun
   var Nr = 72;   // number of teeth on ring

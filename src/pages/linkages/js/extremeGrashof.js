@@ -5,6 +5,65 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Class 15",
+      description: "There are two pairs of identical links, each of which is adjacent to each other. The short links are the ground and the crank, and all links make a complete revolution. Note that the coupler and rocker make a single revolution for two revolutions of the crank.",
+      ariaDiagram: "Animation of Grashof class 15 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Class 16",
+      description: "There are two pairs of identical links, each of which is adjacent to each other. The short links are the crank and coupler, and the crank and coupler both make a full revolution.",
+      ariaDiagram: "Animation of Grashof class 16 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+    {
+      id: "03",
+      title: "Class 17",
+      description: "There are two pairs of identical links, each of which is adjacent to each other. The short links are the coupler and rocker, and the coupler and rocker both make a full revolution.",
+      ariaDiagram: "Animation of Grashof class 17 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"],
+    },
+    {
+      id: "04",
+      title: "Class 18",
+      description: "There are two pairs of identical links, each of which is adjacent to each other. The short links are the rocker and ground, and all links make a complete revolution. Note that the crank and coupler make a single revolution for two revolutions of the rocker.",
+      ariaDiagram: "Animation of Grashof class 18 fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+        {
+      id: "05",
+      title: "Class 19 (Crossed)",
+      description: "There are two pairs of identical links, each of which is opposite each other. This is the crossed version of the parallelogram linkage.",
+      ariaDiagram: "Animation of Grashof class 19 crossed configuration fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+        {
+      id: "06",
+      title: "Class 19 (Open)",
+      description: "There are two pairs of identical links, each of which is opposite each other. This is the open version of the parallelogram linkage.",
+      ariaDiagram: "Animation of Grashof class 19 open configuration fourbar mechanism",
+      showPlots: true,
+      pins: ["B", "C"]
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** these are the dimensions of each link *****
   var S = 70;  // short link
   var L = 160; // long link
@@ -19,9 +78,7 @@ function init() {
 
   var spgras15 = new Fourbar(a, b, c, d, p, beta, 15, false);  // create special Grashof type 15 linkage
   spgras15.buttonCanvas("01", 120, 210);
-	spgras15.setLims([[-165,235],[-150,150],[-75,75],[0,720]]);
-  spgras15.drawGround();
-  spgras15.draw(0);
+	spgras15.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 16 *****
   var d = L;    // ground
@@ -33,9 +90,7 @@ function init() {
 
   var spgras16 = new Fourbar(a, b, c, d, p, beta, 16, false);  // create special Grashof type 16 linkage
   spgras16.buttonCanvas("02", 150, 210);
-	spgras16.setLims([[-130,130],[-100,250],[-200,150],[0,360]]);
-  spgras16.drawGround();
-  spgras16.draw(0);
+	spgras16.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 17 *****
   var d = L;    // ground
@@ -47,9 +102,7 @@ function init() {
 
   var spgras17 = new Fourbar(a, b, c, d, p, beta, 17, false);  // create special Grashof type 17 linkage
   spgras17.buttonCanvas("03", 100, 210);
-	spgras17.setLims([[-130,235],[-150,150],[-200,150],[0,360]]);
-  spgras17.drawGround();
-  spgras17.draw(0);
+	spgras17.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 18 *****
   var d = S;    // ground
@@ -61,9 +114,7 @@ function init() {
 
   var spgras18 = new Fourbar(a, b, c, d, p, beta, 18, false);  // create special Grashof type 18 linkage
   spgras18.buttonCanvas("04", 210, 210);
-	spgras18.setLims([[-165,165],[-165,165],[-200,150],[0,360]]);
-  spgras18.drawGround();
-  spgras18.draw(0);
+	spgras18.precomputePlots();
 
   // ***** dimensions of fourbar linkage for special Grashof type 19 *****
   var d = L;    // ground
@@ -75,9 +126,7 @@ function init() {
 
   var spgras191 = new Fourbar(a, b, c, d, p, beta, 19, false);  // create special Grashof type 19 linkage
   spgras191.buttonCanvas("05", 130, 210);
-	spgras191.setLims([[-75,125],[-180,125],[-200,150],[0,360]]);
-  spgras191.drawGround();
-  spgras191.draw(0);
+	spgras191.precomputePlots();
 
   // ***** dimensions of fourbar linkage for special Grashof type 19 *****
   var d = L;    // ground
@@ -89,12 +138,10 @@ function init() {
 
   var spgras192 = new Fourbar(a, b, c, d, p, beta, 19, true);  // create special Grashof type 19 linkage
   spgras192.buttonCanvas("06", 130, 210);
-	spgras192.setLims([[-75,235],[-75,75],[-75,75],[0,360]]);
-  spgras192.drawGround();
-  spgras192.draw(0);
+	spgras192.precomputePlots();
 	
 	// Start other page scripts
-	Select_Animation();
+	Select_Animation([spgras15, spgras16, spgras17, spgras18, spgras191, spgras192]);
 }
 
 

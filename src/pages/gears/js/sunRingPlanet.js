@@ -5,6 +5,64 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Traditional Planetary",
+      description: "The traditional planetary gearset has a sun, ring and one planet.",
+      ariaDiagram: "Animation of traditional planetary gearset",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Planetary Gearset",
+      tabTitle: "2 Planets",
+      description: "Sun, ring and two planets.",
+      ariaDiagram: "Animation of two planet planetary gearset",
+      showPlots: false,
+    },
+    {
+      id: "03",
+      title: "Planetary Gearset",
+      tabTitle: "2 Planets (Idler)",
+      description: "Sun, ring and two planets. One planet is an idler gear intended to change direction of output.",
+      ariaDiagram: "Animation of two planet planetary gearset with an idler gear.",
+      showPlots: false,
+    },
+    {
+      id: "04",
+      title: "3 Planets (Configuration 1)",
+      tabTitle: "3 Planets (Config 1)",
+      description: "Sun, ring and three planets.",
+      ariaDiagram: "Animation planetary with a sun, a ring and three planets",
+      showPlots: false,
+    },
+{
+      id: "05",
+      title: "3 Planets (Configuration 2)",
+      tabTitle: "3 Planets (Config 2)",
+      description: "Sun, ring and three planets.",
+      ariaDiagram: "Animation planetary with a sun, a ring and three planets",
+      showPlots: false,
+    },
+{
+      id: "06",
+      title: "Planetary Gearset",
+      tabTitle: "4 Planets",
+      description: "Sun, ring and four planets.",
+      ariaDiagram: "Animation planetary with a sun, a ring and four planets",
+      showPlots: false,
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** numbers of teeth on gears *****
   var Ns = 32;    // number of teeth on sun
   var Nr = 64;   // number of teeth on ring
@@ -81,7 +139,7 @@ function init() {
   planSRP4.draw(0);
 	
 	// Start other page scripts
-	Select_Animation();
+	Select_Animation([planSRP, planSRP2_1, planSRP2_2, planSRP3_1, planSRP3_2, planSRP4]);
 }
 
 
