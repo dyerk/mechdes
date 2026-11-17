@@ -35,7 +35,7 @@ function renderMechanismSection(config) {
   var showPlots = config.showPlots !== false;
   var pins = config.pins || ['B', 'P'];
   var isActive = config.isActive || false;
-  var ariaDiagram = config.ariaDiagram || `${title} interactive kinematic diagram. ${description}`;
+  var ariaDiagram = config.ariaDiagram || (title ? "Animation of " + title : "Mechanism animation");
 
   var colClass = showPlots ? 'col-12 col-lg-6' : 'col-12';
 
@@ -172,4 +172,67 @@ function renderMechanismSet(configs, options) {
   var panelsHtml = configs.map(renderMechanismSection).join('');
 
   return navHtml + panelsHtml;
+}
+
+function renderCanvasPlayer(config) {
+  var title = config.title || "";
+  var ariaDiagram = config.ariaDiagram || (title ? "Animation of " + title : "Mechanism animation");
+  var roundedClass = config.roundedClass || "rounded";
+  var extraControlsHtml = config.extraControlsHtml || "";
+
+  return `
+    <div class="animationCanvas border ${roundedClass} p-2 bg-light">
+      <!-- Single accessible image wrapper for the 5 stacked canvases -->
+      <div class="canvas-wrapper" role="img" aria-label="${ariaDiagram}">
+        <canvas class="canTrace" data-layer="0" width="500" height="400" aria-hidden="true"></canvas>
+        <canvas class="canDraw z_2" data-layer="1" width="500" height="400" aria-hidden="true"></canvas>
+        <canvas class="canDraw z_3" data-layer="2" width="500" height="400" aria-hidden="true"></canvas>
+        <canvas class="canDraw z_4" data-layer="3" width="500" height="400" aria-hidden="true"></canvas>
+        <canvas class="canDraw z_5" data-layer="4" width="500" height="400" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- Polite live region for screen reader state announcements -->
+      <div class="visually-hidden" aria-live="polite" data-role="sr-status"></div>
+
+      <div class="d-flex justify-content-center gap-3 mt-2">
+        <button type="button" class="btn btn-outline-primary" data-role="btn-play" aria-label="Play ${title} animation" aria-pressed="false">
+          <i class="fa-solid fa-circle-play fa-2xl" data-role="icon-play" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary" data-role="btn-reset" aria-label="Reset ${title} animation" disabled>
+          <i class="fa-solid fa-rotate-right fa-2xl button-disabled" data-role="icon-reset" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      ${extraControlsHtml}
+    </div>
+  `;
+}
+
+// Renders a single standalone canvas animation card with title & description at the bottom
+function renderCanvasCard(config) {
+  var colClass = config.colClass || "col-12 col-md-6";
+  var title = config.title || "";
+  var captionText = config.description ? `<b>${title}:</b> ${config.description}` : `<b>${title}</b>`;
+
+  return `
+    <div class="${colClass}">
+      <figure class="figure w-100 m-0" data-mechanism-id="${config.id}">
+        ${renderCanvasPlayer({
+          title: title,
+          ariaDiagram: config.ariaDiagram,
+          roundedClass: "rounded",
+          extraControlsHtml: config.extraControlsHtml
+        })}
+        <figcaption class="figure-caption text-center mt-2">
+          <h4 class="h6 mb-0 fw-semibold" data-role="caption">${captionText}</h4>
+        </figcaption>
+      </figure>
+    </div>
+  `;
+}
+
+// Renders a grid row of standalone canvas cards
+function renderCanvasGrid(configs, rowClass) {
+  var cls = rowClass || "row g-4 align-items-start";
+  return `<div class="${cls}">${configs.map(renderCanvasCard).join("")}</div>`;
 }
