@@ -214,8 +214,27 @@ function renderCanvasCard(config) {
   var title = config.title || "";
   var captionText = config.description ? `<b>${title}:</b> ${config.description}` : `<b>${title}</b>`;
 
+  var imageHtml = "";
+  if (config.image) {
+    var imgAlt = config.image.alt || title;
+    var imgCaption = config.image.caption || title;
+    var imgHeight = config.image.height || 220;
+
+    imageHtml = `
+      <figure class="figure border p-3 rounded bg-light shadow-sm text-center w-100 mb-3 d-flex flex-column align-items-center justify-content-between">
+        <div class="w-100" style="height: ${imgHeight}px;">
+          <img src="${config.image.src}" class="w-100 h-100 bg-white rounded border shadow-sm object-fit-contain" alt="${imgAlt}">
+        </div>
+        <figcaption class="figure-caption text-center fw-semibold mt-2">
+          ${imgCaption}
+        </figcaption>
+      </figure>
+    `;
+  }
+
   return `
     <div class="${colClass}">
+      ${imageHtml}
       <figure class="figure w-100 m-0" data-mechanism-id="${config.id}">
         ${renderCanvasPlayer({
           title: title,
