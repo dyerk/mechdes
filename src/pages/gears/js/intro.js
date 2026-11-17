@@ -109,7 +109,7 @@ function init() {
     }
   ], "row justify-content-center g-4");
 
-  // 2. Instantiate and initialize the 6 fixed-input planetary gearsets
+  // 2. Initialize the animations
   var Ns = 32; // number of teeth on sun
   var Np = 16; // number of teeth on planet
 

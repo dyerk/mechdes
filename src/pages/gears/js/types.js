@@ -5,31 +5,40 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  // 1. Render standalone canvas grids for each section
+  document.getElementById("2suns-2planets-mount").innerHTML = renderCanvasGrid([
+    {
+      id: "01",
+      title: "Small Sun Input - Large Sun Fixed",
+      ariaDiagram: "Animation of two suns, two planet planetary gearset driven by the small sun with large sun fixed"
+    },
+    {
+      id: "02",
+      title: "Large Sun Input - Small Sun Fixed",
+      ariaDiagram: "Animation of two suns, two planet planetary gearset driven by the large sun with small sun fixed"
+    }
+  ]);
+  
+  // 2. Initialize the animations
   // ***** numbers of teeth on gears *****
   var Ns1 = 40;   // number of teeth on sun1
   var Ns2 = 60;   // number of teeth on sun2
   var Np1 = 40;   // number of teeth on planet1
   var Np2 = 20;   // number of teeth on planet2
 
-  var planS2P2_A = new PlanS2P2(Ns1, Ns2, Np1, Np2, false, 1);  // create Grashof type 1 linkage
-  planS2P2_A.showPlots = false;
-  planS2P2_A.calcLengths = false;
-	planS2P2_A.buttonCanvas("01", 210, 210);
-  planS2P2_A.drawGround();
-  planS2P2_A.draw(0);
+  var S2P2_Configs = [
+    { id: "01", input: 1 },
+    { id: "02", input: 2 },
+  ];
 
-  // ***** numbers of teeth on gears *****
-  var Ns1 = 40;   // number of teeth on sun1
-  var Ns2 = 60;   // number of teeth on sun2
-  var Np1 = 40;   // number of teeth on planet1
-  var Np2 = 20;   // number of teeth on planet2
-
-  var planS2P2_B = new PlanS2P2(Ns1, Ns2, Np1, Np2, false, 2);  // create Grashof type 1 linkage
-  planS2P2_B.showPlots = false;
-  planS2P2_B.calcLengths = false;
-	planS2P2_B.buttonCanvas("02", 210, 210);
-  planS2P2_B.drawGround();
-  planS2P2_B.draw(0);
+  S2P2_Configs.forEach(function (cfg){
+    var planS2P2 = new PlanS2P2(Ns1, Ns2, Np1, Np2, false, cfg.input);
+    planS2P2.showPlots = false;
+    planS2P2.calcLengths = false;
+    planS2P2.buttonCanvas(cfg.id, 210, 210);
+    planS2P2.drawGround();
+    planS2P2.draw(0);
+  });
 }
 
 
