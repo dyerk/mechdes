@@ -1,3 +1,4 @@
+//TODO: Convert to template
 "use strict"
 window.onload = init;
 
