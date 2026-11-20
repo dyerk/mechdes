@@ -4,5 +4,35 @@
 // 2. Load complete Bootstrap (this automatically loads functions, variables, mixins, and utilities in correct order)
 @import "bootstrap/scss/bootstrap";
 
+// 2b. Enable responsive variants for border-radius utilities
+$utilities: map-merge(
+  $utilities,
+  (
+    "rounded": map-merge(
+      map-get($utilities, "rounded"),
+      ( responsive: true )
+    ),
+    "rounded-top": map-merge(
+      map-get($utilities, "rounded-top"),
+      ( responsive: true )
+    ),
+    "rounded-end": map-merge(
+      map-get($utilities, "rounded-end"),
+      ( responsive: true )
+    ),
+    "rounded-bottom": map-merge(
+      map-get($utilities, "rounded-bottom"),
+      ( responsive: true )
+    ),
+    "rounded-start": map-merge(
+      map-get($utilities, "rounded-start"),
+      ( responsive: true )
+    )
+  )
+);
+
+// Re-compile Bootstrap utilities with the updated map
+@import "bootstrap/scss/utilities/api";
+
 // 3. Load your custom partials after Bootstrap
 @import "canvas";

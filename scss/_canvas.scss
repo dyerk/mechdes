@@ -12,23 +12,7 @@
     width: 100% !important;
     height: 100% !important;
 }
-/* Plot Canvas styling */
-.plotCanvas {
-    width: 100%;
-    min-width: 0; /* Prevents container lockup */
-}
-.plotCanvas canvas {
-    width: 100% !important;
-    box-sizing: border-box;
-    height: auto !important;
-    display: block;
-}
-/* Rotated Y-Axis Label */
-.y-axis-label {
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-  text-align: center;
-}
+
 /* Custom HTML Legend Indicators */
 .legend-indicator {
   display: inline-block;
@@ -41,4 +25,41 @@
 }
 .legend-trace-y {
   background-color: #00675C; /*Color 14 from Linkage.js*/
+}
+
+.y-axis-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.72rem;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Responsive SVG plot wrapper */
+.plot-svg-host {
+  width: 100%;
+  min-height: 100px;
+  transition: height 0.2s ease;
+}
+
+/* Top-right overlay chevron button inside plot frame */
+.plot-expand-btn {
+  top: 9px;
+  right: 15px;
+  padding: 1px 5px;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: #495057;
+  background-color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  z-index: 2;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.plot-expand-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: rgba(0, 0, 0, 0.35);
 }
