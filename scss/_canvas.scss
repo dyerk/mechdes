@@ -12,23 +12,6 @@
     width: 100% !important;
     height: 100% !important;
 }
-/* Plot Canvas styling */
-.plotCanvas { //TODO: Remove after planetaryGearset covnersion
-    width: 100%;
-    min-width: 0; /* Prevents container lockup */
-}
-.plotCanvas canvas { //TODO: Remove after planetaryGearset covnersion
-    width: 100% !important;
-    box-sizing: border-box;
-    height: auto !important;
-    display: block;
-}
-/* Rotated Y-Axis Label */
-.y-axis-label { //TODO: Remove after planetaryGearset covnersion
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-  text-align: center;
-}
 
 /* Custom HTML Legend Indicators */
 .legend-indicator {
