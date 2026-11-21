@@ -1,4 +1,3 @@
-//TODO: Convert to template
 "use strict"
 window.onload = init;
 
@@ -6,6 +5,114 @@ window.onload = init;
 // function init() - initializes javascript on html page
 // *******************************************************************************
 function init() {
+  var mount = document.getElementById("mechanisms-mount");
+
+  // 1. Define template metadata for all 6 mechanisms
+  var sectionConfigs = [
+    {
+      id: "01",
+      title: "Traditional Planetary",
+      description: "The traditional planetary gearset has a sun, ring and one planet.",
+      ariaDiagram: "Animation of traditional planetary gearset",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "02",
+      title: "Planetary Gearset",
+      tabTitle: "2 Planets",
+      description: "Sun, ring and two planets.",
+      ariaDiagram: "Animation of two planet planetary gearset",
+      showPlots: false,
+    },
+    {
+      id: "03",
+      title: "Planetary Gearset",
+      tabTitle: "2 Planets (Idler)",
+      description: "Sun, ring and two planets. One planet is an idler gear intended to change direction of output.",
+      ariaDiagram: "Animation of two planet planetary gearset with an idler gear.",
+      showPlots: false,
+    },
+    {
+      id: "04",
+      title: "3 Planets (Configuration 1)",
+      tabTitle: "3 Planets (Config 1)",
+      description: "Sun, ring and three planets.",
+      ariaDiagram: "Animation planetary with a sun, a ring and three planets",
+      showPlots: false,
+    },
+    {
+      id: "05",
+      title: "3 Planets (Configuration 2)",
+      tabTitle: "3 Planets (Config 2)",
+      description: "Sun, ring and three planets.",
+      ariaDiagram: "Animation planetary with a sun, a ring and three planets",
+      showPlots: false,
+    },
+    {
+      id: "06",
+      title: "Planetary Gearset",
+      tabTitle: "4 Planets",
+      description: "Sun, ring and four planets.",
+      ariaDiagram: "Animation planetary with a sun, a ring and four planets",
+      showPlots: false,
+    },
+    {
+      id: "07",
+      title: "Planetary Gearset",
+      tabTitle: "2 Suns & 2 Planets",
+      description: "Two suns and two planets.",
+      ariaDiagram: "Animation of two suns and two planets planetary gearset",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "08",
+      title: "Planetary Gearset",
+      tabTitle: "2 Suns & 3 Planets",
+      description: "Two suns and three planets.",
+      ariaDiagram: "Animation of two suns and three planets planetary gearset",
+      showPlots: false,
+    },
+    {
+      id: "09",
+      title: "Planetary Gearset",
+      tabTitle: "2 Suns & 4 Planets",
+      description: "Two suns and four planets.",
+      ariaDiagram: "Animation of two suns and four planets planetary gearset",
+      showPlots: false,
+    },
+    {
+      id: "10",
+      title: "Planetary Gearset",
+      tabTitle: "2 Rings & 2 Planets",
+      description: "Two rings and two planets.",
+      ariaDiagram: "Animation of two rings and two planets planetary gearset",
+      showPlots: false,
+      isActive: true,
+    },
+    {
+      id: "11",
+      title: "Planetary Gearset",
+      tabTitle: "2 Rings & 3 Planets",
+      description: "Two rings and three planets.",
+      ariaDiagram: "Animation of two rings and three planets planetary gearset",
+      showPlots: false,
+    },
+    {
+      id: "12",
+      title: "Planetary Gearset",
+      tabTitle: "2 Rings & 4 Planets",
+      description: "Two rings and four planets.",
+      ariaDiagram: "Animation of two rings and four planets planetary gearset",
+      showPlots: false,
+    },
+  ];
+
+  // 2. Render HTML templates into DOM
+  mount.innerHTML = renderMechanismSet(sectionConfigs);
+
+  // 3. Instantiate and initialize each mechanism
 	// ***** numbers of teeth on gears *****
   var Ns = 32;    // number of teeth on sun
   var Nr = 64;   // number of teeth on ring

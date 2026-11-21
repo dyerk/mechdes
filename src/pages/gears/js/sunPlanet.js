@@ -40,7 +40,7 @@ function init() {
   mount.innerHTML = renderMechanismSet(sectionConfigs);
 
   // 3. Instantiate and initialize each mechanism
-		// ***** numbers of teeth on gears *****
+	// ***** numbers of teeth on gears *****
   var Ns1 = 24;   // number of teeth on sun1
   var Ns2 = 32;   // number of teeth on sun2
   var Np1 = 24;   // number of teeth on planet1
