@@ -70,7 +70,7 @@ function init() {
 
   var planSRP = new PlanSRP(Ns, Np, false);
 	planSRP.showPlots = false;
-  planSRP.buttonCanvas("01", 210, 200);
+  planSRP.buttonCanvas("01", 210, 200, 1.5);
   planSRP.drawGround();
   planSRP.draw(0);
 
@@ -82,7 +82,7 @@ function init() {
 
   var planSRP2_1 = new PlanSRP2_1(Ns, Nr, Np1, Np2);
   planSRP2_1.showPlots = false;
-	planSRP2_1.buttonCanvas("02", 210, 200);
+	planSRP2_1.buttonCanvas("02", 210, 200, 1.4);
   planSRP2_1.drawGround();
   planSRP2_1.draw(0);
 
@@ -120,7 +120,7 @@ function init() {
 
   var planSRP3_2 = new PlanSRP3_2(Ns, Nr, Np1, Np2, Np3);
   planSRP3_2.showPlots = false;
-	planSRP3_2.buttonCanvas("05", 210, 210);
+	planSRP3_2.buttonCanvas("05", 210, 200);
   planSRP3_2.drawGround();
   planSRP3_2.draw(0);
 
