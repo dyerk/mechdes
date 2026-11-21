@@ -30,7 +30,8 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
-
+  var zoom = 1.2;
+  
   // 3. Instantiate and initialize each mechanism
 	// ***** these are the dimensions of each link *****
   var S = 70;  // short link
@@ -47,7 +48,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var gras_open = new Fourbar(a, b, c, d, p, beta, 12, true);  // create special Grashof type 12 linkage
-  gras_open.buttonCanvas("01", 150, 200);
+  gras_open.buttonCanvas("01", 150, 200, zoom);
 	gras_open.precomputePlots();
 
 // ***** dimensions of fourbar linkage for special Grashof type 12 crossed *****
@@ -59,7 +60,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var gras_crossed = new Fourbar(a, b, c, d, p, beta, 12, false);  // create special Grashof type 12 linkage
-  gras_crossed.buttonCanvas("02", 150, 200);
+  gras_crossed.buttonCanvas("02", 150, 200, zoom);
 	gras_crossed.precomputePlots();
 	
 	// Start other page scripts

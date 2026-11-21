@@ -64,7 +64,7 @@ function init() {
 
   var chebyshevf = new Chebyshev(a,b,c,d,e,f,g,h,1);  // create Chebyshev linkage
 	chebyshevf.showPlots = false;
-  chebyshevf.buttonCanvas("02", 120, 300);
+  chebyshevf.buttonCanvas("02", 120, 300, 1.05);
   chebyshevf.drawGround();
   chebyshevf.draw(0);                // calculate the Chebyshev geometry and draw
 
@@ -80,7 +80,7 @@ function init() {
 
   var chebyshevr = new Chebyshev(a,b,c,d,e,f,g,h,-1);  // create Chebyshev linkage
   chebyshevr.showPlots = false;
-	chebyshevr.buttonCanvas("03", 120, 300);
+	chebyshevr.buttonCanvas("03", 120, 300, 1.05);
   chebyshevr.drawGround();
   chebyshevr.draw(0);                // calculate the Chebyshev geometry and draw
 	

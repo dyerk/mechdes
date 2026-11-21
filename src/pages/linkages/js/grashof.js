@@ -63,7 +63,7 @@ function init() {
   var beta = 0; // coupler angle
 
   var grashof1 = new Fourbar(a, b, c, d, p, beta, 1, false);  // create Grashof type 1 linkage
-  grashof1.buttonCanvas("01", 200, 190);
+  grashof1.buttonCanvas("01", 200, 190, 1.05);
 	grashof1.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for Grashof type 2 *****
@@ -75,7 +75,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var grashof2 = new Fourbar(a, b, c, d, p, beta, 2, true);  // create Grashof type 2 linkage
-  grashof2.buttonCanvas("02", 150, 220);
+  grashof2.buttonCanvas("02", 150, 220, 1.2);
   grashof2.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for Grashof type 3 *****
@@ -87,7 +87,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var grashof3 = new Fourbar(a, b, c, d, p, beta, 3, true);  // create Grashof type 3 linkage
-  grashof3.buttonCanvas("03", 120, 230);
+  grashof3.buttonCanvas("03", 120, 230, 1.2);
   grashof3.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for Grashof type 4 *****
@@ -99,7 +99,7 @@ function init() {
   var beta = 0; // coupler angle
   
   var grashof4 = new Fourbar(a, b, c, d, p, beta, 4, false);  // create Grashof type 4 linkage
-  grashof4.buttonCanvas("04", 130, 220);
+  grashof4.buttonCanvas("04", 130, 220, 1.2);
   grashof4.precomputePlots();
 	
 	// Start other page scripts

@@ -62,6 +62,7 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.2;
 
   // 3. Instantiate and initialize each mechanism
 	// ***** these are the dimensions of each link *****
@@ -77,7 +78,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var spgras15 = new Fourbar(a, b, c, d, p, beta, 15, false);  // create special Grashof type 15 linkage
-  spgras15.buttonCanvas("01", 120, 210);
+  spgras15.buttonCanvas("01", 150, 210, 1.15);
 	spgras15.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 16 *****
@@ -89,7 +90,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var spgras16 = new Fourbar(a, b, c, d, p, beta, 16, false);  // create special Grashof type 16 linkage
-  spgras16.buttonCanvas("02", 150, 210);
+  spgras16.buttonCanvas("02", 170, 210, zoom);
 	spgras16.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 17 *****
@@ -101,7 +102,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var spgras17 = new Fourbar(a, b, c, d, p, beta, 17, false);  // create special Grashof type 17 linkage
-  spgras17.buttonCanvas("03", 100, 210);
+  spgras17.buttonCanvas("03", 100, 210, zoom);
 	spgras17.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for special Grashof type 18 *****
@@ -113,7 +114,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var spgras18 = new Fourbar(a, b, c, d, p, beta, 18, false);  // create special Grashof type 18 linkage
-  spgras18.buttonCanvas("04", 210, 210);
+  spgras18.buttonCanvas("04", 210, 210, 1.15);
 	spgras18.precomputePlots();
 
   // ***** dimensions of fourbar linkage for special Grashof type 19 *****
@@ -125,7 +126,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var spgras191 = new Fourbar(a, b, c, d, p, beta, 19, false);  // create special Grashof type 19 linkage
-  spgras191.buttonCanvas("05", 130, 210);
+  spgras191.buttonCanvas("05", 150, 210, zoom);
 	spgras191.precomputePlots();
 
   // ***** dimensions of fourbar linkage for special Grashof type 19 *****
@@ -137,7 +138,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var spgras192 = new Fourbar(a, b, c, d, p, beta, 19, true);  // create special Grashof type 19 linkage
-  spgras192.buttonCanvas("06", 130, 210);
+  spgras192.buttonCanvas("06", 150, 210, zoom);
 	spgras192.precomputePlots();
 	
 	// Start other page scripts

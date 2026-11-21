@@ -83,6 +83,7 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.2;
 
   // 3. Instantiate and initialize each mechanism
   var a = 60;                // crank
@@ -90,7 +91,7 @@ function init() {
   var c = 0;                // vertical distance to slot
 
   var sliderCrankA = new SliderCrank(a,b,c);  // create slider-crank
-  sliderCrankA.buttonCanvas("01", 140, 210, true, 0, true);
+  sliderCrankA.buttonCanvas("01", 140, 210, zoom, true, 0, true);
 	sliderCrankA.precomputePlots();
 	
 	// ***** dimensions of slider-crank linkage *****
@@ -99,7 +100,7 @@ function init() {
   var c = 60;                // vertical distance to slot
 
   var sliderCrankO = new SliderCrank(a,b,c);  // create slider-crank
-  sliderCrankO.buttonCanvas("02", 140, 210, true, 0, true);
+  sliderCrankO.buttonCanvas("02", 140, 210, zoom, true, 0, true);
   sliderCrankO.precomputePlots();
 	
   // ***** these are the dimensions of each link *****
@@ -117,7 +118,7 @@ function init() {
   var beta = 0; // coupler angle  
 
   var fourbarO = new Fourbar(a,b,c,d,p,beta,12,true);  // create fourbar
-  fourbarO.buttonCanvas("03", 150, 200, true, 3, true);
+  fourbarO.buttonCanvas("03", 150, 200, zoom, true, 3, true);
   fourbarO.precomputePlots();
 	
 	// ***** dimensions of fourbar linkage for special Grashof type 12 crossed *****
@@ -129,7 +130,7 @@ function init() {
   var beta = 0; // coupler angle  
 	
 	var fourbarC = new Fourbar(a,b,c,d,p,beta,12,false);  // create fourbar
-  fourbarC.buttonCanvas("04", 150, 200, true, 3, true);
+  fourbarC.buttonCanvas("04", 150, 200, zoom, true, 3, true);
   fourbarC.precomputePlots();
 	
 	// ***** dimensions of inverted slider-crank
@@ -140,7 +141,7 @@ function init() {
   var gamma = 80*Math.PI/180;     // angle between slider and rocker
 
   var invSlideO = new InvSlide(a,p,c,d,gamma,true); // create inverted slider-crank
-  invSlideO.buttonCanvas("05", 120, 250, true, 1, true);
+  invSlideO.buttonCanvas("05", 120, 250, zoom, true, 1, true);
   invSlideO.precomputePlots();
 	
 	// ***** dimensions of inverted slider-crank
@@ -151,7 +152,7 @@ function init() {
   var gamma = 80*Math.PI/180;     // angle between slider and rocker
 	
 	var invSlideC = new InvSlide(a,p,c,d,gamma,false); // create inverted slider-crank
-  invSlideC.buttonCanvas("06", 120, 200, true, 1, true);
+  invSlideC.buttonCanvas("06", 120, 200, zoom, true, 1, true);
   invSlideC.precomputePlots();
 
   // ***** dimensions of fivebar linkage

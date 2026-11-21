@@ -28,6 +28,7 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.2;
 
   // 3. Instantiate and initialize each mechanism
 	// ***** dimensions of Grashof fourbar linkage  *****
@@ -42,7 +43,7 @@ function init() {
 
   var grashof = new DriverDyad(a, b, c, d, e, f, g, h, true, false);
 	grashof.showPlots = false;
-  grashof.buttonCanvas("01", 80, 250);
+  grashof.buttonCanvas("01", 115, 250, zoom);
   grashof.drawGround();
   grashof.draw(0);
 
@@ -58,7 +59,7 @@ function init() {
 
   var driverdyad = new DriverDyad(a, b, c, d, e, f, g, h, true, true);
 	driverdyad.showPlots = false;
-  driverdyad.buttonCanvas("02", 80, 250);
+  driverdyad.buttonCanvas("02", 115, 250, zoom);
   driverdyad.drawGround();
   driverdyad.draw(0);
 	
