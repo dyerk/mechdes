@@ -1,6 +1,8 @@
 {
   "name": "mechdes",
   "compatibility_date": "2026-01-01",
-  "previews": {},
-  "main": "src/index.ts"
+  "assets": {
+    "directory": "./src"
+  },
+  "previews": {}
 }
