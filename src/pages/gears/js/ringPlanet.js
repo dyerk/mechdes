@@ -48,7 +48,7 @@ function init() {
 
   var planR2P2 = new PlanR2P2(Nr1, Nr2, Np1, Np2);
   planR2P2.showPlots = false;
-	planR2P2.buttonCanvas("01", 210, 200);
+	planR2P2.buttonCanvas("01", 250, 200);
   planR2P2.drawGround();
   planR2P2.draw(0);
 
@@ -61,7 +61,7 @@ function init() {
 
   var planR2P3 = new PlanR2P3(Nr1, Nr2, Np1, Np2, Np3);
   planR2P3.showPlots = false;
-	planR2P3.buttonCanvas("02", 210, 200);
+	planR2P3.buttonCanvas("02", 250, 200);
   planR2P3.drawGround();
   planR2P3.draw(0);
 
@@ -75,7 +75,7 @@ function init() {
 
   var planR2P4 = new PlanR2P4(Nr1, Nr2, Np1, Np2, Np3, Np4);
   planR2P4.showPlots = false;
-	planR2P4.buttonCanvas("03", 210, 200);
+	planR2P4.buttonCanvas("03", 250, 200);
   planR2P4.drawGround();
   planR2P4.draw(0);
 	

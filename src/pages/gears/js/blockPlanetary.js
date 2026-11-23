@@ -31,6 +31,7 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.5;
 
   // 3. Instantiate and initialize each mechanism
 	// ***** numbers of teeth on gears *****
@@ -41,7 +42,7 @@ function init() {
 
 	var lego1 = new PlanS2P2(Ns1, Ns2, Np1, Np2, false);  // create Grashof type 1 linkage
   lego1.showPlots = false;
-	lego1.buttonCanvas("01", 210, 210);
+	lego1.buttonCanvas("01", 250, 200, zoom);
   lego1.drawGround();
   lego1.draw(0);
 
@@ -54,7 +55,7 @@ function init() {
 	
 	var lego2 = new PlanS2P2(Ns1, Ns2, Np1, Np2, false);  // create Grashof type 1 linkage
   lego2.showPlots = false;
-	lego2.buttonCanvas("02", 210, 210);
+	lego2.buttonCanvas("02", 250, 200, zoom);
   lego2.drawGround();
   lego2.draw(0);
 

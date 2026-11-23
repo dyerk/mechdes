@@ -5,6 +5,7 @@ function Linkage() {
   this.showIC = false;
   this.showTrace = true;
   this.calcLengths = true;
+  this.zoom = 1; // keep default no change from orginal code
 
   this.crankMin = 0;
   this.crankMax = 0;
@@ -45,13 +46,19 @@ function Linkage() {
   };
 }
 
-Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
+Linkage.prototype.buttonCanvas = function (pageID, x0, y0, zoom) {
   var linkage = this;
   this.root = document.querySelector('[data-mechanism-id="' + pageID + '"]');
 
   if (!this.root) {
     console.error("Mechanism container not found for ID:", pageID);
     return;
+  }
+
+  this.x0 = x0;
+  this.y0 = y0;
+  if (zoom !== undefined) {
+    this.zoom = zoom;
   }
 
   this.btnPlay = this.root.querySelector('[data-role="btn-play"]');
@@ -83,10 +90,9 @@ Linkage.prototype.buttonCanvas = function (pageID, x0, y0) {
     this.ctx[i] = this.can[i].getContext("2d");
     this.can[i].width = 500;
     this.can[i].height = 400;
+    this._applyCanvasZoom(this.ctx[i]);
   }
 
-  this.x0 = x0;
-  this.y0 = y0;
   this.traceColor = [this.color[9], this.color[19], this.color[14]];
 
   var plotControl = this.root.querySelector(".plotControl");
@@ -188,9 +194,7 @@ Linkage.prototype.precomputePlots = function () {
   }
 
   // Reset mechanism canvases & timeStep back to 0 without wiping the precomputed plots
-  for (var c = 0; c < 5; c++) {
-    this.ctx[c].clearRect(0, 0, this.can[c].width, this.can[c].height);
-  }
+  this.clearAllCanvases();
   if (this.showIC) {
     this.drawIC();
   } else {
@@ -299,9 +303,7 @@ Linkage.prototype.eventReset = function () {
   this.iconReset.classList.add("button-disabled");
   this.announceStatus("Animation reset to initial position.");
 
-  for (var i = 0; i < 5; i++) {
-    this.ctx[i].clearRect(0, 0, this.can[i].width, this.can[i].height);
-  }
+  this.clearAllCanvases();
 
   if (this.showIC) {
     this.drawIC();
@@ -554,4 +556,23 @@ Linkage.prototype.drawPinLabels = function () {
   }
 
   ctx.restore();
+};
+
+// Scales canvas drawing around the mechanism's ground pivot (x0, y0)
+Linkage.prototype._applyCanvasZoom = function (ctx) {
+  if (!this.zoom || this.zoom === 1) return;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.translate(this.x0, this.y0);
+  ctx.scale(this.zoom, this.zoom);
+  ctx.translate(-this.x0, -this.y0);
+};
+
+// Helper to clear the full 500x400 canvas regardless of active zoom
+Linkage.prototype.clearAllCanvases = function () {
+  for (var i = 0; i < 5; i++) {
+    this.ctx[i].save();
+    this.ctx[i].setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx[i].clearRect(0, 0, this.can[i].width, this.can[i].height);
+    this.ctx[i].restore();
+  }
 };

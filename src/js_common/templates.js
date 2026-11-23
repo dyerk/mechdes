@@ -7,7 +7,7 @@ function renderPlotRow(config) {
   return `
     <div class="plot-row mb-1" data-plot-container="${type}">
       <div class="d-flex align-items-stretch">
-        <div class="y-axis-vertical text-muted fw-semibold d-flex align-items-center justify-content-center pe-1" aria-hidden="true">
+        <div class="y-axis-vertical text-muted fw-semibold d-flex align-items-center justify-content-center text-center pe-1" aria-hidden="true">
           <span>${label}</span>
         </div>
 
@@ -76,9 +76,9 @@ function renderMechanismSection(config) {
         </div>
 
         <div class="card-body p-2">
-          ${renderPlotRow({ id: id, type: 'dis', label: 'Disp [mm]', height: 100 })}
-          ${renderPlotRow({ id: id, type: 'vel', label: 'Vel [mm/s]', height: 100 })}
-          ${renderPlotRow({ id: id, type: 'acc', label: 'Accel [mm/s²]', height: 116 })}
+          ${renderPlotRow({ id: id, type: 'dis', label: 'Displacement<br>[mm]', height: 100 })}
+          ${renderPlotRow({ id: id, type: 'vel', label: 'Velocity<br>[mm/s]', height: 100 })}
+          ${renderPlotRow({ id: id, type: 'acc', label: 'Acceleration<br>[mm/s²]', height: 116 })}
 
           <div class="text-center text-muted fw-semibold mt-1" style="font-size: 0.75rem;" aria-hidden="true">
             Crank Angle [deg]

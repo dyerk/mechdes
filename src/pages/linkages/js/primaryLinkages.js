@@ -66,6 +66,7 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.2;
 
   // 3. Instantiate and initialize each mechanism
   // 01: Threebar
@@ -74,7 +75,7 @@ function init() {
   var p = 250;               // length of slider
   var g = 160;               // length of slot
   var threebar = new Threebar(a, p, g, d);
-  threebar.buttonCanvas("01", 120, 200);
+  threebar.buttonCanvas("01", 90, 200, zoom);
   threebar.precomputePlots();
 
   // 02: Fourbar
@@ -86,7 +87,7 @@ function init() {
   var beta = 40*Math.PI/180; // coupler offset angle
 
   var fourbar = new Fourbar(a,b,c,d,p,beta,2,true);
-  fourbar.buttonCanvas("02", 120, 230);
+  fourbar.buttonCanvas("02", 150, 250, zoom);
   fourbar.precomputePlots();
 
   // 03: Slider-Crank
@@ -95,7 +96,7 @@ function init() {
   var c = 60;                // vertical distance to slot
 
   var sliderCrank = new SliderCrank(a,b,c);
-  sliderCrank.buttonCanvas("03", 140, 210);
+  sliderCrank.buttonCanvas("03", 140, 210, zoom);
   sliderCrank.precomputePlots();
 
   // 04: Inverted Slider-Crank
@@ -107,7 +108,7 @@ function init() {
   var hLink = 60;             // width of slider
 
   var invSlide = new InvSlide(a,p,c,d,gamma,true);
-  invSlide.buttonCanvas("04", 120, 250);
+  invSlide.buttonCanvas("04", 120, 250, zoom);
   invSlide.precomputePlots();
 
   // 05: Geared Fivebar
@@ -142,7 +143,7 @@ function init() {
   var camrock = new CamRock(nDwell, rb, h, betad, betar, R, L, d);
   camrock.showPlots = false;
   camrock.showTrace = false;
-  camrock.buttonCanvas("06", 160, 200);
+  camrock.buttonCanvas("06", 160, 200, zoom);
   camrock.drawGround();
   camrock.draw(0);
 

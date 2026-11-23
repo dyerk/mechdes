@@ -42,21 +42,21 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.3;
 
   // 3. Instantiate and initialize each mechanism
 	// ***** dimensions of cam with knife-edged follower *****
-
   var nDwell = 3;            // number of dwells on cam
   var rb =  50;              // base radius of cam
   var h = [10, 20, 40];      // dwell heights on cam
   var betad = [100, 40, 30]; // dwell angles on cam (degrees)
   var betar = [ 60, 50, 80]; // rise/fall angles on cam
-  var L = 150;               // length of rod on follower
+  var L = 130;               // length of rod on follower
 
   var camknife = new CamKnife(nDwell, rb, h, betad, betar, L);  // create cam with knife-edged follower
 	camknife.showPlots = false;
   camknife.calcLengths =false;
-  camknife.buttonCanvas("01", 140, 200);
+  camknife.buttonCanvas("01", 140, 200, zoom);
   camknife.drawGround();
   camknife.draw(0);
   
@@ -66,13 +66,13 @@ function init() {
   var h = [10, 20, 40];        // dwell heights on cam
   var betad = [100, 40, 30];   // dwell angles on cam (degrees)
   var betar = [ 60, 50, 80];   // rise/fall angles on cam
-  var L = 150;               // length of rod on follower
+  var L = 130;               // length of rod on follower
   var W = 80;                // width of face of follower
 
   var camflat = new CamFlat(nDwell, rb, h, betad, betar, L, W);  // create cam with flat-faced follower
   camflat.showPlots = false;
   camflat.calcLengths = false;
-	camflat.buttonCanvas("02", 140, 200);
+	camflat.buttonCanvas("02", 140, 200, zoom);
   camflat.drawGround();
   camflat.draw(0);
 
@@ -89,7 +89,7 @@ function init() {
   var camroll = new CamRoll(nDwell, rb, h, betad, betar, R, L, b);  // create cam with flat-faced follower
   camroll.showPlots = false;
   camroll.calcLengths = false;
-	camroll.buttonCanvas("03", 140, 200);
+	camroll.buttonCanvas("03", 140, 200, zoom);
   camroll.drawGround();
   camroll.draw(0);
   
@@ -106,7 +106,7 @@ function init() {
   var camrock = new CamRock(nDwell, rb, h, betad, betar, R, L, d);  // create cam with flat-faced follower
   camrock.showPlots = false;
   camrock.calcLengths = false;
-	camrock.buttonCanvas("04", 140, 200);
+	camrock.buttonCanvas("04", 140, 200, zoom);
   camrock.drawGround();
   camrock.draw(0);
 	

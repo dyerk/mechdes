@@ -90,7 +90,7 @@ function init() {
   var sixbarS2 = new SixbarS2(a,b,c,d,p,q,u,v,gamma3,gamma4);  // create sixbar
   sixbarS2.showPlots = false;
   sixbarS2.calcLengths = false;
-	sixbarS2.buttonCanvas("02", 100, 280);
+	sixbarS2.buttonCanvas("02", 85, 290, 1.1);
   sixbarS2.drawGround();
   sixbarS2.draw(0);   
 
@@ -147,7 +147,7 @@ function init() {
   var sixbarW2 = new SixbarW2(a,b,c,d,p,q,u,v,gamma1,gamma4);  // create sixbar
   sixbarW2.showPlots = false;
   sixbarW2.calcLengths = false;
-	sixbarW2.buttonCanvas("05", 120, 250);
+	sixbarW2.buttonCanvas("05", 120, 250, 1.2);
   sixbarW2.drawGround();
   sixbarW2.draw(0);                // calculate the sixbar geometry and draw 
 	

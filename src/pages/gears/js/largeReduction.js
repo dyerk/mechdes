@@ -41,7 +41,7 @@ function init() {
   var planRed1 = new PlanS2P2(Ns1, Ns2, Np1, Np2, false);
 	planRed1.showPlots = false;
 	planRed1.deltaT = 0.05;
-  planRed1.buttonCanvas("01", 210, 210);
+  planRed1.buttonCanvas("01", 250, 200, 1.5);
   planRed1.drawGround();
   planRed1.draw(0);
 
@@ -54,7 +54,7 @@ function init() {
   var planRed2 = new PlanR2P2(Nr1, Nr2, Ns1, Ns2);
   planRed2.showPlots = false;
 	planRed2.deltaT = 0.05;
-	planRed2.buttonCanvas("02", 210, 210);
+	planRed2.buttonCanvas("02", 250, 200);
   planRed2.drawGround();
   planRed2.draw(0);
 

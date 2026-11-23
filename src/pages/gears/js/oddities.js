@@ -85,7 +85,7 @@ function init() {
 
   var planSRP2_1 = new PlanSRP2_1(Ns, Nr, Np1, Np2);
   planSRP2_1.showPlots = false;
-	planSRP2_1.buttonCanvas("01", 250, 200);
+	planSRP2_1.buttonCanvas("01", 250, 200, 1.5);
   planSRP2_1.drawGround();
   planSRP2_1.draw(0);
 
@@ -190,7 +190,7 @@ function init() {
   var planS2P3 = new PlanS2P3(Ns1, Ns2, Np1, Np2, Np3);  // create Grashof type 1 linkage
   planS2P3.showPlots = false;
   planS2P3.calcLengths = false;
-	planS2P3.buttonCanvas("09", 250, 200);
+	planS2P3.buttonCanvas("09", 250, 200, 1.1);
   planS2P3.drawGround();
   planS2P3.draw(0);
 
@@ -205,7 +205,7 @@ function init() {
   var planS2P4 = new PlanS2P4(Ns1, Ns2, Np1, Np2, Np3, Np4);  // create Grashof type 1 linkage
   planS2P4.showPlots = false;
   planS2P4.calcLengths = false;
-	planS2P4.buttonCanvas("10", 250, 200);
+	planS2P4.buttonCanvas("10", 250, 200, 1.1);
   planS2P4.drawGround();
   planS2P4.draw(0);
 }

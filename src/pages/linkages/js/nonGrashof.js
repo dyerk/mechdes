@@ -62,6 +62,7 @@ function init() {
 
   // 2. Render HTML templates into DOM
   mount.innerHTML = renderMechanismSet(sectionConfigs);
+  var zoom = 1.2;
 
   // 3. Instantiate and initialize each mechanism
 	// ***** these are the dimensions of each link *****
@@ -80,7 +81,7 @@ function init() {
 
   var nongras5 = new Fourbar(a, b, c, d, p, beta, 5, true);  // create non-Grashof type 5 linkage
 	nongras5.isGrashof = false;
-  nongras5.buttonCanvas("01", 120, 210);
+  nongras5.buttonCanvas("01", 120, 210, zoom);
 	nongras5.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type 6 *****
@@ -93,7 +94,7 @@ function init() {
 
   var nongras6 = new Fourbar(a, b, c, d, p, beta, 6, false);  // create non-Grashof type 6 linkage
   nongras6.isGrashof = false;
-	nongras6.buttonCanvas("02", 120, 210);
+	nongras6.buttonCanvas("02", 120, 210, zoom);
   nongras6.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type 7 *****
@@ -106,7 +107,7 @@ function init() {
 
   var nongras7 = new Fourbar(a, b, c, d, p, beta, 7, false);  // create non-Grashof type 7 linkage
   nongras7.isGrashof = false;
-	nongras7.buttonCanvas("03", 150, 210);
+	nongras7.buttonCanvas("03", 150, 210, 1.1);
 	nongras7.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type	 8 *****
@@ -119,7 +120,7 @@ function init() {
 
   var nongras8 = new Fourbar(a, b, c, d, p, beta, 8, true);  // create non-Grashof type 8 linkage
   nongras8.isGrashof = false;
-	nongras8.buttonCanvas("04", 150, 210);
+	nongras8.buttonCanvas("04", 150, 210, zoom);
   nongras8.precomputePlots();
 
   // ***** dimensions of fourbar linkage for non-Grashof type 9 *****
@@ -132,7 +133,7 @@ function init() {
 
   var nongras9 = new Fourbar(a, b, c, d, p, beta, 9, false);  // create non-Grashof type 9 linkage
 	nongras9.isGrashof = false;
-  nongras9.buttonCanvas("05", 150, 210);
+  nongras9.buttonCanvas("05", 150, 210, zoom);
   nongras9.precomputePlots();
 
 	// ***** dimensions of fourbar linkage for non-Grashof type 10 *****
@@ -145,7 +146,7 @@ function init() {
 
   var nongras10 = new Fourbar(a, b, c, d, p, beta, 10, true);  // create non-Grashof type 10 linkage
   nongras10.isGrashof = false;
-	nongras10.buttonCanvas("06", 180, 210);
+	nongras10.buttonCanvas("06", 180, 210, 1.1);
   nongras10.precomputePlots();
 	
 	// Start other page scripts
