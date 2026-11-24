@@ -19,7 +19,7 @@ function init() {
       showPlots: true,
       pins: ["B", "P"],
       isActive: true,
-      tabId: "pill-threebar-tab"
+      tabId: "pill-threebar-tab",
     },
     {
       id: "02",
@@ -29,7 +29,7 @@ function init() {
       ariaDiagram: "Animation of fourbar mechanism in motion",
       showPlots: true,
       pins: ["B", "P", "C"],
-      tabId: "pill-fourbar-tab"
+      tabId: "pill-fourbar-tab",
     },
     {
       id: "03",
@@ -41,7 +41,7 @@ function init() {
       pinLabels: {
         C: "C - Slider Pin"  //override default
       },
-      tabId: "pill-slider-crank-tab"
+      tabId: "pill-slider-crank-tab",
     },
     {
       id: "04",
@@ -50,7 +50,7 @@ function init() {
       ariaDiagram: "Animation of inverted slider-crank mechanism in motion",
       showPlots: true,
       pins: ["B", "P"],
-      tabId: "pill-inverted-slider-crank-tab"
+      tabId: "pill-inverted-slider-crank-tab",
     },
     {
       id: "05",
@@ -58,7 +58,7 @@ function init() {
       description: "This linkage consists of two gears, two couplers and ground.",
       ariaDiagram: "Animation of geared fivebar mechanism in motion",
       showPlots: false,
-      tabId: "pill-geared-fiverbar-tab"
+      tabId: "pill-geared-fiverbar-tab",
     },
     {
       id: "06",
@@ -66,7 +66,7 @@ function init() {
       description: "The cam-follower changes rotary motion of the cam to translational motion of a follower. The cam-follower pictured is known as a rocker configuration.",
       ariaDiagram: "Animation of cam-follower in motion",
       showPlots: false,
-      tabId: "pill-cam-follower-tab"
+      tabId: "pill-cam-follower-tab",
     }
   ];
 

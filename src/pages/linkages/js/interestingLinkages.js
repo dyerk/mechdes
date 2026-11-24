@@ -17,6 +17,7 @@ function init() {
       ariaDiagram: "Animation of Peaucellier straight-line linkage",
       showPlots: false,
       isActive: true,
+      tabId: "pill-straigh-line-tab",
     },
     {
       id: "02",
@@ -25,6 +26,7 @@ function init() {
       description: "If the flywheel is started in the clockwise direction, it will spin four times for every revolution of the crank.",
       ariaDiagram: "Animation of Chebyshev paradoxical mechanism with a clockwise spinning flywheel.",
       showPlots: false,
+      tabId: "pill-paradocxical-cw-tab",
     },
     {
       id: "03",
@@ -33,6 +35,7 @@ function init() {
       description: "If the flywheel is started in the counterclockwise direction, it will spin only twice for every revolution of the crank!",
       ariaDiagram: "Animation of Chebyshev paradoxical mechanism with a counter-clockwise spinning flywheel.",
       showPlots: false,
+      tabId: "pill-paradocxical-ccw-tab",
     }
   ];
 
