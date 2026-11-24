@@ -250,7 +250,7 @@ function renderCanvasCard(config) {
   `;
 }
 
-// Renders a grid row of standalone canvas cards
+// Renders a grid row of standalone cards - can be used for stacked canvas or image/canvas pair
 function renderCanvasGrid(configs, rowClass) {
   var cls = rowClass || "row g-4 align-items-start";
   return `<div class="${cls}">${configs.map(renderCanvasCard).join("")}</div>`;
