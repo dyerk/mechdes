@@ -16,6 +16,7 @@ function init() {
       ariaDiagram: "Animation of Grashof fourbar mechanism",
       showPlots: false,
       isActive: true,
+      tabId: "pill-driving-grashof-tab",
     },
     {
       id: "02",
@@ -23,6 +24,7 @@ function init() {
       description: "The shortest link is the crank, and only the crank makes a complete revolution.If a linkage is non-Grashof, we can use a driver dyad to drive it. Note that the fourbar linkage that contains the driver dyad is the same as in the animation at left.",
       ariaDiagram: "Animation of non-grashof mechanism being driven by a driver dyad",
       showPlots: false,
+      tabId: "pill-driving-non-grashof-tab",
     },
   ];
 

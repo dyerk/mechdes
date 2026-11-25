@@ -17,6 +17,7 @@ function init() {
       showPlots: true,
       pins: ["B", "C"],
       isActive: true,
+      tabId: "pill-class-1-tab"
     },
     {
       id: "02",
@@ -24,7 +25,8 @@ function init() {
       description: "The shortest link is the crank, and only the crank makes a complete revolution.",
       ariaDiagram: "Animation of Grashof class 2 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      tabId: "pill-class-2-tab"
     },
     {
       id: "03",
@@ -33,6 +35,7 @@ function init() {
       ariaDiagram: "Animation of Grashof class 3 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
+      tabId: "pill-class-3-tab",
     },
     {
       id: "04",
@@ -40,7 +43,8 @@ function init() {
       description: "The shortest link is the rocker, and only the rocker makes a complete revolution. In this it is analagous to the Class 2 linkage.",
       ariaDiagram: "Animation of Grashof class 4 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      tabId: "pill-class-4-tab",
     },
   ];
 

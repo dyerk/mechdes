@@ -17,6 +17,7 @@ function init() {
       showPlots: true,
       pins: ["B", "C"],
       isActive: true,
+      tabId: "pill-class-15-tab",
     },
     {
       id: "02",
@@ -24,7 +25,8 @@ function init() {
       description: "There are two pairs of identical links, each of which is adjacent to each other. The short links are the crank and coupler, and the crank and coupler both make a full revolution.",
       ariaDiagram: "Animation of Grashof class 16 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      tabId: "pill-class-16-tab",
     },
     {
       id: "03",
@@ -33,6 +35,7 @@ function init() {
       ariaDiagram: "Animation of Grashof class 17 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
+      tabId: "pill-class-17-tab",
     },
     {
       id: "04",
@@ -40,7 +43,8 @@ function init() {
       description: "There are two pairs of identical links, each of which is adjacent to each other. The short links are the rocker and ground, and all links make a complete revolution. Note that the crank and coupler make a single revolution for two revolutions of the rocker.",
       ariaDiagram: "Animation of Grashof class 18 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      tabId: "pill-class-18-tab",
     },
         {
       id: "05",
@@ -48,7 +52,8 @@ function init() {
       description: "There are two pairs of identical links, each of which is opposite each other. This is the crossed version of the parallelogram linkage.",
       ariaDiagram: "Animation of Grashof class 19 crossed configuration fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      tabId: "pill-class-19-crossed-tab",
     },
         {
       id: "06",
@@ -56,7 +61,8 @@ function init() {
       description: "There are two pairs of identical links, each of which is opposite each other. This is the open version of the parallelogram linkage.",
       ariaDiagram: "Animation of Grashof class 19 open configuration fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
+      tabId: "pill-class-19-open-tab",
     },
   ];
 
