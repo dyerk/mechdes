@@ -7,6 +7,10 @@ on:
     tags:
       - 'v*'
 
+concurrency:
+  group: update-footer-${{ github.ref_name }}
+  cancel-in-progress: false
+
 jobs:
   update-footer:
     runs-on: ubuntu-latest
@@ -17,25 +21,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_name | github.ref_name }}
+          ref: main
           fetch-depth: 0
 
       - name: Get Latest Tag or Commit SHA
         id: get_version
         run: |
-          # Fetch all tags from remote
-          git fetch --tags
-          # Get the latest tag on main, or fall back to the short commit SHA if no tag exists
-          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || git rev-parse --short HEAD)
-          echo "VERSION=$LATEST_TAG" >> $GITHUB_OUTPUT
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            LATEST_TAG="${{ github.ref_name }}"
+          else
+            LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || git rev-parse --short HEAD)
+          fi
+          echo "VERSION=$LATEST_TAG" >> "$GITHUB_OUTPUT"
 
       - name: Replace Placeholder in Footer
         run: |
           VERSION="${{ steps.get_version.outputs.VERSION }}"
           FILE="src/includes/footer.html"
           
-          # Replace text between <!-- VERSION --> and <!-- /VERSION -->
-          sed -i -E "s|(<!-- VERSION -->).*?(<!-- /VERSION -->)|\1${VERSION}\2|g" "$FILE"
+          perl -i -pe "s|(<!-- VERSION -->).*?(<!-- /VERSION -->)|\${1}${VERSION}\${2}|g" "$FILE"
 
       - name: Commit and Push Changes
         run: |
@@ -44,10 +48,9 @@ jobs:
           
           git add src/includes/footer.html
           
-          # Commit only if changes were made
           if ! git diff --staged --quiet; then
             git commit -m "chore: update footer version tag to ${{ steps.get_version.outputs.VERSION }} [skip ci]"
-            git push
+            git push origin main
           else
             echo "No changes to commit"
           fi
