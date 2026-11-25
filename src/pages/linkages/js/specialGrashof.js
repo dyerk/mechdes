@@ -17,7 +17,6 @@ function init() {
       showPlots: true,
       pins: ["B", "C"],
       isActive: true,
-      
     },
     {
       id: "02",
@@ -26,7 +25,6 @@ function init() {
       ariaDiagram: "Animation of Grashof class 12 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
-      
     },
     {
       id: "03",
