@@ -29,7 +29,7 @@ function init() {
       showPlots: true,
       pins: ["B", "C"],
       pinLabels: {
-        C: "C - Slider Pin"  //override default
+        C: "C - Slider Pin",  //override default
       },
     },
     {
@@ -69,7 +69,7 @@ function init() {
       title: "Geared Fivebar (Same Gears)",
       description: "This geared fivebar has two gears with equal numbers of teeth.",
       ariaDiagram: "Animation of geared fivebar mechanism with equal number of teeth.",
-      showPlots: false
+      showPlots: false,
     },
     {
       id: "08",
@@ -77,7 +77,7 @@ function init() {
       tabTitle: "Geared Fivebar (Diff Gears)",
       description: "The second gear has twice the number of teeth as the first gear. Note the cusps in the motion of the blue trace.",
       ariaDiagram: "Animation of geared fivebar mechanism with inequal number of teeth.",
-      showPlots: false
+      showPlots: false,
     }
   ];
 

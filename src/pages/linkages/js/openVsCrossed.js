@@ -24,7 +24,7 @@ function init() {
       description: "Crossed Configuration",
       ariaDiagram: "Animation of Grashof class 12 crossed configuration fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
   ];
 

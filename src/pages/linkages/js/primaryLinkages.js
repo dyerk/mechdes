@@ -27,7 +27,7 @@ function init() {
       description: "This very common linkage consists of a crank, coupler, rocker and ground.",
       ariaDiagram: "Animation of fourbar mechanism in motion",
       showPlots: true,
-      pins: ["B", "P", "C"]
+      pins: ["B", "P", "C"],
     },
     {
       id: "03",
@@ -38,7 +38,7 @@ function init() {
       pins: ["B", "C"],
       pinLabels: {
         C: "C - Slider Pin"  //override default
-      }
+      },
     },
     {
       id: "04",
@@ -46,21 +46,21 @@ function init() {
       description: "This linkage consists of a crank, slider, rocker and ground.",
       ariaDiagram: "Animation of inverted slider-crank mechanism in motion",
       showPlots: true,
-      pins: ["B", "P"]
+      pins: ["B", "P"],
     },
     {
       id: "05",
       title: "Geared Fivebar",
       description: "This linkage consists of two gears, two couplers and ground.",
       ariaDiagram: "Animation of geared fivebar mechanism in motion",
-      showPlots: false
+      showPlots: false,
     },
     {
       id: "06",
       title: "Cam-Follower",
       description: "The cam-follower changes rotary motion of the cam to translational motion of a follower. The cam-follower pictured is known as a rocker configuration.",
       ariaDiagram: "Animation of cam-follower in motion",
-      showPlots: false
+      showPlots: false,
     }
   ];
 

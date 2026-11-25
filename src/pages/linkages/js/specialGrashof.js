@@ -24,7 +24,7 @@ function init() {
       description: "The shortest link is the crank, and only the crank makes a full revolution. This is the Special Case version of the Class 2 Grashof linkage.",
       ariaDiagram: "Animation of Grashof class 12 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
     {
       id: "03",
@@ -40,7 +40,7 @@ function init() {
       description: "The shortest link is the rocker, and only the rocker makes a full revolution. This is the Special Case version of the Class 4 Grashof linkage.",
       ariaDiagram: "Animation of Grashof class 14 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
   ];
 

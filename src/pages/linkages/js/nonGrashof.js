@@ -24,7 +24,7 @@ function init() {
       description: "The longest link is ground and the crank is longer than the rocker. No link makes a complete revolution, and the linkage is driven by the rocker.",
       ariaDiagram: "Animation of Grashof class 6 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
     {
       id: "03",
@@ -40,7 +40,7 @@ function init() {
       description: "The longest link is the coupler and the crank is shorter than the rocker. No link makes a complete revolution and the linkage is driven by the crank.",
       ariaDiagram: "Animation of Grashof class 8 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
     {
       id: "05",
@@ -48,7 +48,7 @@ function init() {
       description: "The longest link is the coupler and the crank is shorter than the rocker. No link makes a complete revolution and the linkage is driven by the rocker. The limiting angles are the same as for Class 7.",
       ariaDiagram: "Animation of Grashof class 9 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
     {
       id: "06",
@@ -56,7 +56,7 @@ function init() {
       description: "The longest link is the rocker. No link makes a complete revolution, and the linkage is driven by the crank. The limiting angles are the same as for Class 8.",
       ariaDiagram: "Animation of Grashof class 10 fourbar mechanism",
       showPlots: true,
-      pins: ["B", "C"]
+      pins: ["B", "C"],
     },
   ];
 
