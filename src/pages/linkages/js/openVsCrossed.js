@@ -17,7 +17,6 @@ function init() {
       showPlots: true,
       pins: ["B", "C"],
       isActive: true,
-      tabId: "pill-class-12-open-tab",
     },
     {
       id: "02",
@@ -26,7 +25,6 @@ function init() {
       ariaDiagram: "Animation of Grashof class 12 crossed configuration fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
-      tabId: "pill-class-12-crossed-tab",
     },
   ];
 

@@ -17,7 +17,7 @@ function init() {
       ariaDiagram: "Animation of Stephenson's Type I sixbar linkage",
       showPlots: false,
       isActive: true,
-      tabId: "pill-stephenson-type-1-tab",
+      
     },
     {
       id: "02",
@@ -26,7 +26,7 @@ function init() {
       description: "The five-bar chain on the left prevents an algebraic solution to this linkage. This animation was created using a Newton-Raphson solution.",
       ariaDiagram: "Animation of Stephenson's Type II sixbar linkage",
       showPlots: false,
-      tabId: "pill-stephenson-type-2-tab",
+      
     },
     {
       id: "03",
@@ -35,7 +35,7 @@ function init() {
       description: "Ground is one of the three-pin links and the crank is a two-pin link.",
       ariaDiagram: "Animation of Stephenson's Type III sixbar linkage",
       showPlots: false,
-      tabId: "pill-stephenson-type-3-tab",
+      
     },
     {
       id: "04",
@@ -44,7 +44,6 @@ function init() {
       description: "Ground is one of the two-pin links and the crank is another two-pin link.",
       ariaDiagram: "Animation of Watt's Type I sixbar linkage",
       showPlots: false,
-      tabId: "pill-watts-type-1-tab",
     },
     {
       id: "05",
@@ -53,7 +52,6 @@ function init() {
       description: "Ground is one of the three-pin links and the crank is a two-pin link.",
       ariaDiagram: "Animation of Watt's Type II sixbar linkage",
       showPlots: false,
-      tabId: "pill-watts-type-2-tab",
     }
   ];
 

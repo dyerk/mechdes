@@ -17,7 +17,6 @@ function init() {
       showPlots: true,
       pins: ["B", "C"],
       isActive: true,
-      tabId: "pill-class-1-tab"
     },
     {
       id: "02",
@@ -26,7 +25,6 @@ function init() {
       ariaDiagram: "Animation of Grashof class 2 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
-      tabId: "pill-class-2-tab"
     },
     {
       id: "03",
@@ -35,7 +33,6 @@ function init() {
       ariaDiagram: "Animation of Grashof class 3 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
-      tabId: "pill-class-3-tab",
     },
     {
       id: "04",
@@ -44,7 +41,6 @@ function init() {
       ariaDiagram: "Animation of Grashof class 4 fourbar mechanism",
       showPlots: true,
       pins: ["B", "C"],
-      tabId: "pill-class-4-tab",
     },
   ];
 

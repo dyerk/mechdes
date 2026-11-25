@@ -20,7 +20,6 @@ function init() {
         C: "C - Slider Pin"  //override default
       },
       isActive: true,
-      tabId: "pill-slider-crank-aligned-tab",
     },
     {
       id: "02",
@@ -32,7 +31,6 @@ function init() {
       pinLabels: {
         C: "C - Slider Pin",  //override default
       },
-      tabId: "pill-slider-crank-offset-tab",
     },
     {
       id: "03",
@@ -41,7 +39,6 @@ function init() {
       ariaDiagram: "Animation of an open configuration fourbar mechanism.",
       showPlots: true,
       pins: ["B", "P", "C"],
-      tabId: "pill-fourbar-open-tab",
     },
     {
       id: "04",
@@ -50,7 +47,6 @@ function init() {
       ariaDiagram: "Animation of a crossed configuration fourbar mechanism.",
       showPlots: true,
       pins: ["B", "P", "C"],
-      tabId: "pill-fourbar-crossed-tab",
     },
     {
       id: "05",
@@ -59,7 +55,6 @@ function init() {
       ariaDiagram: "Animation of a open configuration inverted slider mechanism.",
       showPlots: true,
       pins: ["B", "P"],
-      tabId: "pill-inverted-slider-crank-open-tab",
     },
     {
       id: "06",
@@ -68,7 +63,6 @@ function init() {
       ariaDiagram: "Animation of a crossed configuration inverted slider mechanism.",
       showPlots: true,
       pins: ["B", "P"],
-      tabId: "pill-inverted-slider-crank-crossed-tab",
     },
     {
       id: "07",
@@ -76,7 +70,6 @@ function init() {
       description: "This geared fivebar has two gears with equal numbers of teeth.",
       ariaDiagram: "Animation of geared fivebar mechanism with equal number of teeth.",
       showPlots: false,
-      tabId: "pill-geared-fivebar-same-tab",
     },
     {
       id: "08",
@@ -85,7 +78,6 @@ function init() {
       description: "The second gear has twice the number of teeth as the first gear. Note the cusps in the motion of the blue trace.",
       ariaDiagram: "Animation of geared fivebar mechanism with inequal number of teeth.",
       showPlots: false,
-      tabId: "pill-geared-fivebar-different-tab",
     }
   ];
 
