@@ -9,17 +9,8 @@ function Select_Animation(linkages) {
 
   function resolveInitialIndex() {
     var params = new URLSearchParams(window.location.search);
-    var hash = window.location.hash.replace(/^#/, "");
-
-    // 1. Check ?anim=<0-based index> (e.g., ?anim=2)
-    if (params.has("anim")) {
-      var pos = parseInt(params.get("anim"), 10);
-      if (!isNaN(pos) && pos >= 0 && pos < pills.length) {
-        return pos;
-      }
-    }
-
-    // 2. Check ?id=<mechanismId> (e.g., ?id=03)
+    
+    // Check ?id=<mechanismId> (e.g., ?id=03)
     if (params.has("id")) {
       var targetId = params.get("id").replace(/^item/i, "");
       var byId = sections.findIndex(function (sec) {
@@ -28,20 +19,7 @@ function Select_Animation(linkages) {
       if (byId >= 0) return byId;
     }
 
-    // 3. Check URL hash (e.g., #item03 or #pill-fourbar-open-tab)
-    if (hash) {
-      var byHash = sections.findIndex(function (sec, idx) {
-        var mechId = sec.getAttribute("data-mechanism-id");
-        return (
-          sec.id === hash ||
-          mechId === hash ||
-          (pills[idx] && pills[idx].id === hash)
-        );
-      });
-      if (byHash >= 0) return byHash;
-    }
-
-    // 4. Fallback to whichever pill has .active in HTML
+    // Fallback to whichever pill has .active in HTML
     var initialActive = pills.findIndex(function (p) {
       return p.classList.contains("active");
     });
